@@ -1,10 +1,12 @@
-import {configureStore} from '@reduxjs/toolkit';
-// import  from './modules/precTK'
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import loginReducer from "../modules/loginSlice";
+
+const rootReducer = combineReducers({
+  login: loginReducer,
+});
 
 const store = configureStore({
-    reducer: {
-        
-    },
-})
+  reducer: rootReducer,
+});
 
 export default store;
