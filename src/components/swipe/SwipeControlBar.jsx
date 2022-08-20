@@ -9,8 +9,6 @@ import {__likeUser, __dislikeUser, __matchUser} from '../../store/modules/swipeS
 const SwipeControlBar = () => {
   const dispatch = useDispatch();
   const { logginId, userId, likeMe } = useContext( UserContext );
-
-  console.log(useContext( UserContext ));
   
   const likeButtonClickHandler = (userId) => {
     if(likeMe){
@@ -31,6 +29,8 @@ const SwipeControlBar = () => {
   return (
     <StControlBar>
       <StLikeButton
+        className="button_like"
+        buttonImg="img/btn-dislike.png"
         onClick={()=>{
           likeButtonClickHandler(userId);
         }}
@@ -38,6 +38,8 @@ const SwipeControlBar = () => {
         좋아요
       </StLikeButton>
       <StLikeButton
+        className="button_dislike"
+        buttonImg="img/btn-like.png"
         onClick={()=>{
           dislikeButtonClickHandler(userId);
         }}
@@ -52,7 +54,6 @@ export default SwipeControlBar;
 
 const StControlBar = styled.div`
   text-align: center;
-  background-color: #aaa;
 
   display: flex;
   align-items: center;
@@ -62,9 +63,14 @@ const StControlBar = styled.div`
 
 const StLikeButton = styled.button`
   all: unset;
-  width: 60px;
-  height: 60px;
+  width: 72px;
+  height: 72px;
   border-radius: 50%;
+  text-indent: -9999px;
 
-  border: 1px solid #222;
+  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.1);
+
+  background: url("${props => props.buttonImg}") center / contain;
+
+  cursor: pointer;
 `;
