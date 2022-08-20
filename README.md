@@ -1,8 +1,8 @@
 # TinDater
 ---
-**Tinder 클론코딩**
-작업기간: 2022년 8월 19일~25일
-팀원: 전지원, 박준수, 유지완, 김민선, 두선아, 이재철
+**Tinder 클론코딩**  
+작업기간: 2022년 8월 19일~25일  
+팀원: 전지원, 박준수, 유지완, 김민선, 두선아, 이재철  
 
 ## 1. 요구 기능
 
@@ -26,10 +26,38 @@
         - 접속하지 않았을 때 DM
 ---
 ## 2. 배워야 할 것
+### React Hook Form
 
-- 폼데이터: react hook form
-- 이미지: aws sdk
-    - +) [socket.io](http://socket.io)  -  client
+<aside>
+📌 [https://react-hook-form.com/api](https://react-hook-form.com/api)
+
+</aside>
+
+- 리액트 form의 Validation 및 구독, 상태관리를 쉽게 할 수 있음
+    - 자동 완성 관련 문제
+        
+        [https://velog.io/@moony_moon/React-React-Hook-Form-Webkit-자동완성-문제](https://velog.io/@moony_moon/React-React-Hook-Form-Webkit-%EC%9E%90%EB%8F%99%EC%99%84%EC%84%B1-%EB%AC%B8%EC%A0%9C)
+        
+
+### AWS - sdk
+
+<aside>
+📌 [https://docs.aws.amazon.com/ko_kr/sdk-for-javascript/v3/developer-guide/s3-example-configuring-buckets.html](https://docs.aws.amazon.com/ko_kr/sdk-for-javascript/v3/developer-guide/s3-example-configuring-buckets.html)
+
+</aside>
+
+- AWS의 S3 버켓
+    - 서버에 전송할 이미지를 업로드 하기 위해 사용할 것
+    - 버킷 CORS 구성
+
+### (예정)Socket.io
+
+<aside>
+📌 [https://socket.io/](https://socket.io/)
+
+</aside>
+
+- +) [socket.io](http://socket.io)  -  client
 ---
 ## 3. 페이지별 구현 기능
 
@@ -77,8 +105,48 @@
 - 스와이프 페이지으로 가기 버튼
 
 ---
-# 4. Route Set-up
+## 4. Route Set-up
 
 #### 각 페이지별 주소 설정
 ![](https://velog.velcdn.com/images/dusunax/post/9ccbb6c9-9971-4106-8795-60c69b04fc22/image.png)
+
+---
+
+## 5. 작업 진행 테이블
+
+| 페이지명 | 담당 | 초안 완성 | 기능 구현 | 최종 완성 |
+| --- | --- | --- | --- | --- |
+| 회원가입 페이지 | 박준수 |  |  |  |
+| 로그인 페이지 | 박준수 |  |  |  |
+| 스와이프 페이지 | 두선아 | 8월 20일 |  |  |
+| 내가 좋아요한 페이지 | 유지완 |  |  |  |
+| 유저 상세 페이지 | 두선아 |  |  |  |
+| 프로필 수정 페이지 | 박준수 |  |  |  |
+| 매치 페이지 | 두선아 |  |  |  |
+| 404 페이지 | 유지완 | 8월 20일 |  |  |
+
+---
+
+## 6. 화면 구성/레이아웃
+
+### **1. 모바일 웹 레이아웃 구성**
+
+- 모바일 클라이언트 환경에 적합한 모바일 웹 페이지 레이아웃 구성하기
+
+<aside>
+📌 작업 기준 width: 720px(기준)
+최대 width: 768px
+반응형: 360px까지 고려(예정)
+
+</aside>
+
+### **2. 헤더 및 푸터 제작**
+
+- header, footer 컴포넌트 제작 후 router에 연결하기
+
+<aside>
+📌 src/component/header/header.jsx
+src/component/footer/footer.jsx
+
+</aside>
 
