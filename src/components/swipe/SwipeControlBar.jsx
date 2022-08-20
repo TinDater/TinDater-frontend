@@ -32,7 +32,7 @@ const SwipeControlBar = () => {
     <StControlBar>
       <StLikeButton
         className="button_like"
-        buttonColor="#ff4e6a"
+        buttonImg="img/btn-dislike.png"
         onClick={()=>{
           likeButtonClickHandler(userId);
         }}
@@ -41,7 +41,7 @@ const SwipeControlBar = () => {
       </StLikeButton>
       <StLikeButton
         className="button_dislike"
-        buttonColor="#1fe9b9"
+        buttonImg="img/btn-like.png"
         onClick={()=>{
           dislikeButtonClickHandler(userId);
         }}
@@ -65,13 +65,14 @@ const StControlBar = styled.div`
 
 const StLikeButton = styled.button`
   all: unset;
-  width: 70px;
-  height: 70px;
+  width: 72px;
+  height: 72px;
   border-radius: 50%;
+  text-indent: -999px;
 
-  border: 1px solid ${props => props.buttonColor};
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.1);
-  color: ${props => props.buttonColor};
+
+  background: url("${props => props.buttonImg}") center / contain;
 
   cursor: pointer;
 `;
