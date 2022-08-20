@@ -29,9 +29,12 @@ const Swipe = () => {
     }>
 
       <StSwipeSection>
-        <SwipeProfile />
-        <SwipeInterest />
-        <SwipeControlBar />
+
+        <aside>
+          <SwipeProfile />
+          <SwipeInterest />
+          <SwipeControlBar />
+        </aside>
       </StSwipeSection>
 
     </UserContext.Provider>
@@ -41,14 +44,24 @@ const Swipe = () => {
 export default Swipe;
 
 const StSwipeSection = styled.div`
-  height: calc(100vh - 100px);
-  padding: 0 1em;
-  box-sizing: border-box;
-
-  border-radius: 10px;
+  height: 100%;
   background-color: skyblue;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
 
   display: flex;
   flex-flow: column;
   justify-content: flex-end;
+
+  aside {
+    padding: 12px 2em;
+    box-sizing: border-box;
+    background-image: linear-gradient(transparent 5%, rgba(0, 0, 0, 0.9) 80%);
+    
+    @media (max-width: 400px) {
+      padding: 12px 1.5em;
+    }
+  }
+  
 `

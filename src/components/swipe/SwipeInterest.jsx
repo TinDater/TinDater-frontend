@@ -27,16 +27,17 @@ const SwipeInterest = () => {
 export default SwipeInterest;
 
 const StInterest = styled.div`
-  background-color: #ddd;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
 
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 8px;
 
   .tag {
     padding: 5px 12px;
-    background-color: #888;
+    border-radius: 20px;
+    background-color: #393836;
+    color: #fff;
   }
 
 `
