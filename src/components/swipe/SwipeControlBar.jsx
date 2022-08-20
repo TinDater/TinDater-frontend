@@ -9,8 +9,6 @@ import {__likeUser, __dislikeUser, __matchUser} from '../../store/modules/swipeS
 const SwipeControlBar = () => {
   const dispatch = useDispatch();
   const { logginId, userId, likeMe } = useContext( UserContext );
-
-  console.log(useContext( UserContext ));
   
   const likeButtonClickHandler = (userId) => {
     if(likeMe){
@@ -68,7 +66,7 @@ const StLikeButton = styled.button`
   width: 72px;
   height: 72px;
   border-radius: 50%;
-  text-indent: -999px;
+  text-indent: -9999px;
 
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.1);
 
