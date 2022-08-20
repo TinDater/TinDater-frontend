@@ -19,6 +19,9 @@ export default function SignUpForm() {
   const checkNick = useSelector((state) => state.signup.checkNick);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  // const gender_ref = React.useRef(null);
+  // const address_ref = React.useRef(null);
+
   // 버튼 활성화 상태
   const [formstate, setFromState] = useState(false);
   // 보낼 데이터 상태관리
@@ -30,16 +33,15 @@ export default function SignUpForm() {
     age: "",
     address: "",
     gender: "",
-    interests: {
-      sports: 0,
-      movie: 0,
-      food: 0,
-      pet: 0,
-      music: 0,
-    },
+    interests: [0, 0, 0, 0, 0],
     imageUrl: "",
   });
   const [signNumber, setSignNumber] = useState(0);
+  // console.log(address_ref);
+  // React.useEffect(() => {
+  //   setSignData({ ...signData, address: address_ref.current.value });
+  //   setSignData({ ...signData, gender: gender_ref.current.value });
+  // }, [address_ref, gender_ref]);
 
   // 이메일, 닉네임, 비밀번호 조건 통과 상태
   const email = checkName;
@@ -66,12 +68,14 @@ export default function SignUpForm() {
     }
   };
 
-  // const next = (e) => {
-  //   e.preventDefault();
-  //   setSignNumber((p) => {
-  //     signNumber
-  //   });
-  // };
+  const view = () => {
+    console.log(signData);
+  };
+
+  const next = (e) => {
+    e.preventDefault();
+    setSignNumber((prevNumber) => prevNumber + 1);
+  };
 
   // 중복확인 이벤트
   const regEmail =
@@ -85,16 +89,19 @@ export default function SignUpForm() {
     } else {
       dispatch(__checkUsername(signData.email));
     }
-    setSignNumber(1);
+    // setSignNumber(1);
   };
   const CheckNick = () => {
     dispatch(__checkNickname(signData.nickname));
-    setSignNumber(2);
   };
 
   React.useEffect(() => {
     // 비밀번호 일치 조건 확인
-    if (signData.confirm === signData.password && signData.password !== "") {
+    if (
+      signData.confirm === signData.password &&
+      signData.password !== "" &&
+      !regPw.test(signData.password)
+    ) {
       setPw(true);
     } else {
       setPw(false);
@@ -114,6 +121,10 @@ export default function SignUpForm() {
     backgroundColor: formstate ? "blue" : "grey",
     color: formstate ? "white" : "black",
     disabled: !formstate,
+  };
+
+  const interestFunc = (index) => {
+    signData.interests[index]++;
   };
 
   return (
@@ -137,7 +148,7 @@ export default function SignUpForm() {
             required
             onChange={changeInput}
           />
-          {/* <button onClick={next}>다음</button> */}
+          <button onClick={next}>다음</button>
         </div>
       )}
       {signNumber === 1 && (
@@ -158,6 +169,7 @@ export default function SignUpForm() {
             required
             onChange={changeInput}
           />
+          <button onClick={next}>다음</button>
         </div>
       )}
       {signNumber === 2 && (
@@ -190,67 +202,112 @@ export default function SignUpForm() {
               onChange={changeInput}
             />
           </div>
+          <button onClick={next}>다음</button>
         </Fragment>
       )}
-      {/* email: "",
-    password: "",
-    confirm: "",
-    nickname: "",
-    age: "",
-    address: "",
-    gender: "",
-    interests: {
-      sports: 0,
-      movie: 0,
-      food: 0,
-      pet: 0,
-      music: 0,
-    },
-    imageUrl: "", */}
       {signNumber === 3 && (
-        <input
-          id="age"
-          type="text"
-          placeholder="나이를 적어주세요"
-          required
-          onChange={changeInput}
-        />
+        <div>
+          <input
+            id="age"
+            placeholder="나이를 입력해주세요 => 30"
+            required
+            onChange={changeInput}
+          />
+          <button onClick={next}>다음</button>
+        </div>
       )}
       {signNumber === 4 && (
-        <input
-          id="address"
-          type="text"
-          placeholder="주소를 적어주세요"
-          required
-          onChange={changeInput}
-        />
+        <Fragment>
+          <select
+            onChange={(e) => {
+              setSignData({ ...signData, address: e.target.value });
+            }}
+          >
+            <option value="none">===선택===</option>
+            <option value="서울">서울</option>
+            <option value="인천">인천</option>
+            <option value="경기">경기</option>
+            <option value="충청">충청</option>
+            <option value="강원">강원</option>
+            <option value="경상">경상</option>
+            <option value="전라">전라</option>
+            <option value="제주">제주</option>
+          </select>
+          <button onClick={next}>다음</button>
+        </Fragment>
       )}
       {signNumber === 5 && (
-        <input
-          id="gender"
-          type="text"
-          placeholder="성별을 적어주세요"
-          required
-          onChange={changeInput}
-        />
+        <Fragment>
+          <button onClick={view}>zzz</button>
+          <select
+            onChange={(e) => {
+              setSignData({ ...signData, gender: e.target.value });
+            }}
+          >
+            <option value="none">===선택===</option>
+            <option value="여자">여자</option>
+            <option value="남자">남자</option>
+          </select>
+          <button onClick={next}>다음</button>
+        </Fragment>
       )}
       {signNumber === 6 && (
-        <input
-          id="interests"
-          type="text"
-          placeholder="관심사를 적어주세요"
-          required
-          onChange={changeInput}
-        />
+        <Fragment>
+          <span>관심사를 선택해주세요</span>
+          <div
+            onClick={() => {
+              signData.interests[0]++;
+            }}
+            style={{ cursor: "pointer" }}
+          >
+            sports
+          </div>
+          <div
+            onClick={() => {
+              signData.interests[1]++;
+            }}
+            style={{ cursor: "pointer" }}
+          >
+            movie
+          </div>
+          <div
+            onClick={() => {
+              signData.interests[2]++;
+            }}
+            style={{ cursor: "pointer" }}
+          >
+            food
+          </div>
+          <div
+            onClick={() => {
+              signData.interests[3]++;
+            }}
+            style={{ cursor: "pointer" }}
+          >
+            pet
+          </div>
+          <div
+            onClick={() => {
+              signData.interests[4]++;
+            }}
+            style={{ cursor: "pointer" }}
+          >
+            music
+          </div>
+          <button onClick={next}>다음</button>
+        </Fragment>
       )}
       {signNumber === 7 && (
-        <input
-          id="imageUrl"
-          type="text"
-          placeholder="관심사를 적어주세요"
-          required
-          onChange={changeInput}
-        />
+        <Fragment>
+          <button onClick={view}>zzz</button>
+          <input
+            id="imageUrl"
+            type="text"
+            placeholder="관심사를 적어주세요"
+            required
+            onChange={changeInput}
+          />
+        </Fragment>
       )}
 
       <button type="submit" style={buttonStyle}>
