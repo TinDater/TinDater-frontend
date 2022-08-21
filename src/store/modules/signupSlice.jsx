@@ -11,6 +11,15 @@ export const __signup = createAsyncThunk(
   }
 );
 
+export const __editProfile = createAsyncThunk(
+  "profile/EDITPROFILE_LOG",
+  async (payload, thunkAPI) => {
+    const response = await api.put(`api/user/${payload.userId}`, payload);
+    alert(response.data.msg);
+    return response.data;
+  }
+);
+
 export const __checkUsername = createAsyncThunk(
   "signup/CHECKID_LOG",
   async (payload, thunkAPI) => {
@@ -49,6 +58,11 @@ const signupSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(__signup.fulfilled, (state, action) => {
+        state.success = action.payload.success;
+        state.userId = action.payload.userId;
+      })
+
+      .addCase(__editProfile.fulfilled, (state, action) => {
         state.success = action.payload.success;
         state.userId = action.payload.userId;
       })
