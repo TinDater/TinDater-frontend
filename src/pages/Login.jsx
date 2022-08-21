@@ -5,6 +5,8 @@ import styled from "styled-components";
 import LoginForm from "../components/login/LoginForm";
 
 // 로그인 컴포넌트
-export default function Login() {
+function Login() {
   return <LoginForm />;
 }
+
+export default Login;

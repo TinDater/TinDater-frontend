@@ -7,28 +7,33 @@ import OnFileUpload from "../../s3/FileUpload";
 // 이미지 업로드할때 보여지는 기본이미지
 import logo from "../../src_assets/logo.PNG";
 // 리듀서 모듈
+// // // 수정용 모듈 추가
 import {
   changeCheckName,
   changeCheckNick,
   __checkNickname,
   __checkUsername,
-  __signup,
+  __editProfile,
 } from "../../store/modules/signupSlice";
 
-// 회원가입 form 컴포넌트
-function SignUpForm() {
+// 회원 정보 수정 컴포넌트
+function EditProfile() {
   // 이름 중복확인 상태 값 가져오기
   // 기본값은 false 입니다.
   const checkName = useSelector((state) => state.signup.checkName);
   // 닉네임 중복확인 상태 값 가져오기
   // 기본값은 false 입니다.
   const checkNick = useSelector((state) => state.signup.checkNick);
+  // // // 수정을 위해 loginSlice의 userId 가져오기
+  const userId = useSelector((state) => state.login.userId);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   // 버튼 활성화를 위한 상태관리
   const [formstate, setFormState] = useState(false);
   // 보낼 데이터 상태관리
   const [signData, setSignData] = useState({
+    // // // 수정이기 때문에 userId 추가
+    userId: "",
     email: "",
     password: "",
     confirm: "",
@@ -36,9 +41,13 @@ function SignUpForm() {
     age: "",
     address: "",
     gender: "",
-    interest: [0, 0, 0, 0, 0],
+    interests: [0, 0, 0, 0, 0],
     imageUrl: "",
   });
+
+  // // // signData에 userId추가
+  setSignData({ ...signData, userId: userId });
+
   // 조건 통과 상태를 위한 설정
   const email = checkName;
   const nick = checkNick;
@@ -140,12 +149,13 @@ function SignUpForm() {
   };
 
   // 그동안 수집한 회원가입 데이터(signData)를 백에게 보냄
+  // // // dispatch하는 함수는 __editProfile이다.
   const submitLogin = async (e) => {
     e.preventDefault();
-    const checkState = await dispatch(__signup(signData));
+    const checkState = await dispatch(__editProfile(signData));
     if (checkState.payload) {
-      // 이후 login페이지로 navigate
-      navigate("/");
+      // 이후 swipe페이지로 navigate
+      navigate("/swipe");
     }
   };
 
@@ -248,11 +258,7 @@ function SignUpForm() {
             id="age"
             placeholder="나이를 입력해주세요 => 30"
             required
-            onChange={(e) => {
-              // 숫자로 들어갈 수 있게 변경
-              setSignData({ ...signData, age: parseInt(e.target.value) });
-              setAddress(true);
-            }}
+            onChange={changeInput}
           />
           <button onClick={next}>다음</button>
         </div>
@@ -284,11 +290,7 @@ function SignUpForm() {
           <select
             // signData에 인라인으로 바로 넣어줌(성별)
             onChange={(e) => {
-              // 여자인 경우는 true, 남자는 false를 보내준다.
-              if (e.target.value === "여자")
-                setSignData({ ...signData, gender: true });
-              else if (e.target.value === "남자")
-                setSignData({ ...signData, gender: false });
+              setSignData({ ...signData, gender: e.target.value });
               setGender(true);
             }}
           >
@@ -306,7 +308,7 @@ function SignUpForm() {
             // 관심사를 배열로 보내줘야 하기에 각 인덱스 번호를
             // 클릭시 ++하고 나중에 한번에 보내줌
             onClick={() => {
-              signData.interest[0]++;
+              signData.interests[0]++;
             }}
             style={{ cursor: "pointer" }}
           >
@@ -314,7 +316,7 @@ function SignUpForm() {
           </div>
           <div
             onClick={() => {
-              signData.interest[1]++;
+              signData.interests[1]++;
             }}
             style={{ cursor: "pointer" }}
           >
@@ -322,7 +324,7 @@ function SignUpForm() {
           </div>
           <div
             onClick={() => {
-              signData.interest[2]++;
+              signData.interests[2]++;
             }}
             style={{ cursor: "pointer" }}
           >
@@ -330,7 +332,7 @@ function SignUpForm() {
           </div>
           <div
             onClick={() => {
-              signData.interest[3]++;
+              signData.interests[3]++;
             }}
             style={{ cursor: "pointer" }}
           >
@@ -338,7 +340,7 @@ function SignUpForm() {
           </div>
           <div
             onClick={() => {
-              signData.interest[4]++;
+              signData.interests[4]++;
             }}
             style={{ cursor: "pointer" }}
           >
@@ -380,10 +382,11 @@ function SignUpForm() {
         </Fragment>
       )}
       <button type="submit" style={buttonStyle}>
-        {`회원가입 완료 (${signNumber}/7)`}
+        {/* 회원정보 수정완료로 텍스트 변경 */}
+        {`회원정보 수정 완료 (${signNumber}/7)`}
       </button>
     </form>
   );
 }
 
-export default SignUpForm;
+export default EditProfile;

@@ -3,10 +3,12 @@ import styled from "styled-components";
 
 import SignUpForm from "../components/login/SignUpForm";
 
-export default function SignUp() {
+function SignUp() {
   return (
     <div>
       <SignUpForm />
     </div>
   );
 }
+
+export default SignUp;
