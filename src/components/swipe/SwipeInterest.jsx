@@ -13,7 +13,7 @@ const SwipeInterest = () => {
     <StInterest>
       { interest.map( (inte, i) => {
         return ( 
-          inte ?
+          Number(inte) ?
           <div className="tag" key={i}>
             {list[i]}
           </div> 
