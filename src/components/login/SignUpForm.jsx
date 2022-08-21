@@ -2,6 +2,8 @@ import React, { Fragment, useEffect, useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import OnFileUpload from "../../s3/FileUpload";
+import logo from "../../src_assets/logo.PNG";
 
 import {
   changeCheckName,
@@ -11,20 +13,14 @@ import {
   __signup,
 } from "../../store/modules/signupSlice";
 
-//회원가입 form 컴포넌트
 export default function SignUpForm() {
-  // 이름 중복확인 상태 값 가져오기 기본 값 false
   const checkName = useSelector((state) => state.signup.checkName);
-  // 닉네임 중복확인 상태 값 가져오기 기본 값 false
+
   const checkNick = useSelector((state) => state.signup.checkNick);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // const gender_ref = React.useRef(null);
-  // const address_ref = React.useRef(null);
 
-  // 버튼 활성화 상태
   const [formstate, setFromState] = useState(false);
-  // 보낼 데이터 상태관리
   const [signData, setSignData] = useState({
     email: "",
     password: "",
@@ -37,38 +33,44 @@ export default function SignUpForm() {
     imageUrl: "",
   });
   const [signNumber, setSignNumber] = useState(0);
-  // console.log(address_ref);
-  // React.useEffect(() => {
-  //   setSignData({ ...signData, address: address_ref.current.value });
-  //   setSignData({ ...signData, gender: gender_ref.current.value });
-  // }, [address_ref, gender_ref]);
-
-  // 이메일, 닉네임, 비밀번호 조건 통과 상태
   const email = checkName;
   const nick = checkNick;
   const [pw, setPw] = useState(false);
 
-  //input 데이터 저장하기
+  const [post, setPost] = useState("");
+
+  const [change, setChange] = useState(false);
+  const [imageSrc, setImageSrc] = useState();
+
   const changeInput = (e) => {
     const { value, id } = e.target;
     setSignData({ ...signData, [id]: value });
     console.log(signData);
-    // 중복 확인 후 데이터 변경시 상태 false로 변환하는 action 실행
     if (id === "email") dispatch(changeCheckName());
     if (id === "nickname") dispatch(changeCheckNick());
   };
 
-  // 회원가입 이벤트
   const submitLogin = async (e) => {
     e.preventDefault();
-    // 회원가입 성공시 로그인 페이지 이동
     const checkState = await dispatch(__signup(signData));
     if (checkState.payload) {
       navigate("/swipe");
     }
   };
 
-  const view = () => {
+  const readFile = async (fileBlob) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(fileBlob);
+    return new Promise((resolve) => {
+      reader.onload = () => {
+        setImageSrc(reader.result);
+        resolve();
+      };
+    });
+  };
+
+  const view = (e) => {
+    e.preventDefault();
     console.log(signData);
   };
 
@@ -77,26 +79,22 @@ export default function SignUpForm() {
     setSignNumber((prevNumber) => prevNumber + 1);
   };
 
-  // 중복확인 이벤트
   const regEmail =
     /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
   const regPw =
     /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
   const CheckId = () => {
-    // 이메일 형식 간이 체크 후 중복체크
     if (!regEmail.test(signData.email)) {
       alert("이메일 형식으로 작성해주세요");
     } else {
       dispatch(__checkUsername(signData.email));
     }
-    // setSignNumber(1);
   };
   const CheckNick = () => {
     dispatch(__checkNickname(signData.nickname));
   };
 
   React.useEffect(() => {
-    // 비밀번호 일치 조건 확인
     if (
       signData.confirm === signData.password &&
       signData.password !== "" &&
@@ -109,7 +107,6 @@ export default function SignUpForm() {
   }, [signData]);
 
   React.useEffect(() => {
-    // 3개 조건 확인 후 버튼 활성화
     if (email && nick && pw) {
       setFromState(true);
     } else {
@@ -123,8 +120,14 @@ export default function SignUpForm() {
     disabled: !formstate,
   };
 
-  const interestFunc = (index) => {
-    signData.interests[index]++;
+  const onSubmitHandler = (event) => {
+    event.preventDefault();
+
+    if (post.imageUrl == "") {
+      alert("내용을 기입해주세요");
+      return;
+    }
+    setSignData({ ...signData, imageUrl: post });
   };
 
   return (
@@ -299,14 +302,36 @@ export default function SignUpForm() {
       )}
       {signNumber === 7 && (
         <Fragment>
-          <button onClick={view}>zzz</button>
+          <div>
+            {change ? (
+              <img src={imageSrc} alt="이미지를 불러올 수 없습니다" />
+            ) : (
+              <img src={logo} alt="이미지를 불러올 수 없습니다" />
+            )}
+          </div>
           <input
-            id="imageUrl"
-            type="text"
-            placeholder="관심사를 적어주세요"
             required
-            onChange={changeInput}
+            type="file"
+            accept="image/jpeg, image/jpg, image/png"
+            onChange={(e) => {
+              OnFileUpload(e);
+              readFile(e.target.files[0]);
+              setChange(true);
+              setPost(e.target.files[0].name);
+            }}
           />
+          <div>
+            <button onClick={onSubmitHandler}>저장</button>
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                window.location.reload();
+              }}
+            >
+              닫기
+            </button>
+            <button onClick={view}>zzz</button>
+          </div>
         </Fragment>
       )}
 
