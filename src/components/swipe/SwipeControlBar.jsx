@@ -8,15 +8,15 @@ import {__likeUser, __dislikeUser, __matchUser} from '../../store/modules/swipeS
 
 const SwipeControlBar = () => {
   const dispatch = useDispatch();
-  const { logginId, userId, likeMe } = useContext( UserContext );
+  const navigate = useNavigate();
+  const { logginId, userId, likeMe, setMatched } = useContext( UserContext );
   
   const likeButtonClickHandler = (userId) => {
     if(likeMe){
-      const matchUser = dispatch(__matchUser({logginId, userId}));
       console.log("매치");
-      console.log(matchUser);
-
-      dispatch(__likeUser({logginId, userId}));
+      
+      dispatch(__matchUser({logginId, userId}));
+      navigate("/swipe/match")
     } else {
       dispatch(__likeUser({logginId, userId}));
     }
@@ -29,22 +29,20 @@ const SwipeControlBar = () => {
   return (
     <StControlBar>
       <StLikeButton
-        className="button_like"
         buttonImg="img/btn-dislike.png"
-        onClick={()=>{
-          likeButtonClickHandler(userId);
-        }}
-        >
-        좋아요
-      </StLikeButton>
-      <StLikeButton
-        className="button_dislike"
-        buttonImg="img/btn-like.png"
         onClick={()=>{
           dislikeButtonClickHandler(userId);
         }}
-      >
+        >
         싫어요
+      </StLikeButton>
+      <StLikeButton
+        buttonImg="img/btn-like.png"
+        onClick={()=>{
+          likeButtonClickHandler(userId);
+        }}
+      >
+        좋아요
       </StLikeButton>
     </StControlBar>
   );

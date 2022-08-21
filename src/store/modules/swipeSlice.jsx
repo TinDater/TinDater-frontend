@@ -34,11 +34,10 @@ export const __dislikeUser = createAsyncThunk(
 export const __matchUser = createAsyncThunk(
   'user/MATCH_USER',
   async (payload, thunkAPI) => {
-    const {userId, dislikeUserId} = payload;
-    const res = await api.get(`/people/${userId}`);
+    const {userId, otherUserId} = payload;
+    await api.post(`/people/${userId}/like`, {likeUserId: otherUserId});
 
-
-    return res.data;
+    return null;
   }
 )
 
@@ -55,7 +54,7 @@ const swipeSlice = createSlice({
       gender: 0, 
       imageUrl: '',
       interest: [],
-      likeMe: false
+      likeMe: 1
     }
   },
   reducers: {
@@ -73,10 +72,9 @@ const swipeSlice = createSlice({
       .addCase(__getUser.pending, (state, action) => {
         state.loading = true;
       })
-      //
+      
       .addCase(__likeUser.fulfilled, (state, action) => {
         state.loading = false;
-        console.log('좋아요');
         
         state.user = {...action.payload};
       })
@@ -87,10 +85,9 @@ const swipeSlice = createSlice({
       .addCase(__likeUser.pending, (state, action) => {
         state.loading = true;
       })
-      //
+      
       .addCase(__dislikeUser.fulfilled, (state, action) => {
         state.loading = false;
-        console.log('싫어요');
         
         state.user = {...action.payload};
       })
@@ -99,6 +96,17 @@ const swipeSlice = createSlice({
         console.log('싫어요 실패');
       })
       .addCase(__dislikeUser.pending, (state, action) => {
+        state.loading = true;
+      })
+      
+      .addCase(__matchUser.fulfilled, (state, action) => {
+        state.loading = false;
+      })
+      .addCase(__matchUser.rejected, (state, action) => {
+        state.loading = false;
+        console.log('매치 실패');
+      })
+      .addCase(__matchUser.pending, (state, action) => {
         state.loading = true;
       })
   },

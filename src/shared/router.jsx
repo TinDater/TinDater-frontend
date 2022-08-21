@@ -6,6 +6,9 @@ import Main from "../pages/Main";
 import NotFound from "../pages/NotFound"
 import Header from "../components/header/Header";
 import Footer from "../components/Footer/Footer";
+import Match from "../pages/Match";
+import MyPage from "../pages/MyPage";
+import UserPage from "../pages/UserPage";
 
 const Router = () => {
   return (
@@ -16,6 +19,9 @@ const Router = () => {
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/swipe" element={<Swipe />} />
+          <Route path="/swipe/match" element={<Match />} />
+          <Route path="/mypage" element={<UserPage />} />
+          <Route path="/userpage/:userId" element={<UserPage />} />
           <Route path="*" element={<NotFound/>} />
         </Routes>
       </StContent>
@@ -33,6 +39,7 @@ const StLayout = styled.div`
   margin: 0 auto;
 
   background-color: #fff;
+  position: relative;
 `
 
 const StContent = styled.div`
