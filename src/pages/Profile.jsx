@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-import EditProfile from "../components/mypage/EditProfile";
+import EditProfile from "../components/editProfile/EditProfile";
 
 function Profile() {
   return (

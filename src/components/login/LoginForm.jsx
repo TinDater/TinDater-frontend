@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -50,29 +50,39 @@ function LoginForm() {
   };
 
   return (
-    // form은 button의 type과 연결되어 button이 눌러지면
-    // submitLogin을 실행합니다.
-    <form onSubmit={submitLogin}>
-      <input
-        id="email"
-        type="email"
-        placeholder="이메일 입력"
-        required
-        // onChange를 통해 값이 바뀔때마다
-        // loginData에 값을 수정하여 저장합니다.
-        onChange={changeInput}
-      />
-      <input
-        id="password"
-        type="password"
-        placeholder="비밀번호 입력"
-        required
-        onChange={changeInput}
-      />
-      <button type="submit" style={buttonStyle}>
-        로그인
+    <Fragment>
+      {/* form은 button의 type과 연결되어 button이 눌러지면 
+      submitLogin을 실행합니다. */}
+      <form onSubmit={submitLogin}>
+        <input
+          id="email"
+          type="email"
+          placeholder="이메일 입력"
+          required
+          // onChange를 통해 값이 바뀔때마다
+          // loginData에 값을 수정하여 저장합니다.
+          onChange={changeInput}
+        />
+        <input
+          id="password"
+          type="password"
+          placeholder="비밀번호 입력"
+          required
+          onChange={changeInput}
+        />
+        <button type="submit" style={buttonStyle}>
+          로그인
+        </button>
+      </form>
+      {/* 회원가입 버튼을 누르면 sign라우트로 이동하게 설정 */}
+      <button
+        onClick={() => {
+          navigate("/sign");
+        }}
+      >
+        회원가입
       </button>
-    </form>
+    </Fragment>
   );
 }
 

@@ -36,7 +36,7 @@ function SignUpForm() {
     age: "",
     address: "",
     gender: "",
-    interests: [0, 0, 0, 0, 0],
+    interest: [0, 0, 0, 0, 0],
     imageUrl: "",
   });
   // 조건 통과 상태를 위한 설정
@@ -248,7 +248,11 @@ function SignUpForm() {
             id="age"
             placeholder="나이를 입력해주세요 => 30"
             required
-            onChange={changeInput}
+            onChange={(e) => {
+              // 숫자로 들어갈 수 있게 변경
+              setSignData({ ...signData, age: parseInt(e.target.value) });
+              setAddress(true);
+            }}
           />
           <button onClick={next}>다음</button>
         </div>
@@ -280,7 +284,11 @@ function SignUpForm() {
           <select
             // signData에 인라인으로 바로 넣어줌(성별)
             onChange={(e) => {
-              setSignData({ ...signData, gender: e.target.value });
+              // 여자인 경우는 true, 남자는 false를 보내준다.
+              if (e.target.value === "여자")
+                setSignData({ ...signData, gender: true });
+              else if (e.target.value === "남자")
+                setSignData({ ...signData, gender: false });
               setGender(true);
             }}
           >
@@ -298,7 +306,7 @@ function SignUpForm() {
             // 관심사를 배열로 보내줘야 하기에 각 인덱스 번호를
             // 클릭시 ++하고 나중에 한번에 보내줌
             onClick={() => {
-              signData.interests[0]++;
+              signData.interest[0]++;
             }}
             style={{ cursor: "pointer" }}
           >
@@ -306,7 +314,7 @@ function SignUpForm() {
           </div>
           <div
             onClick={() => {
-              signData.interests[1]++;
+              signData.interest[1]++;
             }}
             style={{ cursor: "pointer" }}
           >
@@ -314,7 +322,7 @@ function SignUpForm() {
           </div>
           <div
             onClick={() => {
-              signData.interests[2]++;
+              signData.interest[2]++;
             }}
             style={{ cursor: "pointer" }}
           >
@@ -322,7 +330,7 @@ function SignUpForm() {
           </div>
           <div
             onClick={() => {
-              signData.interests[3]++;
+              signData.interest[3]++;
             }}
             style={{ cursor: "pointer" }}
           >
@@ -330,7 +338,7 @@ function SignUpForm() {
           </div>
           <div
             onClick={() => {
-              signData.interests[4]++;
+              signData.interest[4]++;
             }}
             style={{ cursor: "pointer" }}
           >
