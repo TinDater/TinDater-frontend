@@ -41,6 +41,16 @@ export const __matchUser = createAsyncThunk(
   }
 )
 
+export const __userMyInfo = createAsyncThunk(
+  'user/MY_INFO',
+  async (payload, thunkAPI) => {
+    const {userId} = payload;
+    const res = await api.get(`/people/${userId}/like`);
+
+    return res.data;
+  }
+)
+
 const swipeSlice = createSlice({
   name: "swipe", // state.swipe
   initialState: {
@@ -107,6 +117,17 @@ const swipeSlice = createSlice({
         console.log('매치 실패');
       })
       .addCase(__matchUser.pending, (state, action) => {
+        state.loading = true;
+      })
+      
+      .addCase(__userMyInfo.fulfilled, (state, action) => {
+        state.loading = false;
+      })
+      .addCase(__userMyInfo.rejected, (state, action) => {
+        state.loading = false;
+        console.log('내 정보 불러오기 실패');
+      })
+      .addCase(__userMyInfo.pending, (state, action) => {
         state.loading = true;
       })
   },

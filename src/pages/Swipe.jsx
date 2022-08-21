@@ -1,5 +1,4 @@
 import React, { useEffect, createContext } from "react";
-
 import { useDispatch, useSelector } from "react-redux";
 import {__getUser} from '../store/modules/swipeSlice'
 
@@ -24,12 +23,10 @@ const Swipe = () => {
 
   return (
     
-    <UserContext.Provider value={
-      {logginId: logginId, ...curr_user}
-    }>
-
+    <UserContext.Provider 
+      value={{logginId: logginId, ...curr_user}}
+    >
       <StSwipeSection>
-
         <aside>
           <SwipeProfile />
           <SwipeInterest />
