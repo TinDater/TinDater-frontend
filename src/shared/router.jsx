@@ -6,6 +6,9 @@ import Swipe from "../pages/Swipe";
 import NotFound from "../pages/NotFound";
 import Header from "../components/header/Header";
 import Footer from "../components/Footer/Footer";
+import Match from "../pages/Match";
+import MyPage from "../pages/MyPage";
+import UserPage from "../pages/UserPage";
 import Login from "../pages/Login";
 import SignUp from "../pages/SignUp";
 
@@ -19,7 +22,10 @@ const Router = () => {
           <Route path="/" element={<Login />} />
           <Route path="/sign" element={<SignUp />} />
           <Route path="/swipe" element={<Swipe />} />
-          <Route path="*" element={<NotFound />} />
+          <Route path="/swipe/match" element={<Match />} />
+          <Route path="/mypage" element={<MyPage />} />
+          <Route path="/userpage/:userId" element={<UserPage />} />
+          <Route path="*" element={<NotFound/>} />
         </Routes>
       </StContent>
 
@@ -36,6 +42,7 @@ const StLayout = styled.div`
   margin: 0 auto;
 
   background-color: #fff;
+  position: relative;
 `;
 
 const StContent = styled.div`

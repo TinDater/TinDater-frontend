@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
@@ -8,43 +8,41 @@ import {__likeUser, __dislikeUser, __matchUser} from '../../store/modules/swipeS
 
 const SwipeControlBar = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { logginId, userId, likeMe } = useContext( UserContext );
-  
-  const likeButtonClickHandler = (userId) => {
-    if(likeMe){
-      const matchUser = dispatch(__matchUser({logginId, userId}));
-      console.log("매치");
-      console.log(matchUser);
 
-      dispatch(__likeUser({logginId, userId}));
+  const likeButtonClickHandler = (logginId, otherUserId) => {
+    if(likeMe){
+      console.log("매치");
+      
+      dispatch(__matchUser({logginId, otherUserId}));
+      navigate("/swipe/match")
     } else {
-      dispatch(__likeUser({logginId, userId}));
+      dispatch(__likeUser({logginId, otherUserId}));
     }
   }
 
-  const dislikeButtonClickHandler = (userId) => {
-    dispatch(__dislikeUser({logginId, userId}));
+  const dislikeButtonClickHandler = (logginId, otherUserId) => {
+    dispatch(__dislikeUser({logginId, otherUserId}));
   }
 
   return (
     <StControlBar>
       <StLikeButton
-        className="button_like"
         buttonImg="img/btn-dislike.png"
         onClick={()=>{
-          likeButtonClickHandler(userId);
+          dislikeButtonClickHandler(logginId, userId);
         }}
         >
-        좋아요
+        싫어요
       </StLikeButton>
       <StLikeButton
-        className="button_dislike"
         buttonImg="img/btn-like.png"
         onClick={()=>{
-          dislikeButtonClickHandler(userId);
+          likeButtonClickHandler(logginId, userId);
         }}
       >
-        싫어요
+        좋아요
       </StLikeButton>
     </StControlBar>
   );
