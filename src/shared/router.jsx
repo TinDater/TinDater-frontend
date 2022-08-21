@@ -20,7 +20,7 @@ const Router = () => {
           <Route path="/" element={<Main />} />
           <Route path="/swipe" element={<Swipe />} />
           <Route path="/swipe/match" element={<Match />} />
-          <Route path="/mypage" element={<UserPage />} />
+          <Route path="/mypage" element={<MyPage />} />
           <Route path="/userpage/:userId" element={<UserPage />} />
           <Route path="*" element={<NotFound/>} />
         </Routes>

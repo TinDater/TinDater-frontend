@@ -14,7 +14,7 @@ const SwipeProfile = () => {
       <button
         className="info"
         onClick={()=>{
-          navigate(`/mypage/${userId}`) 
+          navigate(`/userpage/${userId}`) 
         }}
       >
         i
