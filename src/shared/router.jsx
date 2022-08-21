@@ -1,4 +1,5 @@
 import { Route, Routes } from "react-router-dom";
+
 import styled from "styled-components";
 
 import Swipe from "../pages/Swipe";
@@ -6,6 +7,8 @@ import Main from "../pages/Main";
 import NotFound from "../pages/NotFound"
 import Header from "../components/header/Header";
 import Footer from "../components/Footer/Footer";
+import Login from "../pages/Login";
+import SignUp from "../pages/SignUp";
 
 const Router = () => {
   return (
@@ -14,7 +17,8 @@ const Router = () => {
 
       <StContent>
         <Routes>
-          <Route path="/" element={<Main />} />
+          <Route path="/" element={<Login />} />
+          <Route path="/sign" element={<SignUp />} />
           <Route path="/swipe" element={<Swipe />} />
           <Route path="*" element={<NotFound/>} />
         </Routes>
