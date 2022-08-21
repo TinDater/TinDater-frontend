@@ -4,6 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import {__getUser} from '../store/modules/swipeSlice'
 
 import styled from "styled-components";
+import UserPageHeader from "../components/userpage/UserPageHeader";
+import UserPageBody from "../components/userpage/UserPageBody";
+import UserPageNav from "../components/userpage/UserPageNav";
 
 const UserPage = () => {
   const dispatch = useDispatch();
