@@ -1,14 +1,16 @@
 import { Route, Routes } from "react-router-dom";
+
 import styled from "styled-components";
 
 import Swipe from "../pages/Swipe";
-import Main from "../pages/Main";
-import NotFound from "../pages/NotFound"
+import NotFound from "../pages/NotFound";
 import Header from "../components/header/Header";
 import Footer from "../components/Footer/Footer";
 import Match from "../pages/Match";
 import MyPage from "../pages/MyPage";
 import UserPage from "../pages/UserPage";
+import Login from "../pages/Login";
+import SignUp from "../pages/SignUp";
 
 const Router = () => {
   return (
@@ -17,7 +19,8 @@ const Router = () => {
 
       <StContent>
         <Routes>
-          <Route path="/" element={<Main />} />
+          <Route path="/" element={<Login />} />
+          <Route path="/sign" element={<SignUp />} />
           <Route path="/swipe" element={<Swipe />} />
           <Route path="/swipe/match" element={<Match />} />
           <Route path="/mypage" element={<MyPage />} />
@@ -26,7 +29,7 @@ const Router = () => {
         </Routes>
       </StContent>
 
-      <Footer/>
+      <Footer />
     </StLayout>
   );
 };
@@ -40,11 +43,11 @@ const StLayout = styled.div`
 
   background-color: #fff;
   position: relative;
-`
+`;
 
 const StContent = styled.div`
   height: calc(100vh - 150px);
 
   padding: 0.5em 0.5em;
   box-sizing: border-box;
-`
+`;
