@@ -12,6 +12,7 @@ import UserPage from "../pages/UserPage";
 import Login from "../pages/Login";
 import SignUp from "../pages/SignUp";
 import Profile from "../pages/Profile";
+import LikePage from "../pages/LikePage";
 
 const Router = () => {
   return (
@@ -27,6 +28,7 @@ const Router = () => {
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/userpage/:userId" element={<UserPage />} />
+          <Route path="/likepage" element={<LikePage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </StContent>
