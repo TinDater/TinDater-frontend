@@ -6,10 +6,9 @@ export const __getUser = createAsyncThunk(
   async (payload) => {
     const userId = payload;
     const res = await api.get(`/people/${userId}`);
+    const resData = res.data.data;
 
-    console.log(res.data);
-
-    return res.data;
+    return resData;
   }
 )
 
@@ -19,8 +18,9 @@ export const __likeUser = createAsyncThunk(
     const {logginId, otherUserId} = payload;
     console.log(payload);
     const res = await api.post(`/people/${logginId}/like`, {likeUserId: otherUserId});
+    const resData = res.data.data
 
-    return res.data;
+    return resData;
   }
 )
 
@@ -29,8 +29,9 @@ export const __dislikeUser = createAsyncThunk(
   async (payload) => {
     const {logginId, otherUserId} = payload;
     const res = await api.post(`/people/${logginId}/dislike`, {dislikeUserId: otherUserId});
+    const resData = res.data.data
 
-    return res.data;
+    return resData;
   }
 )
 
@@ -47,10 +48,12 @@ export const __matchUser = createAsyncThunk(
 export const __userMyInfo = createAsyncThunk(
   'user/MY_INFO',
   async (payload, thunkAPI) => {
-    const {logginId} = payload;
-    const res = await api.get(`/user/${logginId}`);
+    const res = await api.get(`/user/${payload}`);
+    const resData = res.data.data
+    
+    console.log(resData);
 
-    return res.data;
+    return resData;
   }
 )
 
@@ -126,7 +129,6 @@ const swipeSlice = createSlice({
       .addCase(__userMyInfo.fulfilled, (state, action) => { 
         state.loading = false;
         state.user = {...action.payload};
-        console.log(state.user);
       })
       .addCase(__userMyInfo.rejected, (state, action) => {
         state.loading = false;

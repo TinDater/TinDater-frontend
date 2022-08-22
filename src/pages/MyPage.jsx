@@ -13,7 +13,7 @@ const MyPage = () => {
   
   const curr_user = useSelector(state => state.swipe.user)
   
-  // 임시
+  // 임시 내 아이디
   const userId = 1;
   
   useEffect(()=>{
