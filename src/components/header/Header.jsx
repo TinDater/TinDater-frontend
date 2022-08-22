@@ -37,7 +37,7 @@ const StHeader = styled.div`
 
   .logo {
     width: 160px;
-    padding-bottom: 30%;
+    height: calc(100% - 5px);
     background: url('img/logo-tindating-long.png') no-repeat center / contain ;
     
     position: absolute;

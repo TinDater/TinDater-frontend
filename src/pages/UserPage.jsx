@@ -36,7 +36,7 @@ export default UserPage;
 const StUserPage = styled.div`
   width: 100%;
   height: 100%;
-  background-color: #eee;
+  background-color: #fff;
   
   display: flex;
   flex-flow: column;
