@@ -29,9 +29,7 @@ const Footer = () => {
             <MdAccountCircle />
           </div>
         </li>
-        <li onClick={()=>{
-          navigate('/')
-        }}>
+        <li className="no_link">
           <div className="icon_box">
             <MdOutlineChatBubble />
           </div>
@@ -47,6 +45,14 @@ const StFooter = styled.div`
   height: 80px;
   
   background-color: #fff;
+
+  .no_link .icon_box {
+    cursor: default !important;
+    
+    &:hover {
+      color: #888 !important;
+    }
+  }
 
   .footer_menu {
     display: flex;

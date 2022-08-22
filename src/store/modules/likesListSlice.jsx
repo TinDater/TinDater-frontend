@@ -1,21 +1,24 @@
-import { configureStore, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { api } from "../../shared/api";
 
 const initialState = {
-likes:[]
+  likes: []
 };
 
-export const getLikesThunk = createAsyncThunk(
-  "getLikes", 
-  async (payload, api) => {
+export const __getLikesThunk = createAsyncThunk(
+  "like/GET_LIKES", 
+  async (payload, thunkApi) => {
   //중간작업
   try {
-    const data = await axios.get(
-      "http://localhost:3001/likes"
+      const response = await api.get(
+      `/people/${payload}/like`
       );
-      return api.fulfillWithValue(data.data);
+      const data = response.data.data;
+      return thunkApi.fulfillWithValue(data);
+
     } catch (e) {
-      return api.rejectWithValue(e);
+
+      return thunkApi.rejectWithValue(e);
     }
   }
 );
@@ -25,10 +28,11 @@ export const likesListSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
-    [getLikesThunk.fulfilled]: (state, action) => {     //디스패치 했을때 받아 주는애
-      state.likes = [...action.payload];
+    [__getLikesThunk.fulfilled]: (state, action) => {     //디스패치 했을때 받아 주는애
+      // console.log(action.payload);
+      state.likes = action.payload;
     },
-    [getLikesThunk.rejected]: (state, action) => {
+    [__getLikesThunk.rejected]: (state, action) => {
       console.log(action);
     },
   },

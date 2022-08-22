@@ -44,9 +44,9 @@ const StHeader = styled.div`
   }
 
   .logo {
-    width: 160px;
+    width: 130px;
     height: calc(100% - 5px);
-    background: url('img/logo-tindating-long.png') no-repeat center / contain ;
+    background: url('img/logo-tindater-long.png') no-repeat center / contain ;
     
     position: absolute;
     left: 50%;

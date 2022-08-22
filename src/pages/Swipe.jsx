@@ -13,12 +13,14 @@ const Swipe = () => {
   const dispatch = useDispatch();
   
   const curr_user = useSelector(state => state.swipe.user)
+  const logginId = useSelector(state => state.login.userId)
+
   useEffect(()=>{
     dispatch(__getUser(logginId))
   }, [])
   
   //임시
-  const logginId = 3;
+  // const logginId = 3;
 
   return (
     

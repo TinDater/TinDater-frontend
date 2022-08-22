@@ -28,7 +28,7 @@ const Router = () => {
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/userpage/:userId" element={<UserPage />} />
-          <Route path="/likepage" element={<LikePage />} />
+          <Route path="/like" element={<LikePage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </StContent>
