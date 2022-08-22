@@ -7,9 +7,14 @@ import axios from "axios";
 
 const LikePage = () => {
   const [likesPost, setLikesPost] = useState([])
+  // const [userId, setUserId] = useState([])  
+  // const [loginId, setLoginId] = useState([])
   const dispatch = useDispatch();
-  useEffect(() => {
+  const navigate = useNavigate();
+  const goBack = () => navigate("/") //임시로 경로 선언
+  //const 수정페이지 = () => navigate("/수정페이지경로")
 
+  useEffect(() => {
     const fetchLikes = async () => {
       try {
         const data = await axios.get("http://localhost:3001/likes");
@@ -21,41 +26,48 @@ const LikePage = () => {
     fetchLikes()
   }, []);
 
-  const navigate = useNavigate();
-  const goBack = () => navigate("/") //임시로 경로 선언
-  // // const 수정페이지 = () => navigate("수정페이지경로")
-  const userId = "a"  //임시로 선언
-  const loginId = "a" //임시로 선언
+  const userId = "a";
+  const loginId = "a";
 
   return (
+    <>
+        <h1>좋아요 페이지</h1>
     <Layout>
-
-      <h1>좋아요 페이지</h1>
 
       <div>
         {likesPost.map((list) => {
           return (
-            <div key={list.userId}>
-              <img onClick={goBack} src={list.imageUrl} />    {/* <img onClick={goBack}>리스트, 클릭한 유저 페이지로 이동</img> */}
-            </div>
+            <List>
+              <div key={list.userId}>
+                <img onClick={goBack} src={list.imageUrl} />    {/* <img onClick={goBack}>리스트, 클릭한 유저 페이지로 이동</img> */}
+              </div>
+              <div key={list.userId}>
+                <h4>{list.nickname}{list.age}</h4>
+                <h3>{list.gender?"여자":"남자"}</h3>
+              </div>
+            </List>
           )
         })}
       </div>
-
-      {userId === loginId ? <button onClick={goBack}>수정</button> : null}        {/*{userId === loginId && <button>수정</button>} */}
-
     </Layout>
+      {userId === loginId ? <button onClick={goBack}>수정</button> : null}        {/*{userId === loginId && <button>수정</button>} */}
+        </>
   )
 };
 export default LikePage;
 
 const Layout = styled.div`
-    display: flex; justify-content: center; align-items: center;
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
     min-width: 800px; max-width: 1200px;
     margin: 0 auto;
 `
 const List = styled.div`
-    
-    background-color: #black
+     
+    justify-content: center; 
+    align-items: center;
+    min-width: 400px; max-width: 600px;
+    margin: 0 auto;
 `
 
