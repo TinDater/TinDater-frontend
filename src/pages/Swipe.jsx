@@ -18,7 +18,7 @@ const Swipe = () => {
   }, [])
   
   //임시
-  const logginId = 2;
+  const logginId = 3;
 
   return (
     

@@ -14,10 +14,10 @@ const MyPage = () => {
   const curr_user = useSelector(state => state.swipe.user)
   
   // 임시 내 아이디
-  const userId = 1;
+  const userId = 2;
   
   useEffect(()=>{
-    dispatch(__userMyInfo({userId}))
+    dispatch(__userMyInfo(userId))
   }, [])  
 
   return (
@@ -28,6 +28,10 @@ const MyPage = () => {
       <UserPageHeader curr_user={curr_user} />
       <UserPageBody curr_user={curr_user} />
       
+      <div>
+        내 정보 수정하기
+      </div>
+
     </StMyPage>
   )
 };

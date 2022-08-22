@@ -12,13 +12,13 @@ const UserPageBody = (props) => {
     <StUserPageBody>
       
       <div className="interest_box">
-          {/* { interest.map( (inte, i) => {
+          { interest.map( (inte, i) => {
             return ( Number(inte) ?
               <div className="tag" key={i}>
                 {hobbies[i]}
               </div> : ""
             )
-          }) } */}
+          }) }
         </div>
 
         <div>
