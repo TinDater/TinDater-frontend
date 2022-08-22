@@ -1,16 +1,57 @@
 import { Route, Routes } from "react-router-dom";
-import Main from "../pages/Main";
+
+import styled from "styled-components";
+
+import Swipe from "../pages/Swipe";
+import NotFound from "../pages/NotFound";
+import Header from "../components/header/Header";
+import Footer from "../components/Footer/Footer";
+import Match from "../pages/Match";
+import MyPage from "../pages/MyPage";
+import UserPage from "../pages/UserPage";
+import Login from "../pages/Login";
+import SignUp from "../pages/SignUp";
+import Profile from "../pages/Profile";
 import LikePage from "../pages/LikePage";
-import NotFound from "../pages/NotFound"
 
 const Router = () => {
   return (
-    <Routes>
-      <Route path="/" element={<Main />} />
-      <Route path="/likepage" element={<LikePage />} />
-      <Route path="*" element={<NotFound/>} />
-    </Routes>
+    <StLayout>
+      <Header />
+
+      <StContent>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/sign" element={<SignUp />} />
+          <Route path="/swipe" element={<Swipe />} />
+          <Route path="/swipe/match" element={<Match />} />
+          <Route path="/mypage" element={<MyPage />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/userpage/:userId" element={<UserPage />} />
+          <Route path="/likepage" element={<LikePage />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </StContent>
+
+      <Footer />
+    </StLayout>
   );
 };
 
 export default Router;
+
+const StLayout = styled.div`
+  width: 100%;
+  max-width: 768px;
+  margin: 0 auto;
+
+  background-color: #fff;
+  position: relative;
+`;
+
+const StContent = styled.div`
+  height: calc(100vh - 150px);
+
+  padding: 0.5em 0.5em;
+  box-sizing: border-box;
+`;

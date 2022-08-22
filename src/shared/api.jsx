@@ -1,7 +1,8 @@
 import axios from "axios";
+import { setCookie, getCookie, deleteCookie } from "../cookie";
 
 export const api = axios.create({
-  baseURL: "http://localhost:3000/",
+  baseURL: "http://3.39.177.14/api/",
   headers: {
     "content-type": "application/json;charset=UTF-8",
     accept: "application/json,",
@@ -9,7 +10,7 @@ export const api = axios.create({
 });
 
 api.interceptors.request.use(function (config) {
-  const accessToken = '';
+  const accessToken = getCookie("token");
   config.headers.common["authorization"] = `Bearer ${accessToken}`;
   return config;
 });
