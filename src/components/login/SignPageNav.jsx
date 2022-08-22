@@ -1,27 +1,25 @@
 import { useNavigate } from "react-router-dom";
 
 import styled from "styled-components";
-import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
+import { MdLocalFireDepartment } from "react-icons/md";
 
-const UserPageBody = (props) => {
+const SignPageNav = () => {
   const navigate = useNavigate();
-
+  
   return (
-    <StUserPageNav>
-      <MdOutlineKeyboardArrowLeft
+    <StSignPageNav>
+      <MdLocalFireDepartment
         onClick={()=>{
-          navigate(`/swipe`) 
+          navigate(`/`) 
         }}
       />
-      {props.title}
-
-    </StUserPageNav>
+    </StSignPageNav>
   )
 };
 
-export default UserPageBody;
+export default SignPageNav;
 
-const StUserPageNav = styled.div`
+const StSignPageNav = styled.div`
   width: 100%;
   height: 70px;
   line-height: 68px;
@@ -30,14 +28,15 @@ const StUserPageNav = styled.div`
   font-size: 1.2em;
   font-weight: 700;
   
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
   
   svg {
     font-size: 2.2em;
     position: absolute;
-    top: 12px;
     left: 20px;
-    color: #ccc;
+    color: #ff4e6a;
     
     cursor: pointer;
   }

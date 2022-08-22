@@ -22,7 +22,7 @@ const UserPage = () => {
   return (
     <StUserPage>
 
-      <UserPageNav />
+      <UserPageNav title={"프로필"} />
 
       <UserPageHeader curr_user={curr_user} />
       <UserPageBody curr_user={curr_user} />

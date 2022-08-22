@@ -1,28 +1,39 @@
-import React from "react";
+import React, { Fragment } from "react";
 import styled from "styled-components";
+import { MdLocalFireDepartment, MdFavorite,MdOutlineChatBubble, MdAccountCircle } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 const Footer = () => {
+  const navigate = useNavigate();
   return (
     <StFooter>
       <ul className="footer_menu">
-        <li>
+        <li onClick={()=>{
+          navigate('/swipe')
+        }}>
           <div className="icon_box">
-            1
+            <MdLocalFireDepartment />
           </div>
         </li>
-        <li>
+        <li onClick={()=>{
+          navigate('/like')
+        }}>
           <div className="icon_box">
-            2
+            <MdFavorite />
           </div>
         </li>
-        <li>
+        <li onClick={()=>{
+          navigate('/mypage')
+        }}>
           <div className="icon_box">
-            3
+            <MdAccountCircle />
           </div>
         </li>
-        <li>
+        <li onClick={()=>{
+          navigate('/')
+        }}>
           <div className="icon_box">
-            4
+            <MdOutlineChatBubble />
           </div>
         </li>
       </ul>
@@ -51,14 +62,24 @@ const StFooter = styled.div`
     }
     
     .icon_box {
-      width: 60px;
-      height: 60px;
-      line-height: 60px;
+      width: 70%;
+      height: 75px;
 
+      font-size: 2.3em;
+      
       border-radius: 20px;
-      background-color: #ddd;
+      color: #888;
 
       cursor: pointer;
+      transition: all 0.2s;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &:hover {
+        color: #ff4e6a
+      }
     }
   }
 

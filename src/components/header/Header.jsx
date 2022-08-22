@@ -1,11 +1,19 @@
 import React from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
+  const navigate = useNavigate();
   return (
     <StHeader>
       <div className="profile_picture"></div>
-      <div className="logo">틴데이팅</div>
+      <div 
+        className="logo" 
+        onClick={()=>{
+          navigate('/')
+      }}>
+        틴데이팅
+      </div>
     </StHeader>
   );
 };
@@ -37,7 +45,7 @@ const StHeader = styled.div`
 
   .logo {
     width: 160px;
-    padding-bottom: 30%;
+    height: calc(100% - 5px);
     background: url('img/logo-tindating-long.png') no-repeat center / contain ;
     
     position: absolute;
@@ -45,6 +53,7 @@ const StHeader = styled.div`
     transform: translateX(-50%);
 
     text-indent: -9999px;
+    cursor: pointer;
   }
 
   @media (max-width: 400px) {

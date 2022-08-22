@@ -68,7 +68,7 @@ const StLikeButton = styled.button`
 
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.1);
 
-  background: url("${props => props.buttonImg}") center / contain;
+  background: url("${props => props.buttonImg}") no-repeat center / contain;
 
   cursor: pointer;
 `;
