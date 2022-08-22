@@ -4,12 +4,10 @@ import { api } from "../../shared/api";
 export const __getUser = createAsyncThunk(
   'user/GET_USER',
   async (payload) => {
-    const userId = payload;
-    const res = await api.get(`/people/${userId}`);
+    const res = await api.get(`/people/${payload}`);
+    const resData = res.data.data;
 
-    console.log(res.data);
-
-    return res.data;
+    return resData;
   }
 )
 
@@ -17,10 +15,10 @@ export const __likeUser = createAsyncThunk(
   'user/LIKE_USER',
   async (payload) => {
     const {logginId, otherUserId} = payload;
-    console.log(payload);
     const res = await api.post(`/people/${logginId}/like`, {likeUserId: otherUserId});
+    const resData = res.data.data;
 
-    return res.data;
+    return resData;
   }
 )
 
@@ -29,8 +27,9 @@ export const __dislikeUser = createAsyncThunk(
   async (payload) => {
     const {logginId, otherUserId} = payload;
     const res = await api.post(`/people/${logginId}/dislike`, {dislikeUserId: otherUserId});
+    const resData = res.data.data
 
-    return res.data;
+    return resData;
   }
 )
 
@@ -46,18 +45,17 @@ export const __matchUser = createAsyncThunk(
 
 export const __userMyInfo = createAsyncThunk(
   'user/MY_INFO',
-  async (payload, thunkAPI) => {
-    const {logginId} = payload;
-    const res = await api.get(`/user/${logginId}`);
+  async (payload) => {
+    const res = await api.get(`/user/${payload}`);
+    const resData = res.data.data;
 
-    return res.data;
+    return resData;
   }
 )
 
 const swipeSlice = createSlice({
   name: "swipe", // state.swipe
   initialState: {
-    loading: false,
     user: {
       userId: 999,
       email: '이메일',
@@ -75,65 +73,38 @@ const swipeSlice = createSlice({
   //
   extraReducers: (builder) => {
     builder.addCase(__getUser.fulfilled, (state, action) => {
-        state.loading = false;
         state.user = {...action.payload};
       })
       .addCase(__getUser.rejected, (state, action) => {
-        state.loading = false;
         console.log('유저 불러오기 실패');
       })
-      .addCase(__getUser.pending, (state, action) => {
-        state.loading = true;
-      })
-      
+
       .addCase(__likeUser.fulfilled, (state, action) => {
-        state.loading = false;
-        
         state.user = {...action.payload};
       })
       .addCase(__likeUser.rejected, (state, action) => {
-        state.loading = false;
         console.log('좋아요 실패');
       })
-      .addCase(__likeUser.pending, (state, action) => {
-        state.loading = true;
-      })
-      
+
       .addCase(__dislikeUser.fulfilled, (state, action) => {
-        state.loading = false;
-        
         state.user = {...action.payload};
       })
       .addCase(__dislikeUser.rejected, (state, action) => {
-        state.loading = false;
         console.log('싫어요 실패');
-      })
-      .addCase(__dislikeUser.pending, (state, action) => {
-        state.loading = true;
       })
       
       .addCase(__matchUser.fulfilled, (state, action) => {
         state.loading = false;
       })
       .addCase(__matchUser.rejected, (state, action) => {
-        state.loading = false;
         console.log('매치 실패');
       })
-      .addCase(__matchUser.pending, (state, action) => {
-        state.loading = true;
-      })
-      
+
       .addCase(__userMyInfo.fulfilled, (state, action) => { 
-        state.loading = false;
         state.user = {...action.payload};
-        console.log(state.user);
       })
       .addCase(__userMyInfo.rejected, (state, action) => {
-        state.loading = false;
-        console.log('내 정보 불러오기 실패');
-      })
-      .addCase(__userMyInfo.pending, (state, action) => {
-        state.loading = true;
+        console.log('유저 상세 정보 불러오기 실패');
       })
   },
 });

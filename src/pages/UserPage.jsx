@@ -1,18 +1,20 @@
 import {useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import {__getUser} from '../store/modules/swipeSlice'
+import {__userMyInfo} from '../store/modules/swipeSlice'
 
 import styled from "styled-components";
 import UserPageHeader from "../components/userpage/UserPageHeader";
 import UserPageBody from "../components/userpage/UserPageBody";
 import UserPageNav from "../components/userpage/UserPageNav";
+import { useParams } from "react-router-dom";
 
 const UserPage = () => {
   const dispatch = useDispatch();
-  
+  const {userId} = useParams();
+
   useEffect(()=>{
-    dispatch(__getUser(curr_user.userId))
+    dispatch(__userMyInfo(userId))
   }, [])  
   
   const curr_user = useSelector(state => state.swipe.user)
