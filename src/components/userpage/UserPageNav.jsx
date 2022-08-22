@@ -1,15 +1,20 @@
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import styled from "styled-components";
+import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
 
 const UserPageBody = (props) => {
-  const [userLoggin, setUserLoggin] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <StUserPageNav>
-      <span className="icon">‹</span>
-      {userLoggin? '프로필' : '내 정보'}
+      <MdOutlineKeyboardArrowLeft
+        onClick={()=>{
+          navigate(`/swipe`) 
+        }}
+      />
+      {props.title}
 
-      
     </StUserPageNav>
   )
 };
@@ -27,8 +32,13 @@ const StUserPageNav = styled.div`
   
   position: relative;
   
-  .icon {
+  svg {
+    font-size: 2.2em;
     position: absolute;
+    top: 12px;
     left: 20px;
+    color: #ccc;
+    
+    cursor: pointer;
   }
 `

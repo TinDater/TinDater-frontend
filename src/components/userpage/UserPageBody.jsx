@@ -29,9 +29,9 @@ const UserPageBody = (props) => {
           </button>
 
           <button
-            onClick={()=> navigate('/like')}
+            onClick={()=> navigate('/swipe')}
           >
-            메인으로 돌아가기
+            틴데이트로 돌아가기
           </button>
         </div>
         

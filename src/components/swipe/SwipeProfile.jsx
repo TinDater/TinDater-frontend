@@ -1,6 +1,8 @@
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
+
+import { MdNewReleases } from "react-icons/md";
 import styled from "styled-components";
 import { UserContext } from '../../pages/Swipe'
   
@@ -17,7 +19,7 @@ const SwipeProfile = () => {
           navigate(`/userpage/${userId}`) 
         }}
       >
-        i
+        <MdNewReleases />
       </button>
       <h3 className="gender">{gender?'♀':'♂'}</h3>
     </StProfile>
@@ -56,16 +58,26 @@ const StProfile = styled.div`
   }
 
   .info {
-    width: 20px;
+    width: 30px;
     height: 20px;
-    line-height: 19px;
     border-radius: 50%;
     
-    background: #fff;
+    background: transparent;
+    color: #fff;
     border: none;
 
-    font-size: 12px;
+    font-size: 30px;
     text-align: center;
     font-weight: 700;
+    
+    position: relative;
+    cursor: pointer;
+    
+    svg {
+      position: absolute;
+      left: 50%;
+      top: -4px;
+      transform: translateX(-50%);
+    }
   }
 `

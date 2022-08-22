@@ -22,7 +22,7 @@ const UserPage = () => {
   return (
     <StUserPage>
 
-      <UserPageNav />
+      <UserPageNav title={"프로필"} />
 
       <UserPageHeader curr_user={curr_user} />
       <UserPageBody curr_user={curr_user} />
@@ -36,7 +36,7 @@ export default UserPage;
 const StUserPage = styled.div`
   width: 100%;
   height: 100%;
-  background-color: #fff;
+  background-color: #eee;
   
   display: flex;
   flex-flow: column;

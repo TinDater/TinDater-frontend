@@ -1,5 +1,5 @@
 import {useEffect} from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";import { useNavigate } from "react-router-dom";
 
 import {__userMyInfo} from '../store/modules/swipeSlice'
 
@@ -9,6 +9,7 @@ import UserPageBody from "../components/userpage/UserPageBody";
 import UserPageNav from "../components/userpage/UserPageNav";
 
 const MyPage = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   
   const curr_user = useSelector(state => state.swipe.user)
@@ -23,14 +24,19 @@ const MyPage = () => {
   return (
     <StMyPage>
       
-      <UserPageNav />
+      <UserPageNav title={"나의 프로필"} />
 
       <UserPageHeader curr_user={curr_user} />
-      <UserPageBody curr_user={curr_user} />
-      
-      <div>
+      <div 
+        className="button_go_profile"
+        onClick={()=>{
+          navigate('/profile')
+        }}
+      >
         내 정보 수정하기
       </div>
+      <UserPageBody curr_user={curr_user} />
+      
 
     </StMyPage>
   )

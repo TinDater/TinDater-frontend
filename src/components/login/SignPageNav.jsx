@@ -1,9 +1,18 @@
+import { useNavigate } from "react-router-dom";
+
 import styled from "styled-components";
+import { MdLocalFireDepartment } from "react-icons/md";
 
 const SignPageNav = () => {
+  const navigate = useNavigate();
+  
   return (
     <StSignPageNav>
-      <span className="icon">‹</span>
+      <MdLocalFireDepartment
+        onClick={()=>{
+          navigate(`/`) 
+        }}
+      />
     </StSignPageNav>
   )
 };
@@ -23,8 +32,12 @@ const StSignPageNav = styled.div`
   top: 0;
   left: 0;
   
-  .icon {
+  svg {
+    font-size: 2.2em;
     position: absolute;
     left: 20px;
+    color: #ff4e6a;
+    
+    cursor: pointer;
   }
 `
