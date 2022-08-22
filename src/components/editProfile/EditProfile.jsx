@@ -176,7 +176,7 @@ function EditProfile() {
 
   return (
     <form onSubmit={submitLogin}>
-      {signNumber === 0 && (
+      {/* {signNumber === 0 && (
         <Fragment>
           <div>
             <span>
@@ -197,8 +197,8 @@ function EditProfile() {
           />
           <button onClick={next}>다음</button>
         </Fragment>
-      )}
-      {signNumber === 1 && (
+      )} */}
+      {signNumber === 0 && (
         <div>
           <div>
             <span>
@@ -219,7 +219,7 @@ function EditProfile() {
           <button onClick={next}>다음</button>
         </div>
       )}
-      {signNumber === 2 && (
+      {signNumber === 1 && (
         <Fragment>
           <div>
             <span>비밀번호</span>
@@ -252,7 +252,7 @@ function EditProfile() {
           <button onClick={next}>다음</button>
         </Fragment>
       )}
-      {signNumber === 3 && (
+      {signNumber === 2 && (
         <div>
           <input
             id="age"
@@ -263,7 +263,7 @@ function EditProfile() {
           <button onClick={next}>다음</button>
         </div>
       )}
-      {signNumber === 4 && (
+      {signNumber === 3 && (
         <Fragment>
           <select
             // signData에 인라인으로 바로 넣어줌(지역)
@@ -285,7 +285,7 @@ function EditProfile() {
           <button onClick={next}>다음</button>
         </Fragment>
       )}
-      {signNumber === 5 && (
+      {signNumber === 4 && (
         <Fragment>
           <select
             // signData에 인라인으로 바로 넣어줌(성별)
@@ -301,7 +301,7 @@ function EditProfile() {
           <button onClick={next}>다음</button>
         </Fragment>
       )}
-      {signNumber === 6 && (
+      {signNumber === 5 && (
         <Fragment>
           <span>관심사를 선택해주세요</span>
           <div
@@ -349,7 +349,7 @@ function EditProfile() {
           <button onClick={next}>다음</button>
         </Fragment>
       )}
-      {signNumber === 7 && (
+      {signNumber === 6 && (
         <Fragment>
           <div>
             {change ? (

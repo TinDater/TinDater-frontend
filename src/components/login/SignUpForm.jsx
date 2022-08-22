@@ -62,12 +62,12 @@ function SignUpForm() {
     if (!regEmail.test(signData.email)) {
       alert("이메일 형식으로 작성해주세요");
     } else {
-      dispatch(__checkUsername(signData.email));
+      dispatch(__checkUsername({ email: signData.email }));
     }
   };
   const CheckNick = () => {
     // 닉네임 중복체크
-    dispatch(__checkNickname(signData.nickname));
+    dispatch(__checkNickname({ nickname: signData.nickname }));
   };
 
   React.useEffect(() => {
@@ -141,6 +141,7 @@ function SignUpForm() {
 
   // 그동안 수집한 회원가입 데이터(signData)를 백에게 보냄
   const submitLogin = async (e) => {
+    console.log("testsubmit");
     e.preventDefault();
     const checkState = await dispatch(__signup(signData));
     if (checkState.payload) {

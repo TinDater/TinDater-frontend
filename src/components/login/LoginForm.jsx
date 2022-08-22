@@ -27,9 +27,10 @@ function LoginForm() {
       alert("아이디 혹은 비밀번호가 틀렸습니다.");
     }
     // 로그인시 환영 인사 후 페이지 이동
-    if (loginState.payload.result) {
+    if (loginState.payload.success) {
+      console.log("성공점");
       alert(`${loginState.payload.nickname} 님 환영합니다 :) `);
-      navigate("/");
+      navigate("/swipe");
     }
   };
 
@@ -70,9 +71,9 @@ function LoginForm() {
           required
           onChange={changeInput}
         />
-        <button type="submit" style={buttonStyle}>
+        <StButton type="submit" style={buttonStyle}>
           로그인
-        </button>
+        </StButton>
       </form>
       {/* 회원가입 버튼을 누르면 sign라우트로 이동하게 설정 */}
       <button
@@ -86,4 +87,8 @@ function LoginForm() {
   );
 }
 
+const StButton = styled.button`
+  width: 500px;
+  height: 500px;
+`;
 export default LoginForm;

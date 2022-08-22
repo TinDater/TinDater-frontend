@@ -5,7 +5,7 @@ import { api } from "../../shared/api";
 export const __signup = createAsyncThunk(
   "signup/SIGNUP_LOG",
   async (payload, thunkAPI) => {
-    const response = await api.post("api/auth/signup", payload);
+    const response = await api.post("auth/signup", payload);
     alert(response.data.msg);
     return response.data;
   }
@@ -14,7 +14,7 @@ export const __signup = createAsyncThunk(
 export const __editProfile = createAsyncThunk(
   "profile/EDITPROFILE_LOG",
   async (payload, thunkAPI) => {
-    const response = await api.put(`api/user/${payload.userId}`, payload);
+    const response = await api.put(`user/${payload.userId}`, payload);
     alert(response.data.msg);
     return response.data;
   }
@@ -23,7 +23,7 @@ export const __editProfile = createAsyncThunk(
 export const __checkUsername = createAsyncThunk(
   "signup/CHECKID_LOG",
   async (payload, thunkAPI) => {
-    const response = await api.post(`api/auth/email`, payload);
+    const response = await api.post(`auth/email`, payload);
     if (!response.data.success) alert(response.data.msg);
     return response.data.success;
   }
@@ -32,7 +32,8 @@ export const __checkUsername = createAsyncThunk(
 export const __checkNickname = createAsyncThunk(
   "signup/CHECKNICK_LOG",
   async (payload, thunkAPI) => {
-    const response = await api.get(`api/auth/nickname`, payload);
+    console.log(payload);
+    const response = await api.post(`auth/nickname`, payload);
     if (!response.data.result) alert(response.data.msg);
     return response.data.success;
   }
