@@ -4,7 +4,7 @@ import likesListReducer from "../modules/likesListSlice";
 
 const rootReducer = combineReducers({
 login: loginReducer,
-likeslist: likesListReducer
+likesList: likesListReducer
 });
 
 const store = configureStore({
