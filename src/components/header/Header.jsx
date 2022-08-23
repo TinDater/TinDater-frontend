@@ -2,10 +2,18 @@ import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
-const Header = () => {
+const Header = (props) => {
   const navigate = useNavigate();
+
+  const {bucketUrl, logginUser} = props.props
+  const imageUrl = bucketUrl+logginUser.user.imageUrl;
+
+  console.log(imageUrl);
+
   return (
-    <StHeader>
+    <StHeader
+    imageUrl={imageUrl!=='' || imageUrl!=='no-img-2.png'?imageUrl:"img/no-img-2.png"}
+    >
       <div className="profile_picture"></div>
       <div 
         className="logo" 
@@ -40,7 +48,8 @@ const StHeader = styled.div`
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    background: #ddd;
+
+    background: skyblue url('${props => props.imageUrl}') no-repeat center / cover;
   }
 
   .logo {
