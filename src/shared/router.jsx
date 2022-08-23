@@ -1,4 +1,5 @@
 import { Route, Routes } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import styled from "styled-components";
 
@@ -12,21 +13,28 @@ import UserPage from "../pages/UserPage";
 import Login from "../pages/Login";
 import SignUp from "../pages/SignUp";
 import Profile from "../pages/Profile";
+import LikePage from "../pages/LikePage";
 
 const Router = () => {
+  const logginUser = useSelector(state => state.login)
+  const bucketUrl = process.env.REACT_APP_S3_IMAGE_URL;
+
+  const props = {logginUser, bucketUrl}
+
   return (
     <StLayout>
-      <Header />
+      <Header props={props} />
 
       <StContent>
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/sign" element={<SignUp />} />
-          <Route path="/swipe" element={<Swipe />} />
+          <Route path="/swipe" element={<Swipe props={props} />} />
           <Route path="/swipe/match" element={<Match />} />
-          <Route path="/mypage" element={<MyPage />} />
+          <Route path="/mypage" element={<MyPage props={props}  />} />
+          <Route path="/userpage/:userId" element={<UserPage props={props}  />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/userpage/:userId" element={<UserPage />} />
+          <Route path="/like" element={<LikePage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </StContent>

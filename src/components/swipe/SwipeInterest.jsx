@@ -1,13 +1,10 @@
 import React, { useContext } from "react";
-import { useNavigate } from "react-router-dom";
 
 import styled from "styled-components";
 import { UserContext } from '../../pages/Swipe'
 
 const SwipeInterest = () => {
-  const navigate = useNavigate();
-  const { interest } = useContext( UserContext );
-  const list = ['일어 나기', '밥 먹기', '잠 자기', '달리기', '마라톤']
+  const { interest, interest_name } = useContext( UserContext );
 
   return (
     <StInterest>
@@ -15,7 +12,7 @@ const SwipeInterest = () => {
         return ( 
           Number(inte) ?
           <div className="tag" key={i}>
-            {list[i]}
+            {interest_name[i]}
           </div> 
           :""
         )

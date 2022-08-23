@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
-
 import { MdNewReleases } from "react-icons/md";
 import styled from "styled-components";
 import { UserContext } from '../../pages/Swipe'
