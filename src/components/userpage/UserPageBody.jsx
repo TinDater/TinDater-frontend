@@ -5,43 +5,36 @@ import styled from "styled-components";
 const UserPageBody = (props) => {
   const navigate = useNavigate();
 
-  const {interest, interest_name} = props.curr_user;
+  const { interest, interest_name } = props.curr_user;
 
   return (
     <StUserPageBody>
-      
       <div className="interest_box">
-          { interest.map( (inte, i) => {
-            return ( Number(inte) ?
-              <div className="tag" key={i}>
-                {interest_name[i]}
-              </div> : ""
-            )
-          }) }
-        </div>
+        {interest.map((inte, i) => {
+          return Number(inte) ? (
+            <div className="tag" key={i}>
+              {interest_name[i]}
+            </div>
+          ) : (
+            ""
+          );
+        })}
+      </div>
 
-        <div>
-          <button
-            onClick={()=> navigate('/like')}
-          >
-            내가 좋아한 사람 보러가기
-          </button>
+      <div>
+        <button onClick={() => navigate("/like")}>
+          내가 좋아한 사람 보러가기
+        </button>
 
-          <button
-            onClick={()=> navigate('/swipe')}
-          >
-            틴데이트로 돌아가기
-          </button>
-        </div>
-        
+        <button onClick={() => navigate("/swipe")}>틴데이터로 돌아가기</button>
+      </div>
     </StUserPageBody>
-  )
+  );
 };
 
 export default UserPageBody;
 
 const StUserPageBody = styled.div`
-
   width: 100%;
   flex: 1 1 auto;
 
@@ -60,7 +53,7 @@ const StUserPageBody = styled.div`
     justify-content: center;
     flex-wrap: wrap;
     gap: 8px;
-    
+
     .tag {
       padding: 5px 12px;
       border-radius: 20px;
@@ -68,14 +61,14 @@ const StUserPageBody = styled.div`
       color: #fff;
     }
   }
-  
+
   button {
     all: unset;
     width: 70%;
     max-width: 400px;
     height: 65px;
     border-radius: 65px;
-    
+
     margin: 0 auto 16px;
     padding: 0 20px;
     box-sizing: border-box;
@@ -90,4 +83,4 @@ const StUserPageBody = styled.div`
 
     cursor: pointer;
   }
-`
+`;

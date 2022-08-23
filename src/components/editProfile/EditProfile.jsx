@@ -34,7 +34,6 @@ function EditProfile() {
   const [signData, setSignData] = useState({
     // // // 수정이기 때문에 userId 추가
     userId: "",
-    email: "",
     password: "",
     confirm: "",
     nickname: "",
@@ -42,7 +41,6 @@ function EditProfile() {
     address: "",
     gender: "",
     interest: [0, 0, 0, 0, 0],
-    imageUrl: "",
   });
 
   // // // signData에 userId추가
@@ -64,29 +62,19 @@ function EditProfile() {
 
   // 이메일과 패스워드 유효성검사
   // 이메일, 닉네임 중복검사 함수
-  const regEmail =
-    /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
-  const regPw =
-    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
-  const CheckId = () => {
-    // 이메일 유효성 체크 후 중복체크
-    if (!regEmail.test(signData.email)) {
-      alert("이메일 형식으로 작성해주세요");
-    } else {
-      dispatch(__checkUsername({ email: signData.email }));
-    }
-  };
   const CheckNick = () => {
     // 닉네임 중복체크
     dispatch(__checkNickname({ nickname: signData.nickname }));
   };
 
   React.useEffect(() => {
+    const regPw =
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
     // 비밀번호 일치 조건 확인 및 유효성 검사
     if (
       signData.confirm === signData.password &&
       signData.password !== "" &&
-      !regPw.test(signData.password)
+      regPw.test(signData.password)
     ) {
       setPw(true);
     } else {
@@ -109,25 +97,12 @@ function EditProfile() {
     setSignData({ ...signData, [id]: value });
     console.log(signData);
     // 중복 확인한 데이터들만 변경시(age제외) 상태 false로 변환하는 action 실행
-    if (id === "email") dispatch(changeCheckName());
     if (id === "nickname") dispatch(changeCheckNick());
   };
 
   // 파일 업로드를 위한 상태관리
   const [post, setPost] = useState("");
   const [change, setChange] = useState(false);
-  const [imageSrc, setImageSrc] = useState();
-
-  const readFile = async (fileBlob) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(fileBlob);
-    return new Promise((resolve) => {
-      reader.onload = () => {
-        setImageSrc(reader.result);
-        resolve();
-      };
-    });
-  };
 
   const view = (e) => {
     e.preventDefault();
@@ -137,17 +112,6 @@ function EditProfile() {
   const next = (e) => {
     e.preventDefault();
     setSignNumber((prevNumber) => prevNumber + 1);
-  };
-
-  const onSubmitHandler = (event) => {
-    event.preventDefault();
-
-    if (post.imageUrl == "") {
-      alert("내용을 기입해주세요");
-      return;
-    }
-    setSignData({ ...signData, imageUrl: post });
-    setFile(true);
   };
 
   // 그동안 수집한 회원가입 데이터(signData)를 백에게 보냄
@@ -163,12 +127,12 @@ function EditProfile() {
 
   React.useEffect(() => {
     // 조건들이 성립되었는지 체크하고 버튼 활성화
-    if (email && nick && pw && age && address && gender && file) {
+    if (nick && pw && age && address && gender) {
       setFormState(true);
     } else {
       setFormState(false);
     }
-  }, [email, nick, pw, age, address, gender, file]);
+  }, [email, nick, pw, age, address, gender]);
 
   const buttonStyle = {
     backgroundColor: formstate ? "blue" : "grey",
@@ -356,45 +320,13 @@ function EditProfile() {
           >
             music
           </div>
-          <button onClick={next}>다음</button>
+          <button onClick={view}>signData 확인</button>
+          <button type="submit" style={buttonStyle}>
+            {/* 회원정보 수정완료로 텍스트 변경 */}
+            {`회원정보 수정 완료 (${signNumber}/5)`}
+          </button>
         </Fragment>
       )}
-      {signNumber === 6 && (
-        <Fragment>
-          <div>
-            {change ? (
-              // 이미지 선택시에는 선택한 이미지
-              <img src={imageSrc} alt="이미지를 불러올 수 없습니다" />
-            ) : (
-              // 이미지 비선택시에는 기본이미지(logo.PNG)
-              <img src={logo} alt="이미지를 불러올 수 없습니다" />
-            )}
-          </div>
-          <input
-            // 파일업로드 부분
-            required
-            type="file"
-            accept="image/jpeg, image/jpg, image/png"
-            onChange={(e) => {
-              OnFileUpload(e);
-              // FileReader와 Promise객체 사용
-              readFile(e.target.files[0]);
-              // 이미지 비선택시 기본이미지를 위한 상태관리
-              setChange(true);
-              // post에 input에서 선택한 파일 넣어줌
-              setPost(e.target.files[0].name);
-            }}
-          />
-          <div>
-            <button onClick={onSubmitHandler}>프로필 사진 확정</button>
-            <button onClick={view}>signData 확인</button>
-          </div>
-        </Fragment>
-      )}
-      <button type="submit" style={buttonStyle}>
-        {/* 회원정보 수정완료로 텍스트 변경 */}
-        {`회원정보 수정 완료 (${signNumber}/6)`}
-      </button>
     </form>
   );
 }

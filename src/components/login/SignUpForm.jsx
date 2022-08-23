@@ -55,8 +55,7 @@ function SignUpForm() {
   // 이메일, 닉네임 중복검사 함수
   const regEmail =
     /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
-  const regPw =
-    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
+
   const CheckId = () => {
     // 이메일 유효성 체크 후 중복체크
     if (!regEmail.test(signData.email)) {
@@ -71,11 +70,13 @@ function SignUpForm() {
   };
 
   React.useEffect(() => {
+    const regPw =
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
     // 비밀번호 일치 조건 확인 및 유효성 검사
     if (
       signData.confirm === signData.password &&
       signData.password !== "" &&
-      !regPw.test(signData.password)
+      regPw.test(signData.password)
     ) {
       setPw(true);
     } else {
