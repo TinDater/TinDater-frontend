@@ -1,4 +1,5 @@
 import {useEffect} from "react";
+import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import {__userMyInfo} from '../store/modules/swipeSlice'
@@ -7,7 +8,7 @@ import styled from "styled-components";
 import UserPageHeader from "../components/userpage/UserPageHeader";
 import UserPageBody from "../components/userpage/UserPageBody";
 import UserPageNav from "../components/userpage/UserPageNav";
-import { useParams } from "react-router-dom";
+import Map from "../map/Map";
 
 const UserPage = () => {
   const dispatch = useDispatch();
@@ -27,6 +28,11 @@ const UserPage = () => {
       <UserPageHeader curr_user={curr_user} />
       <UserPageBody curr_user={curr_user} />
     
+      <div className="map_box">
+        <div className="box_cover"></div>
+        <Map />
+      </div>
+
     </StUserPage>
   )
 };

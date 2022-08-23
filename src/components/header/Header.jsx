@@ -8,8 +8,6 @@ const Header = (props) => {
   const {bucketUrl, logginUser} = props.props
   const imageUrl = bucketUrl+logginUser.user.imageUrl;
 
-  console.log(imageUrl);
-
   return (
     <StHeader
     imageUrl={imageUrl!=='' || imageUrl!=='no-img-2.png'?imageUrl:"img/no-img-2.png"}

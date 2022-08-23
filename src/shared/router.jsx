@@ -14,6 +14,7 @@ import Login from "../pages/Login";
 import SignUp from "../pages/SignUp";
 import Profile from "../pages/Profile";
 import LikePage from "../pages/LikePage";
+import Map from "../map/Map";
 
 const Router = () => {
   const logginUser = useSelector(state => state.login)
@@ -35,6 +36,7 @@ const Router = () => {
           <Route path="/userpage/:userId" element={<UserPage props={props}  />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/like" element={<LikePage />} />
+          <Route path="/test/map" element={<Map />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </StContent>

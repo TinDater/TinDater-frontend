@@ -7,11 +7,7 @@ import { api } from "../../shared/api";
 export const __login = createAsyncThunk(
   "log/LOGIN_LOG",
   async (payload, thunkAPI) => {
-    console.log("testslice");
-    console.log(payload);
     const response = await api.post("auth/login", payload);
-    console.log(response);
-    console.log(response.data.data);
 
     // 유니버셜 쿠키 이용해서 토큰을 쿠키에 저장합니다.
     setCookie("token", response.data.data.token);

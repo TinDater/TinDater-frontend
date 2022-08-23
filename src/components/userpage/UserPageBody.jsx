@@ -20,7 +20,7 @@ const UserPageBody = (props) => {
           }) }
         </div>
 
-        <div>
+        <div className="user_button_box">
           <button
             onClick={()=> navigate('/like')}
           >
@@ -30,7 +30,7 @@ const UserPageBody = (props) => {
           <button
             onClick={()=> navigate('/swipe')}
           >
-            틴데이트로 돌아가기
+            틴데이터로 돌아가기
           </button>
         </div>
         
@@ -43,6 +43,7 @@ export default UserPageBody;
 const StUserPageBody = styled.div`
 
   width: 100%;
+  height: 100%;
   flex: 1 1 auto;
 
   padding-top: 30px;
@@ -52,7 +53,9 @@ const StUserPageBody = styled.div`
   display: flex;
   flex-flow: column;
   justify-content: space-between;
-
+  
+  position: relative;
+  
   .interest_box {
     margin-bottom: 25px;
 
@@ -73,8 +76,8 @@ const StUserPageBody = styled.div`
     all: unset;
     width: 70%;
     max-width: 400px;
-    height: 65px;
-    border-radius: 65px;
+    height: 60px;
+    border-radius: 60px;
     
     margin: 0 auto 16px;
     padding: 0 20px;
@@ -89,5 +92,13 @@ const StUserPageBody = styled.div`
     box-shadow: 0 3px 5px #c7c7c7;
 
     cursor: pointer;
+  }
+  
+  .user_button_box {
+    width: 100%;
+    position: absolute;
+    bottom: 20px;
+    
+    z-index: 9999;
   }
 `
