@@ -4,6 +4,14 @@
 작업기간: 2022년 8월 19일~25일  
 팀원: 전지원, 박준수, 유지완, 김민선, 두선아, 이재철  
 
+팀 노션 페이지(API 명세서)  
+https://global-giraffe-ef7.notion.site/SA-6-3618638bd1a3409c8828a027faa3772a  
+프론트엔드  
+https://global-giraffe-ef7.notion.site/f8b375aeae2044208f81b349e6eadff1  
+백엔드  
+https://global-giraffe-ef7.notion.site/49b8d99f9f60408292540d94f52543a7  
+
+---
 ## 1. 요구 기능
 
 #### 1. 회원 가입
