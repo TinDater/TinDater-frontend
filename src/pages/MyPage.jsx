@@ -41,11 +41,6 @@ const MyPage = () => {
         </div>
         
         <UserPageBody curr_user={curr_user} />
-        
-        <div className="map_box">
-          <div className="box_cover"></div>
-          <Map />
-        </div>
 
       </div>
 
@@ -70,11 +65,17 @@ const StMyPage = styled.div`
   top: 0;
   left: 0;
   
+  .map_info {
+    display: none;
+    top: auto;
+  }
+
   .mypage_body {
     width: 100%;
     height: 100%;
     
     position: relative;
+
 
     .button_box {
       width: 80%;
@@ -120,27 +121,6 @@ const StMyPage = styled.div`
   
           font-size: 30px;
         }
-      }
-    }
-  
-    .map_box {
-      width: 100%;
-      height: 70%;
-      position: absolute;
-      bottom: 0;
-      
-      &::after {
-        content: '';
-  
-        width: 100%;
-        height: 100%;
-  
-        position: absolute;
-        top: 0;
-        left: 0;
-        
-        z-index: 999;
-        background: linear-gradient(#eee, transparent 50%);
       }
     }
   }

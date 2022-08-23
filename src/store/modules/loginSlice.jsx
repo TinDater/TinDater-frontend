@@ -20,7 +20,13 @@ const loginSlice = createSlice({
   name: "login",
   initialState: {
     // 초기값, 유저 닉네임은 공백입니다.
-    user: { nickName: "", imageUrl: "img/no-img-2.png", result: false },
+    user: { 
+      nickName: "", 
+      imageUrl: "img/no-img-2.png", 
+      result: false, 
+      x: 50, 
+      y: 100 
+    },
     userId: 999,
   },
   reducers: {

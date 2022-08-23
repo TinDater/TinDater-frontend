@@ -1,15 +1,16 @@
 import { useNavigate } from "react-router-dom";
 
 import styled from "styled-components";
+import Map from "../../map/Map";
 
 const UserPageBody = (props) => {
   const navigate = useNavigate();
 
-  const {interest, interest_name} = props.curr_user;
+  const {interest, interest_name, x, y} = props.curr_user;
 
   return (
     <StUserPageBody>
-      
+
       <div className="interest_box">
           { interest.map( (inte, i) => {
             return ( Number(inte) ?
@@ -34,6 +35,10 @@ const UserPageBody = (props) => {
           </button>
         </div>
         
+        <div className="map_area">
+          <Map x={x} y={y} />
+        </div>
+
     </StUserPageBody>
   )
 };
@@ -97,8 +102,62 @@ const StUserPageBody = styled.div`
   .user_button_box {
     width: 100%;
     position: absolute;
-    bottom: 20px;
+    bottom: 30px;
     
     z-index: 9999;
+  }
+
+  .mypage_body {
+    width: 100%;
+    height: 100%;
+    
+    position: relative;
+
+    .button_box {
+      width: 80%;
+      margin: 0 auto;
+      position: relative;
+  
+      transform: translateY(60px);
+      z-index: 9999;
+      
+      cursor: pointer;
+      transition: all 0.2s;
+      
+      &:hover .button_go_profile {
+        opacity: 0.9;
+      }
+  
+      .button_go_profile {
+        color: #222;
+  
+        font-size: 10px;
+  
+        display: flex;
+        align-items: center;
+        flex-flow: column;
+      
+        position: absolute;
+        top: -20px;
+        right: 0px;
+        transform: translateY(-100%);
+  
+        svg {
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+  
+          padding: 10px;
+          box-sizing: border-box;
+          margin-bottom: 4px;
+  
+          background: #ccc;
+          color: #555;
+          box-shadow: 0 2px 5px #c7c7c7;
+  
+          font-size: 30px;
+        }
+      }
+    }
   }
 `

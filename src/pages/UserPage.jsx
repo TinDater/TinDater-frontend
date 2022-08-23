@@ -8,7 +8,6 @@ import styled from "styled-components";
 import UserPageHeader from "../components/userpage/UserPageHeader";
 import UserPageBody from "../components/userpage/UserPageBody";
 import UserPageNav from "../components/userpage/UserPageNav";
-import Map from "../map/Map";
 
 const UserPage = () => {
   const dispatch = useDispatch();
@@ -27,11 +26,6 @@ const UserPage = () => {
 
       <UserPageHeader curr_user={curr_user} />
       <UserPageBody curr_user={curr_user} />
-    
-      <div className="map_box">
-        <div className="box_cover"></div>
-        <Map />
-      </div>
 
     </StUserPage>
   )
