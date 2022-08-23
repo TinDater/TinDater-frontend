@@ -58,14 +58,15 @@ const swipeSlice = createSlice({
   initialState: {
     user: {
       userId: 999,
-      email: '이메일',
-      nickname: '이름', 
+      email: '기본 이메일',
+      nickname: '기본 이름', 
+      address: '기본 주소',
       age: 99,
-      address: '기본주소',
       gender: 0, 
-      imageUrl: 'img.jpg',
+      imageUrl: 'no-img-2.png',
+      likeMe: true,
       interest: [],
-      likeMe: 1
+      interest_name: ['일어 나기', '밥 먹기', '잠 자기', '달리기', '마라톤']
     }
   },
   reducers: {
@@ -73,21 +74,21 @@ const swipeSlice = createSlice({
   //
   extraReducers: (builder) => {
     builder.addCase(__getUser.fulfilled, (state, action) => {
-        state.user = {...action.payload};
+        state.user = {...state.user, ...action.payload};
       })
       .addCase(__getUser.rejected, (state, action) => {
         console.log('유저 불러오기 실패');
       })
 
       .addCase(__likeUser.fulfilled, (state, action) => {
-        state.user = {...action.payload};
+        state.user = {...state.user, ...action.payload};
       })
       .addCase(__likeUser.rejected, (state, action) => {
         console.log('좋아요 실패');
       })
 
       .addCase(__dislikeUser.fulfilled, (state, action) => {
-        state.user = {...action.payload};
+        state.user = {...state.user, ...action.payload};
       })
       .addCase(__dislikeUser.rejected, (state, action) => {
         console.log('싫어요 실패');
@@ -101,7 +102,7 @@ const swipeSlice = createSlice({
       })
 
       .addCase(__userMyInfo.fulfilled, (state, action) => { 
-        state.user = {...action.payload};
+        state.user = {...state.user, ...action.payload};
       })
       .addCase(__userMyInfo.rejected, (state, action) => {
         console.log('유저 상세 정보 불러오기 실패');

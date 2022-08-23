@@ -18,8 +18,11 @@ const LikePage = () => {
   const goBack = () => navigate("/") //임시로 경로 선언
   //const 수정페이지 = () => navigate("/수정페이지경로")
 
-  const logginId = useSelector(state => state.login.userId)
   const likes = useSelector(state => state.likesList.likes)
+  const logginId = useSelector(state => state.login.userId)
+  
+  const bucketUrl = process.env.REACT_APP_S3_IMAGE_URL;
+
 
   useEffect(() => {
     // const fetchLikes = async () => {
@@ -53,7 +56,10 @@ const LikePage = () => {
           return (
             <StList 
               key={userId}
-              onClick={goBack}
+              onClick={()=>{
+                navigate(`/userpage/${userId}`)
+              }}
+              imageUrl={imageUrl!==''?bucketUrl+imageUrl:"img/no-img-2.png"}
             >
               <h2 className="name">{nickname}</h2>
               
@@ -158,7 +164,8 @@ const StList = styled.div`
   padding: 20px 10px;
   box-sizing: border-box;
   
-  background: #ddd linear-gradient(rgba(0, 0, 0, 0.8) 20%, transparent 90%);
+  background: linear-gradient(rgba(0, 0, 0, 0.6) 20%, transparent 50%, rgba(0, 0, 0, 0.1)), url('${props => props.imageUrl}') no-repeat center / cover;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
   color: #fff;
 
   text-align: center;
@@ -208,9 +215,10 @@ const StList = styled.div`
   }
 
   .info {
-    width: 30px;
-    height: 20px;
-    border-radius: 50%;
+    width: 50px;
+    line-height: 30px;
+
+    text-align: center;
 
     margin-left: auto;
     margin-right: 10px;
@@ -218,16 +226,16 @@ const StList = styled.div`
     background: transparent;
     color: #fff;
     border: none;
-
+    
     font-size: 50px;
     text-align: center;
     font-weight: 700;
     
     cursor: pointer;
-
+    
     position: absolute;
-    right: 30px;
-    bottom: 45px;
+    right: 8px;
+    bottom: 10px;
   }
 `
 

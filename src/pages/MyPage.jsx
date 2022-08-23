@@ -2,6 +2,7 @@ import {useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";import { useNavigate } from "react-router-dom";
 
 import {__userMyInfo} from '../store/modules/swipeSlice'
+import { MdSettings } from "react-icons/md";
 
 import styled from "styled-components";
 import UserPageHeader from "../components/userpage/UserPageHeader";
@@ -12,14 +13,12 @@ const MyPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   
+  const logginId = useSelector(state => state.login.userId)
   const curr_user = useSelector(state => state.swipe.user)
   
-  // 임시 내 아이디
-  const userId = 2;
-  
   useEffect(()=>{
-    dispatch(__userMyInfo(userId))
-  }, [])  
+    dispatch(__userMyInfo(logginId))
+  }, [])
 
   return (
     <StMyPage>
@@ -27,16 +26,19 @@ const MyPage = () => {
       <UserPageNav title={"나의 프로필"} />
 
       <UserPageHeader curr_user={curr_user} />
-      <div 
-        className="button_go_profile"
+
+      <div className="button_box"
         onClick={()=>{
           navigate('/profile')
         }}
       >
-        내 정보 수정하기
+        <div className="button_go_profile">
+          <MdSettings />
+          내 정보 수정
+        </div>
       </div>
-      <UserPageBody curr_user={curr_user} />
       
+      <UserPageBody curr_user={curr_user} />
 
     </StMyPage>
   )
@@ -58,4 +60,48 @@ const StMyPage = styled.div`
   position: absolute;
   top: 0;
   left: 0;
-  `;
+  
+  .button_box {
+    width: 80%;
+    margin: 0 auto;
+    position: relative;
+    
+    cursor: pointer;
+    transition: all 0.2s;
+    
+    &:hover .button_go_profile {
+      color: blue;
+    }
+
+    .button_go_profile {
+      color: #222;
+
+      font-size: 10px;
+
+      display: flex;
+      align-items: center;
+      flex-flow: column;
+    
+      position: absolute;
+      top: -20px;
+      right: 0px;
+      transform: translateY(-100%);
+
+      svg {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+
+        padding: 10px;
+        box-sizing: border-box;
+        margin-bottom: 4px;
+
+        background: #ccc;
+        color: #555;
+        box-shadow: 0 2px 5px #c7c7c7;
+
+        font-size: 30px;
+      }
+    }
+  }
+`;

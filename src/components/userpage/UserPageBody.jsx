@@ -5,8 +5,7 @@ import styled from "styled-components";
 const UserPageBody = (props) => {
   const navigate = useNavigate();
 
-  const {interest} = props.curr_user;
-  const hobbies = ['일어 나기', '밥 먹기', '잠 자기', '달리기', '마라톤']
+  const {interest, interest_name} = props.curr_user;
 
   return (
     <StUserPageBody>
@@ -15,7 +14,7 @@ const UserPageBody = (props) => {
           { interest.map( (inte, i) => {
             return ( Number(inte) ?
               <div className="tag" key={i}>
-                {hobbies[i]}
+                {interest_name[i]}
               </div> : ""
             )
           }) }

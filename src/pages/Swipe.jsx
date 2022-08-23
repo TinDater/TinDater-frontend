@@ -9,25 +9,27 @@ import SwipeProfile from "../components/swipe/SwipeProfile";
 
 export const UserContext = createContext();
 
-const Swipe = () => {
+const Swipe = (props) => {
   const dispatch = useDispatch();
   
+  const {logginUser, bucketUrl} = props.props;
   const curr_user = useSelector(state => state.swipe.user)
-  const logginId = useSelector(state => state.login.userId)
+
+  const logginId = logginUser.userId;
+  const imageUrl = bucketUrl+curr_user.imageUrl;
 
   useEffect(()=>{
     dispatch(__getUser(logginId))
   }, [])
   
-  //임시
-  // const logginId = 3;
-
   return (
     
     <UserContext.Provider 
       value={{logginId: logginId, ...curr_user}}
     >
-      <StSwipeSection>
+      <StSwipeSection 
+        imageUrl={curr_user.imageUrl!==''?imageUrl:"img/no-img-2.png"}
+      >
         <aside>
           <SwipeProfile />
           <SwipeInterest />
@@ -43,7 +45,7 @@ export default Swipe;
 
 const StSwipeSection = styled.div`
   height: 100%;
-  background-color: skyblue;
+  background: #ffe4e9 url('${props => props.imageUrl}') no-repeat center / cover;
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);

@@ -2,10 +2,15 @@ import React from "react";
 import styled from "styled-components";
 
 const UserPageHeader = (props) => {
-  const {nickname, address, age} = props.curr_user;
+  const {nickname, address, age, imageUrl:currImagUrl} = props.curr_user;
+
+  const bucketUrl = process.env.REACT_APP_S3_IMAGE_URL;
+  const imageUrl = bucketUrl+currImagUrl;
 
   return (
-    <StUserPageHeader>
+    <StUserPageHeader
+      imageUrl={imageUrl!=='' || imageUrl!=='no-img-2.png'?imageUrl:"img/no-img-2.png"}
+    >
       <div className="profile_picture"></div>
       <p className="title">
         {nickname}, {age}
@@ -24,14 +29,15 @@ const StUserPageHeader = styled.div`
   background-color: #fff;
 
   .profile_picture {
-    width: 160px;
-    height: 160px;
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
 
     margin: 0 auto;
     margin-top: 30px;
 
-    background-color: #ddd;
+    background: #fce3f1 url('${props => props.imageUrl}') no-repeat center / cover;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
   }
 
   .title {
