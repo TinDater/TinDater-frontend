@@ -39,13 +39,16 @@ function LoginForm() {
     if (loginData.email !== "" && loginData.password !== "") {
       setFormState(true);
     } else {
+      console.log(process.env.REACT_APP_S3_AWS_BUCKET);
       setFormState(false);
     }
   }, [loginData]);
 
   // 로그인 버튼이 빈칸일 경우 disabled하게 스타일 설정
   const buttonStyle = {
-    backgroundColor: formstate ? "linear-gradient(-60deg, #fe7853, #ff207d);" : "grey",
+    backgroundColor: formstate
+      ? "linear-gradient(-60deg, #fe7853, #ff207d);"
+      : "grey",
     color: formstate ? "#222" : "#fff",
     disabled: !formstate,
   };
