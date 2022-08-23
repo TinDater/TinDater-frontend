@@ -41,12 +41,14 @@ function EditProfile() {
     age: "",
     address: "",
     gender: "",
-    interests: [0, 0, 0, 0, 0],
+    interest: [0, 0, 0, 0, 0],
     imageUrl: "",
   });
 
   // // // signData에 userId추가
-  setSignData({ ...signData, userId: userId });
+  React.useEffect(() => {
+    setSignData({ ...signData, userId: userId });
+  }, []);
 
   // 조건 통과 상태를 위한 설정
   const email = checkName;
@@ -71,12 +73,12 @@ function EditProfile() {
     if (!regEmail.test(signData.email)) {
       alert("이메일 형식으로 작성해주세요");
     } else {
-      dispatch(__checkUsername(signData.email));
+      dispatch(__checkUsername({ email: signData.email }));
     }
   };
   const CheckNick = () => {
     // 닉네임 중복체크
-    dispatch(__checkNickname(signData.nickname));
+    dispatch(__checkNickname({ nickname: signData.nickname }));
   };
 
   React.useEffect(() => {
@@ -258,7 +260,11 @@ function EditProfile() {
             id="age"
             placeholder="나이를 입력해주세요 => 30"
             required
-            onChange={changeInput}
+            onChange={(e) => {
+              // 숫자로 들어갈 수 있게 변경
+              setSignData({ ...signData, age: parseInt(e.target.value) });
+              setAddress(true);
+            }}
           />
           <button onClick={next}>다음</button>
         </div>
@@ -290,7 +296,11 @@ function EditProfile() {
           <select
             // signData에 인라인으로 바로 넣어줌(성별)
             onChange={(e) => {
-              setSignData({ ...signData, gender: e.target.value });
+              // 여자인 경우는 true, 남자는 false를 보내준다.
+              if (e.target.value === "여자")
+                setSignData({ ...signData, gender: true });
+              else if (e.target.value === "남자")
+                setSignData({ ...signData, gender: false });
               setGender(true);
             }}
           >
@@ -308,7 +318,7 @@ function EditProfile() {
             // 관심사를 배열로 보내줘야 하기에 각 인덱스 번호를
             // 클릭시 ++하고 나중에 한번에 보내줌
             onClick={() => {
-              signData.interests[0]++;
+              signData.interest[0]++;
             }}
             style={{ cursor: "pointer" }}
           >
@@ -316,7 +326,7 @@ function EditProfile() {
           </div>
           <div
             onClick={() => {
-              signData.interests[1]++;
+              signData.interest[1]++;
             }}
             style={{ cursor: "pointer" }}
           >
@@ -324,7 +334,7 @@ function EditProfile() {
           </div>
           <div
             onClick={() => {
-              signData.interests[2]++;
+              signData.interest[2]++;
             }}
             style={{ cursor: "pointer" }}
           >
@@ -332,7 +342,7 @@ function EditProfile() {
           </div>
           <div
             onClick={() => {
-              signData.interests[3]++;
+              signData.interest[3]++;
             }}
             style={{ cursor: "pointer" }}
           >
@@ -340,7 +350,7 @@ function EditProfile() {
           </div>
           <div
             onClick={() => {
-              signData.interests[4]++;
+              signData.interest[4]++;
             }}
             style={{ cursor: "pointer" }}
           >
@@ -383,7 +393,7 @@ function EditProfile() {
       )}
       <button type="submit" style={buttonStyle}>
         {/* 회원정보 수정완료로 텍스트 변경 */}
-        {`회원정보 수정 완료 (${signNumber}/7)`}
+        {`회원정보 수정 완료 (${signNumber}/6)`}
       </button>
     </form>
   );
