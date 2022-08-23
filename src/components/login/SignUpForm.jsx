@@ -74,9 +74,8 @@ function SignUpForm() {
     // 비밀번호 일치 조건 확인 및 유효성 검사
     if (
       signData.confirm === signData.password &&
-      signData.password !== ""
-      // &&
-      // !regPw.test(signData.password)
+      signData.password !== "" &&
+      !regPw.test(signData.password)
     ) {
       setPw(true);
     } else {
