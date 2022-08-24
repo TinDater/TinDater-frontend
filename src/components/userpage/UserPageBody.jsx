@@ -6,7 +6,8 @@ import Map from "../../map/Map";
 const UserPageBody = (props) => {
   const navigate = useNavigate();
 
-  const {interest, interest_name, x, y} = props.curr_user;
+  const {interest, interest_name, x, y, userId} = props.curr_user;
+  const coord = {x, y}
 
   return (
     <StUserPageBody>
@@ -36,7 +37,7 @@ const UserPageBody = (props) => {
         </div>
         
         <div className="map_area">
-          <Map x={x} y={y} />
+          <Map coord={coord} userId={userId} />
         </div>
 
     </StUserPageBody>

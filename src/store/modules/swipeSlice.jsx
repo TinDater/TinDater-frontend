@@ -79,7 +79,7 @@ const swipeSlice = createSlice({
       address: '기본 주소',
       age: 99,
       gender: 0, 
-      imageUrl: 'no-img-2.png',
+      imageUrl: '',
       likeMe: true,
       interest: [],
       interest_name: ['일어 나기', '밥 먹기', '잠 자기', '달리기', '마라톤'],

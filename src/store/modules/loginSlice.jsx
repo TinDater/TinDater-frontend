@@ -16,6 +16,17 @@ export const __login = createAsyncThunk(
   }
 );
 
+/** 유저 주소 값 업데이트 */
+export const __updateCoord = createAsyncThunk(
+  "log/UPDATE_COORD",
+  async (payload, thunkAPI) => {
+    const {userId} = payload;
+    await api.patch(`user/${userId}/coord`, payload);
+    
+    return null;
+  }
+);
+
 const loginSlice = createSlice({
   name: "login",
   initialState: {

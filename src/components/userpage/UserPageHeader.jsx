@@ -9,7 +9,7 @@ const UserPageHeader = (props) => {
 
   return (
     <StUserPageHeader
-      imageUrl={imageUrl!=='' || imageUrl!=='no-img-2.png'?imageUrl:"img/no-img-2.png"}
+      imageUrl={currImagUrl==='' || currImagUrl==='no-img-2.png'?"img/no-img-2.png":imageUrl}
     >
       <div className="profile_picture"></div>
       <p className="title">

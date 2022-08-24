@@ -1,7 +1,7 @@
 import {useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";import { useNavigate } from "react-router-dom";
 
-import {__userMyInfo} from '../store/modules/swipeSlice'
+import {__getUser, __userMyInfo} from '../store/modules/swipeSlice'
 import { MdSettings } from "react-icons/md";
 
 import styled from "styled-components";
@@ -66,7 +66,7 @@ const StMyPage = styled.div`
   left: 0;
   
   .map_info {
-    display: none;
+    display: none !important;
     top: auto;
   }
 
