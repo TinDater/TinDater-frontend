@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import OnFileUpload from "../../s3/FileUpload";
 // 이미지 업로드할때 보여지는 기본이미지
 import logo from "../../src_assets/logo.PNG";
+
 // 리듀서 모듈
 import {
   changeCheckName,
@@ -161,25 +162,18 @@ function SignUpForm() {
   }, [email, nick, pw, age, address, gender, file]);
 
   const buttonStyle = {
-    backgroundColor: formstate ? "blue" : "grey",
+    background: formstate ? "linear-gradient(50deg, #ff398c, #ef734a)" : "white",
     color: formstate ? "white" : "black",
     disabled: !formstate,
   };
 
   return (
-    <form onSubmit={submitLogin}>
+    <StForm formstate={formstate} onSubmit={submitLogin}>
       {signNumber === 0 && (
         <Fragment>
-          <div>
-            <span>
-              아이디(e-mail)
-              <span style={{ color: email ? "blue" : "red" }}>
-                {email ? "중복 확인" : "중복 확인을 해주세요"}
-              </span>
-            </span>
-
-            <div onClick={CheckId}>중복 확인</div>
-          </div>
+          <h2>
+            아이디(e-mail)
+          </h2>
           <input
             id="email"
             type="email"
@@ -187,34 +181,51 @@ function SignUpForm() {
             required
             onChange={changeInput}
           />
-          <button onClick={next}>다음</button>
+          <div className="info_box">
+            <button className="small_button" onClick={CheckId}>
+              중복 확인
+            </button>
+            <span style={{ color: email ? "blue" : "red" }}>
+              {email ? "중복 확인" : "중복 확인을 해주세요"}
+            </span>
+          </div>
+          <button className="on" onClick={next}>
+            다음
+          </button>
         </Fragment>
       )}
       {signNumber === 1 && (
         <div>
           <div>
-            <span>
+            <h2>
               닉네임
+            </h2>
+            <input
+              id="nickname"
+              placeholder="닉네임을 입력해주세요"
+              required
+              onChange={changeInput}
+            />
+            <div className="info_box">
+              <button className="small_button" onClick={CheckNick}>
+                중복 확인
+              </button>
               <span style={{ color: nick ? "blue" : "red" }}>
                 {nick ? "중복 확인" : "중복 확인을 해주세요"}
               </span>
-            </span>
-
-            <div onClick={CheckNick}>중복 확인</div>
+            </div>
           </div>
-          <input
-            id="nickname"
-            placeholder="닉네임을 입력해주세요"
-            required
-            onChange={changeInput}
-          />
-          <button onClick={next}>다음</button>
+          <button className="on" onClick={next}>
+            다음
+          </button>
         </div>
       )}
       {signNumber === 2 && (
         <Fragment>
           <div>
-            <span>비밀번호</span>
+            <h2>
+              비밀번호
+            </h2>
             <input
               id="password"
               type="password"
@@ -222,17 +233,6 @@ function SignUpForm() {
               required
               onChange={changeInput}
             />
-          </div>
-          <div>
-            <span>
-              비밀번호 확인
-              <span style={{ color: pw ? "blue" : "red" }}>
-                {pw
-                  ? "비밀 번호가 일치합니다"
-                  : "비밀 번호가 일치하지 않습니다"}
-              </span>
-            </span>
-
             <input
               id="confirm"
               type="password"
@@ -240,15 +240,23 @@ function SignUpForm() {
               required
               onChange={changeInput}
             />
+            <span style={{ color: pw ? "blue" : "red" }}>
+              {pw
+                ? "비밀 번호가 일치합니다"
+                : "비밀 번호가 일치하지 않습니다"}
+            </span>
           </div>
-          <button onClick={next}>다음</button>
+          <button className="on" onClick={next}>다음</button>
         </Fragment>
       )}
       {signNumber === 3 && (
         <div>
+          <h2>
+            나이
+          </h2>
           <input
             id="age"
-            placeholder="나이를 입력해주세요 => 30"
+            placeholder="나이를 숫자로 입력해주세요"
             required
             onChange={(e) => {
               // 숫자로 들어갈 수 있게 변경
@@ -256,11 +264,14 @@ function SignUpForm() {
               setAddress(true);
             }}
           />
-          <button onClick={next}>다음</button>
+          <button className="on" onClick={next}>다음</button>
         </div>
       )}
       {signNumber === 4 && (
         <Fragment>
+          <h2>
+            지역
+          </h2>
           <select
             // signData에 인라인으로 바로 넣어줌(지역)
             onChange={(e) => {
@@ -268,7 +279,7 @@ function SignUpForm() {
               setAddress(true);
             }}
           >
-            <option value="none">===선택===</option>
+            <option value="none">=== 지역선택 ===</option>
             <option value="서울">서울</option>
             <option value="인천">인천</option>
             <option value="경기">경기</option>
@@ -278,11 +289,14 @@ function SignUpForm() {
             <option value="전라">전라</option>
             <option value="제주">제주</option>
           </select>
-          <button onClick={next}>다음</button>
+          <button className="on" onClick={next}>다음</button>
         </Fragment>
       )}
       {signNumber === 5 && (
         <Fragment>
+          <h2>
+            성별
+          </h2>
           <select
             // signData에 인라인으로 바로 넣어줌(성별)
             onChange={(e) => {
@@ -298,60 +312,65 @@ function SignUpForm() {
             <option value="여자">여자</option>
             <option value="남자">남자</option>
           </select>
-          <button onClick={next}>다음</button>
+          <button className="on" onClick={next}>다음</button>
         </Fragment>
       )}
       {signNumber === 6 && (
         <Fragment>
+          <h2>
+            관심사
+          </h2>
           <span>관심사를 선택해주세요</span>
-          <div
-            // 관심사를 배열로 보내줘야 하기에 각 인덱스 번호를
-            // 클릭시 ++하고 나중에 한번에 보내줌
-            onClick={() => {
-              signData.interest[0]++;
-            }}
-            style={{ cursor: "pointer" }}
-          >
-            sports
+          <div className="tag_box">
+            <span
+              // 관심사를 배열로 보내줘야 하기에 각 인덱스 번호를
+              // 클릭시 ++하고 나중에 한번에 보내줌
+              onClick={() => {
+                signData.interest[0]++;
+              }}
+              style={{ cursor: "pointer" }}
+            >
+              소셜 미디어
+            </span>
+            <span
+              onClick={() => {
+                signData.interest[1]++;
+              }}
+              style={{ cursor: "pointer" }}
+            >
+              영화
+            </span>
+            <span
+              onClick={() => {
+                signData.interest[2]++;
+              }}
+              style={{ cursor: "pointer" }}
+            >
+              커피
+            </span>
+            <span
+              onClick={() => {
+                signData.interest[3]++;
+              }}
+              style={{ cursor: "pointer" }}
+            >
+              헬스
+            </span>
+            <span
+              onClick={() => {
+                signData.interest[4]++;
+              }}
+              style={{ cursor: "pointer" }}
+            >
+              웹 개발
+            </span>
           </div>
-          <div
-            onClick={() => {
-              signData.interest[1]++;
-            }}
-            style={{ cursor: "pointer" }}
-          >
-            movie
-          </div>
-          <div
-            onClick={() => {
-              signData.interest[2]++;
-            }}
-            style={{ cursor: "pointer" }}
-          >
-            food
-          </div>
-          <div
-            onClick={() => {
-              signData.interest[3]++;
-            }}
-            style={{ cursor: "pointer" }}
-          >
-            pet
-          </div>
-          <div
-            onClick={() => {
-              signData.interest[4]++;
-            }}
-            style={{ cursor: "pointer" }}
-          >
-            music
-          </div>
-          <button onClick={next}>다음</button>
+          <button className="on" onClick={next}>다음</button>
         </Fragment>
       )}
       {signNumber === 7 && (
         <Fragment>
-          <div>
+          <div className="img_box">
             {change ? (
               // 이미지 선택시에는 선택한 이미지
               <img src={imageSrc} alt="이미지를 불러올 수 없습니다" />
@@ -360,9 +379,14 @@ function SignUpForm() {
               <img src={logo} alt="이미지를 불러올 수 없습니다" />
             )}
           </div>
+          <label className="button_type on" htmlFor="image_file">
+            이미지 업로드
+          </label>
           <input
             // 파일업로드 부분
             required
+            className="file_input"
+            id="image_file"
             type="file"
             accept="image/jpeg, image/jpg, image/png"
             onChange={(e) => {
@@ -376,7 +400,7 @@ function SignUpForm() {
             }}
           />
           <div>
-            <button onClick={onSubmitHandler}>프로필 사진 확정</button>
+            <button className="on" onClick={onSubmitHandler}>프로필 사진 확정</button>
             <button onClick={view}>signData 확인</button>
           </div>
         </Fragment>
@@ -384,8 +408,131 @@ function SignUpForm() {
       <button type="submit" style={buttonStyle}>
         {`회원가입 완료 (${signNumber}/7)`}
       </button>
-    </form>
+    </StForm>
   );
 }
 
 export default SignUpForm;
+
+const StForm = styled.form`
+
+width: 100%;
+  height: 100%;
+  background-color: #fff;
+
+  padding: 0 26px;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+
+  gap: 16px;
+  
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  div, form {
+    width: 100%;
+
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+
+    gap: 16px;
+  }
+  
+  span {
+    font-size: 12px;
+  }
+
+  .img_box {
+    max-width: 100%;
+    max-height: 50vh;
+    overflow: hidden;
+  }
+
+  .file_input {
+    height: 0;
+    border: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  button, input, select, .button_type {
+    all: unset;
+    width: 100%;
+    max-width: 400px;
+    height: 50px;
+    line-height: 50px;
+    
+    padding: 0 20px;
+    box-sizing: border-box;
+    
+    font-size: 1.2em;
+    font-weight: 700;
+    text-align: center;
+    word-break: keep-all;
+    
+    background-color: #fff;
+    color: #222;
+    
+    cursor: pointer;
+    transition: all .2s;
+  }
+
+  input {
+    border-bottom: 3px solid #ddd;
+    padding: 0;
+    margin-bottom: 10px;
+  }
+
+  button, .button_type {
+    border-radius: 65px;
+    text-align: center;
+    box-shadow: 0 3px 6px #c7c7c7;
+    transition: all 0.2s;
+
+    &:hover {
+      opacity: 0.9;
+      box-shadow: 0 3px 5px #ddd;
+    }
+
+    &.on {
+      background: linear-gradient(50deg, #ff398c, #ef734a);
+      color: #fff;
+    }
+  }
+    
+  select {
+    all: unset;
+    margin: 0 auto;
+    padding: 10px 30px;
+    
+    font-size: 1.3em;
+
+    color: #222 !important;
+    border-bottom: 3px solid #ccc;
+  }
+
+  .tag_box {
+    display: block;
+    text-align: center;
+    padding: 0 10%;
+    box-sizing: border-box;
+    
+    & span {
+      display: inline-block;
+      padding: 10px 20px;
+      margin: 5px 5px;
+      border-radius: 30px;
+
+      font-size: 16px;
+      
+      border: 1px solid #aaa;
+    }
+  }
+`
