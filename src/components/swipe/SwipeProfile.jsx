@@ -1,13 +1,12 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
 import { MdNewReleases } from "react-icons/md";
 import styled from "styled-components";
-import { UserContext } from '../../pages/Swipe'
   
-const SwipeProfile = () => {
+const SwipeProfile = (props) => {
   const navigate = useNavigate();
-  const { userId, nickname, age, gender } = useContext( UserContext );
+  const { userId, nickname, age, gender } = props.curr_user;
   return (
     <StProfile>
       <h2 className="name">{nickname}</h2>

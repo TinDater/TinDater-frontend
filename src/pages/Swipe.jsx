@@ -1,15 +1,13 @@
-import React, { useEffect, createContext } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { __getUser } from "../store/modules/swipeSlice";
 import { useNavigate } from "react-router-dom";
-import { setCookie, getCookie, deleteCookie } from "../cookie";
+import { getCookie } from "../cookie";
 
 import styled from "styled-components";
 import SwipeControlBar from "../components/swipe/SwipeControlBar";
 import SwipeInterest from "../components/swipe/SwipeInterest";
 import SwipeProfile from "../components/swipe/SwipeProfile";
-
-export const UserContext = createContext();
 
 const Swipe = (props) => {
   const navigate = useNavigate();
@@ -24,19 +22,17 @@ const Swipe = (props) => {
     dispatch(__getUser(logginId));
     if (getCookie("token") === undefined) navigate("/");
   }, []);
-
+  
   return (
-    <UserContext.Provider value={{ logginId: logginId, ...curr_user }}>
-      <StSwipeSection
-        imageUrl={curr_user.imageUrl !== "" ? imageUrl : "img/no-img-2.png"}
-      >
-        <aside>
-          <SwipeProfile />
-          <SwipeInterest />
-          <SwipeControlBar />
-        </aside>
-      </StSwipeSection>
-    </UserContext.Provider>
+    <StSwipeSection
+      imageUrl={curr_user.imageUrl !== "" ? imageUrl : "img/no-img-2.png"}
+    >
+      <aside>
+        <SwipeProfile curr_user={curr_user} logginId={logginId} />
+        <SwipeInterest curr_user={curr_user} logginId={logginId} />
+        <SwipeControlBar curr_user={curr_user} logginId={logginId} />
+      </aside>
+    </StSwipeSection>
   );
 };
 

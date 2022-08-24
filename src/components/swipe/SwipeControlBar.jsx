@@ -1,17 +1,17 @@
-import React, { useContext, useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import styled from "styled-components";
-import { UserContext } from '../../pages/Swipe'
 import {__likeUser, __dislikeUser, __matchUser} from '../../store/modules/swipeSlice'
 
-const SwipeControlBar = () => {
+const SwipeControlBar = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { logginId, userId, likeMe } = useContext( UserContext );
+  const { userId, likeMe } = props.curr_user;
+  const { logginId } = props;
 
-  const likeButtonClickHandler = (logginId, otherUserId) => {
+  const likeButtonClickHandler = (logginId, otherUserId=userId) => {
     if(likeMe){
       console.log("매치");
       

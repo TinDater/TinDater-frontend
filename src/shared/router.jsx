@@ -16,8 +16,8 @@ import Profile from "../pages/Profile";
 import LikePage from "../pages/LikePage";
 
 const Router = () => {
-  const logginUser = useSelector((state) => state.login);
   const bucketUrl = process.env.REACT_APP_S3_IMAGE_URL;
+  const logginUser = useSelector((state) => state.login);
 
   const props = { logginUser, bucketUrl };
 
