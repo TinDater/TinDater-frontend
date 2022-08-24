@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 import styled from "styled-components";
 import { MdLocalFireDepartment, MdFavorite,MdOutlineChatBubble, MdAccountCircle } from "react-icons/md";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Footer = () => {
   let [pathname, setPathname] = useState(window.location.pathname)
@@ -16,7 +16,7 @@ const Footer = () => {
           navigate('/swipe')
         }}>
           <div 
-            className={pathname === "swipe" ? "icon_box active":"icon_box"}
+            className={pathname === "/swipe" ? "icon_box active":"icon_box"}
           >
             <MdLocalFireDepartment />
           </div>
@@ -32,7 +32,7 @@ const Footer = () => {
           navigate('/mypage')
         }}>
           <div 
-            className={pathname === "mypage" ? "icon_box active":"icon_box"}
+            className={pathname === "/mypage" ? "icon_box active":"icon_box"}
           >
             <MdAccountCircle />
           </div>

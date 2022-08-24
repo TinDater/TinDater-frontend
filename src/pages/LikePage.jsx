@@ -24,17 +24,6 @@ const LikePage = () => {
   const bucketUrl = process.env.REACT_APP_S3_IMAGE_URL;
 
   useEffect(() => {
-    // const fetchLikes = async () => {
-    //   try {
-    //     const data = await axios.get("http://localhost:3001/likes");
-    //     setLikesPost(data.data)
-    //   } catch (err) {
-    //     alert('비어 있습니다.')
-    //   }
-    // };
-    // fetchLikes()
-    console.log(logginId);
-
     dispatch(__getLikesThunk(logginId));
   }, []);
 
@@ -51,10 +40,10 @@ const LikePage = () => {
         {!likesArray.length && <h1>내가 좋아요한 사람이 없습니다.</h1>}
 
         {likesArray.map((list) => {
-          const { userId, email, nickname, age, gender, address, imageUrl } =
-            list;
+          const { userId, email, nickname, age, gender, address, imageUrl, likeMe } = list;
           return (
             <StList
+              className={likeMe?"special":""}
               key={userId}
               onClick={() => {
                 navigate(`/userpage/${userId}`);
@@ -69,6 +58,8 @@ const LikePage = () => {
                 <h3 className="age">{age}</h3>
                 <h3 className="gender">{gender ? "♀" : "♂"}</h3>
               </div>
+
+              <span className="match_text">Match!</span>
 
               <button
                 className="info"
@@ -104,7 +95,7 @@ const StLayout = styled.div`
   height: 100%;
   margin: 0 auto;
 
-  padding: 0 22px;
+  padding: 2px 22px;
   box-sizing: border-box;
 
   background-color: #fff;
@@ -181,6 +172,25 @@ const StList = styled.div`
   flex-flow: column;
 
   position: relative;
+
+  .match_text {
+    display: none;
+  }
+
+  &.special {
+      color: #24fff0;
+    
+    .match_text {
+      font-size: 40px;
+      font-weight: 800;
+
+      display: block;
+    }
+
+    & svg {
+      color: #24fff0;
+    }
+  }
 
   .info_box {
     text-align: right;

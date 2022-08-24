@@ -1,7 +1,7 @@
 import {useEffect} from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { __userMyInfo } from "../store/modules/loginSlice";
+import { __userInfo } from "../store/modules/swipeSlice";
 
 import styled from "styled-components";
 import UserPageHeader from "../components/userpage/UserPageHeader";
@@ -10,13 +10,12 @@ import UserPageNav from "../components/userpage/UserPageNav";
 
 const UserPage = () => {
   const dispatch = useDispatch();
-  const { userId } = useParams();
-
-  useEffect(() => {
-    dispatch(__userMyInfo(userId));
-  }, []);
-
+  const userId = useParams('userId');
   const curr_user = useSelector((state) => state.swipe.user);
+  
+  useEffect(() => {
+    dispatch(__userInfo(userId.userId));
+  }, []);
 
   return (
     <StUserPage>
@@ -24,7 +23,6 @@ const UserPage = () => {
 
       <UserPageHeader curr_user={curr_user} />
       <UserPageBody curr_user={curr_user} />
-
     </StUserPage>
   );
 };

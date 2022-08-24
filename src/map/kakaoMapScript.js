@@ -7,7 +7,7 @@ export default function KakaoMapScript(x, y) {
 
     const options = {
         center: new kakao.maps.LatLng(x, y),
-        level: 7
+        level: 6
     };
     
     const map = new kakao.maps.Map(container, options);
