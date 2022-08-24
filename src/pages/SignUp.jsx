@@ -14,7 +14,7 @@ function SignUp() {
 }
 
 export default SignUp;
-
+  
 const StSignForm = styled.div`
   width: 100%;
   height: 100%;

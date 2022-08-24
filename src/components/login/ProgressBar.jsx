@@ -16,12 +16,13 @@ const Bar = styled.div`
     background: #eee;
     width: 100%;
     height: 40px;
-
+    align-items:start !important;
 `;
 
 const HighLight = styled.div`
     background: orange;
-    width ${(props) => props.width};
+    width ${(props) => props.width} !important;
     height: 40px;
+
 `;
 export default ProgressBar;
