@@ -7,11 +7,7 @@ import { api } from "../../shared/api";
 export const __login = createAsyncThunk(
   "log/LOGIN_LOG",
   async (payload, thunkAPI) => {
-    console.log("testslice");
-    console.log(payload);
     const response = await api.post("auth/login", payload);
-    console.log(response);
-    console.log(response.data.data);
 
     // 유니버셜 쿠키 이용해서 토큰을 쿠키에 저장합니다.
     setCookie("token", response.data.data.token);
@@ -20,11 +16,28 @@ export const __login = createAsyncThunk(
   }
 );
 
+/** 유저 주소 값 업데이트 */
+export const __updateCoord = createAsyncThunk(
+  "log/UPDATE_COORD",
+  async (payload, thunkAPI) => {
+    const {userId} = payload;
+    await api.patch(`user/${userId}/coord`, payload);
+    
+    return payload;
+  }
+);
+
 const loginSlice = createSlice({
   name: "login",
   initialState: {
     // 초기값, 유저 닉네임은 공백입니다.
-    user: { nickName: "", imageUrl: "img/no-img-2.png", result: false },
+    user: { 
+      nickName: "", 
+      imageUrl: "img/no-img-2.png", 
+      result: false, 
+      x: 50, 
+      y: 100 
+    },
     userId: 999,
   },
   reducers: {
@@ -52,6 +65,10 @@ const loginSlice = createSlice({
           // 결과값은 여기서 백에게 받은 값으로 true가 됩니다.
           result: action.payload.success,
         };
+        state.userId = action.payload.userId;
+      })
+      .addCase(__updateCoord.fulfilled, (state, action) => {
+        state.user = { ...state.user, x: action.payload.x, y: action.payload.y};
         state.userId = action.payload.userId;
       });
   },

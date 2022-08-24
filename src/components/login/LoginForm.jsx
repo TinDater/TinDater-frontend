@@ -27,7 +27,7 @@ function LoginForm() {
       alert("아이디 혹은 비밀번호가 틀렸습니다.");
     }
     // 로그인시 환영 인사 후 페이지 이동
-    if (loginState.payload.success) {
+    if (loginState.type === "log/LOGIN_LOG/fulfilled") {
       console.log("성공점");
       alert(`${loginState.payload.nickname} 님 환영합니다 :) `);
       navigate("/swipe");

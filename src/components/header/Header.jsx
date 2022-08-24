@@ -6,13 +6,15 @@ const Header = (props) => {
   const navigate = useNavigate();
 
   const {bucketUrl, logginUser} = props.props
-  const imageUrl = bucketUrl+logginUser.user.imageUrl;
-
-  console.log(imageUrl);
+  const logginImageUrl = logginUser.user.imageUrl
+  const imageUrl = bucketUrl+logginImageUrl;
 
   return (
     <StHeader
-    imageUrl={imageUrl!=='' || imageUrl!=='no-img-2.png'?imageUrl:"img/no-img-2.png"}
+      imageUrl={
+        logginImageUrl==='' || logginImageUrl==='no-img-2.png'
+        ?"img/no-img-2.png"
+        :imageUrl}
     >
       <div className="profile_picture"></div>
       <div 
