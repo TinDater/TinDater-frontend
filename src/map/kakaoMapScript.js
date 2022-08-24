@@ -1,10 +1,7 @@
 const { kakao } = window;
 
-/** 지도 그리는 부분 */
+/** #myMap에 지도 그리는 함수 */
 export default function KakaoMapScript(x, y) {
-    
-    x = x.toFixed(3);
-    y = y.toFixed(3);
 
     const container = document.getElementById('myMap');
 

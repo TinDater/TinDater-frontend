@@ -23,7 +23,7 @@ export const __updateCoord = createAsyncThunk(
     const {userId} = payload;
     await api.patch(`user/${userId}/coord`, payload);
     
-    return null;
+    return payload;
   }
 );
 
@@ -65,6 +65,10 @@ const loginSlice = createSlice({
           // 결과값은 여기서 백에게 받은 값으로 true가 됩니다.
           result: action.payload.success,
         };
+        state.userId = action.payload.userId;
+      })
+      .addCase(__updateCoord.fulfilled, (state, action) => {
+        state.user = { ...state.user, x: action.payload.x, y: action.payload.y};
         state.userId = action.payload.userId;
       });
   },

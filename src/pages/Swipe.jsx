@@ -20,14 +20,14 @@ const Swipe = (props) => {
   useEffect(()=>{
     dispatch(__getUser(logginId))
   }, [])
-  
+
   return (
 
     <UserContext.Provider 
       value={{logginId: logginId, ...curr_user}}
     >
       <StSwipeSection 
-        imageUrl={curr_user.imageUrl!==''?imageUrl:"img/no-img-2.png"}
+        imageUrl={curr_user.imageUrl===''?"img/no-img-2.png":imageUrl}
       >
 
         <aside>

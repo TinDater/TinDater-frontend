@@ -1,46 +1,47 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import styled from "styled-components";
 import { __updateCoord } from "../store/modules/loginSlice";
 import KakaoMapScript from "./kakaoMapScript";
+import {getCoord, getDistanceFromLatLonInKm} from "./getCoord";
 
 const Map = (props) => {
   const dispatch = useDispatch();
+
   const { coord, userId } = props;
-  const logginUser = useSelector(state => state.swipe.user)
-  const coordLogginUser = {x: logginUser.x, y: logginUser.y}  
+  const [distance, setDistance] = useState('');
   
-  dispatch(__updateCoord({
-    userId: userId,
-    ...coord
-  }))
+  // 로그인한 유저로 수정하기
+  const logginUser = useSelector(state => state.swipe.user);
 
-  let distance = getDistanceFromLatLonInKm(
-    coordLogginUser.x, 
-    coordLogginUser.y, 
-    coord.x, 
-    coord.y
-  )
-  distance = Math.round(distance);
+  useEffect(()=>{
+    // 유저 주소 값 업데이트
+    dispatch(__updateCoord({
+      userId: logginUser.userId,
+      ...getCoord()
+    }))
+  
+    let distance = getDistanceFromLatLonInKm(
+      logginUser.x, 
+      logginUser.y, 
+      coord.x, 
+      coord.y
+      )
+      
+    // 지우기
+    console.log(
+      logginUser.x, 
+      logginUser.y, 
+      coord.x, 
+      coord.y
+    );
 
-  /** A좌표와 B좌표의 거리를 km로 나타내는 함수 */
-  function getDistanceFromLatLonInKm(lat1,lng1,lat2,lng2) {
-    function deg2rad(deg) {
-      return deg * (Math.PI/180)
-    }
+    setDistance(Math.round(distance))
+  },[])
 
-    var R = 6371; // Radius of the earth in km
-    var dLat = deg2rad(lat2-lat1); // deg2rad below
-    var dLon = deg2rad(lng2-lng1);
-    var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.sin(dLon/2) * Math.sin(dLon/2);
-    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-    var d = R * c; // Distance in km
-    return d;
-  }
   
   useEffect(() => {
-    
     if(coord.x !== null){
       KakaoMapScript(coord.x, coord.y);
     }
