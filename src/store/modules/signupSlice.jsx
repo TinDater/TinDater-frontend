@@ -14,7 +14,7 @@ export const __signup = createAsyncThunk(
 export const __editProfile = createAsyncThunk(
   "profile/EDITPROFILE_LOG",
   async (payload, thunkAPI) => {
-    const response = await api.put(`user/${payload.userId}`, payload);
+    const response = await api.patch(`user/${payload.userId}`, payload);
     alert(response.data.msg);
     return response.data;
   }

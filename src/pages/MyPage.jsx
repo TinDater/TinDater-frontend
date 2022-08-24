@@ -1,7 +1,7 @@
-import {useEffect} from "react";
-import { useDispatch, useSelector } from "react-redux";import { useNavigate } from "react-router-dom";
-
-import {__getUser, __userMyInfo} from '../store/modules/swipeSlice'
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { __userMyInfo } from "../store/modules/loginSlice";
 import { MdSettings } from "react-icons/md";
 
 import styled from "styled-components";
@@ -13,17 +13,17 @@ import Map from "../map/Map";
 const MyPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  
-  const logginId = useSelector(state => state.login.userId)
-  const curr_user = useSelector(state => state.swipe.user)
-  
-  useEffect(()=>{
-    dispatch(__userMyInfo(logginId))
-  }, [])
+
+  const logginId = useSelector((state) => state.login.user.userId);
+  const curr_user = useSelector((state) => state.login.user);
+
+  useEffect(() => {
+    console.log("test");
+    dispatch(__userMyInfo(logginId));
+  }, []);
 
   return (
     <StMyPage>
-      
       <UserPageNav title={"나의 프로필"} />
       <UserPageHeader curr_user={curr_user} />
 
@@ -44,8 +44,9 @@ const MyPage = () => {
 
       </div>
 
+      <UserPageBody curr_user={curr_user} />
     </StMyPage>
-  )
+  );
 };
 
 export default MyPage;
@@ -54,7 +55,7 @@ const StMyPage = styled.div`
   width: 100%;
   height: 100%;
   background-color: #eee;
-  
+
   display: flex;
   flex-flow: column;
   align-items: center;
@@ -64,7 +65,7 @@ const StMyPage = styled.div`
   position: absolute;
   top: 0;
   left: 0;
-  
+
   .map_info {
     display: none !important;
     top: auto;
@@ -75,7 +76,6 @@ const StMyPage = styled.div`
     height: 100%;
     
     position: relative;
-
 
     .button_box {
       width: 80%;

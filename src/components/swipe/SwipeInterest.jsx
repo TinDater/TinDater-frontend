@@ -1,10 +1,9 @@
-import React, { useContext } from "react";
+import React from "react";
 
 import styled from "styled-components";
-import { UserContext } from '../../pages/Swipe'
 
-const SwipeInterest = () => {
-  const { interest, interest_name } = useContext( UserContext );
+const SwipeInterest = (props) => {
+  const { interest, interest_name } = props.curr_user;
 
   return (
     <StInterest>

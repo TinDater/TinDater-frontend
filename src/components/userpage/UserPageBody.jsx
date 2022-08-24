@@ -41,13 +41,12 @@ const UserPageBody = (props) => {
         </div>
 
     </StUserPageBody>
-  )
+  );
 };
 
 export default UserPageBody;
 
 const StUserPageBody = styled.div`
-
   width: 100%;
   height: 100%;
   flex: 1 1 auto;
@@ -69,7 +68,7 @@ const StUserPageBody = styled.div`
     justify-content: center;
     flex-wrap: wrap;
     gap: 8px;
-    
+
     .tag {
       padding: 5px 12px;
       border-radius: 20px;
@@ -77,7 +76,7 @@ const StUserPageBody = styled.div`
       color: #fff;
     }
   }
-  
+
   button {
     all: unset;
     width: 70%;

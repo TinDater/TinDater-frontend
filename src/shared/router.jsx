@@ -17,10 +17,10 @@ import LikePage from "../pages/LikePage";
 import Map from "../map/Map";
 
 const Router = () => {
-  const logginUser = useSelector(state => state.login)
   const bucketUrl = process.env.REACT_APP_S3_IMAGE_URL;
+  const logginUser = useSelector((state) => state.login);
 
-  const props = {logginUser, bucketUrl}
+  const props = { logginUser, bucketUrl };
 
   return (
     <StLayout>
@@ -32,8 +32,11 @@ const Router = () => {
           <Route path="/sign" element={<SignUp />} />
           <Route path="/swipe" element={<Swipe props={props} />} />
           <Route path="/swipe/match" element={<Match />} />
-          <Route path="/mypage" element={<MyPage props={props}  />} />
-          <Route path="/userpage/:userId" element={<UserPage props={props}  />} />
+          <Route path="/mypage" element={<MyPage props={props} />} />
+          <Route
+            path="/userpage/:userId"
+            element={<UserPage props={props} />}
+          />
           <Route path="/profile" element={<Profile />} />
           <Route path="/like" element={<LikePage />} />
           <Route path="/test/map" element={<Map />} />
