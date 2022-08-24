@@ -30,7 +30,6 @@ export const __checkToken = createAsyncThunk(
 export const __userMyInfo = createAsyncThunk(
   "user/MY_INFO",
   async (payload) => {
-    console.log("login.__userMyInfo = ");
     const response = await api.get(`/user/${payload}`);
     console.log("login.__userMyInfo = ", response.data.data);
     const resData = response.data.data;
