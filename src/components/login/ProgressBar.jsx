@@ -3,15 +3,16 @@ import styled from "styled-components";
 
 function ProgressBar(props) {
     const {signNumber} = props
-   console.log(props)
+   console.log((signNumber / 7) * 100 + "%")
     return (
-   <ProgressBar>
+   <Bar>
     <HighLight width={(signNumber / 7) * 100 + "%"}/>
-   </ProgressBar>
+   </Bar>
   )
+  
 }
 
-const progressBar = styled.div`
+const Bar = styled.div`
     background: #eee;
     width: 100%;
     height: 40px;
