@@ -7,12 +7,8 @@ import { api } from "../../shared/api";
 export const __login = createAsyncThunk(
   "log/LOGIN_LOG",
   async (payload, thunkAPI) => {
-    console.log("testslice");
-    console.log(payload);
     const response = await api.post("auth/login", payload);
-    console.log(response);
-    console.log(response.data.data);
-
+    console.log("login.__login = ", response);
     // 유니버셜 쿠키 이용해서 토큰을 쿠키에 저장합니다.
     setCookie("token", response.data.data.token);
     // 로그인 상태값 true/false 를 반환합니다.
@@ -20,39 +16,91 @@ export const __login = createAsyncThunk(
   }
 );
 
+// 재 접속시 토큰 유효기간 확인
+export const __checkToken = createAsyncThunk(
+  "__checkToken/CHECK_LOG",
+  async (payload, thunkAPI) => {
+    // 토큰으로 유효값 확인하기
+    const response = await api.get("/auth");
+    console.log(response.data);
+    // 상태값 true / false
+    return response.data;
+  }
+);
+
+export const __userMyInfo = createAsyncThunk(
+  "user/MY_INFO",
+  async (payload) => {
+    console.log("login.__userMyInfo = ");
+    const response = await api.get(`/user/${payload}`);
+    console.log("login.__userMyInfo = ", response.data.data);
+    const resData = response.data.data;
+
+    return resData;
+  }
+);
+
 const loginSlice = createSlice({
   name: "login",
   initialState: {
     // 초기값, 유저 닉네임은 공백입니다.
-    user: { nickName: "", imageUrl: "img/no-img-2.png", result: false },
-    userId: 999,
+    user: {
+      userId: 999,
+      email: "",
+      nickname: "",
+      address: "",
+      age: 99,
+      gender: 0,
+      imageUrl: "no-img-2.png",
+      likeMe: true,
+      interest: [],
+      interest_name: ["일어 나기", "밥 먹기", "잠 자기", "달리기", "마라톤"],
+      result: false,
+    },
   },
   reducers: {
-    // 로그아웃시 쿠키의 토큰을 삭제하고 닉네임을 공백으로 합니다.
+    // 로그아웃시 쿠키의 토큰을 삭제하고 정보들을 초기화 합니다.
     logOutUser: (state, payload) => {
-      deleteCookie("token");
-      state.user = { nickName: "", imageUrl: "img/no-img-2.png", result: false };
+      state.user = {
+        userId: 999,
+        email: "",
+        nickname: "",
+        address: "",
+        age: 99,
+        gender: 0,
+        imageUrl: "no-img-2.png",
+        likeMe: true,
+        interest: [],
+        interest_name: ["일어 나기", "밥 먹기", "잠 자기", "달리기", "마라톤"],
+        result: false,
+      };
     },
     // 토큰이 있는지 확인하고 없으면 로그아웃처리 합니다.
-    checkUser: (state, action) => {
-      if (getCookie("token") === undefined) {
-        state.user = { nickName: "", imageUrl: "img/no-img-2.png", result: true };
-      }
-    },
+    // checkUser: (state, action) => {
+    //   if (getCookie("token") === undefined) {
+    //     state.user = {
+    //       nickName: "",
+    //       imageUrl: "img/no-img-2.png",
+    //       result: true,
+    //     };
+    //   }
+    // },
   },
 
   extraReducers: (builder) => {
     builder
       // 로그인
       .addCase(__login.fulfilled, (state, action) => {
-        state.user = {
-          // 닉네임에는 백으로부터 받은 닉네임을 저장합니다.
-          nickName: action.payload.nickname,
-          imageUrl: action.payload.imageUrl,
-          // 결과값은 여기서 백에게 받은 값으로 true가 됩니다.
-          result: action.payload.success,
-        };
-        state.userId = action.payload.userId;
+        state.user = { ...state.user, ...action.payload };
+      })
+      .addCase(__checkToken.fulfilled, (state, action) => {
+        state.user = { ...state.user, ...action.payload };
+      })
+      .addCase(__checkToken.rejected, (state, action) => {
+        state.user = { ...state.user, ...action.payload };
+      })
+      .addCase(__userMyInfo.fulfilled, (state, action) => {
+        state.user = { ...state.user, ...action.payload };
       });
   },
 });

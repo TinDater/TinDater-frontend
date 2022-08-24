@@ -1,7 +1,8 @@
-import {useEffect} from "react";
-import { useDispatch, useSelector } from "react-redux";import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
-import {__userMyInfo} from '../store/modules/swipeSlice'
+import { __userMyInfo } from "../store/modules/loginSlice";
 import { MdSettings } from "react-icons/md";
 
 import styled from "styled-components";
@@ -12,36 +13,35 @@ import UserPageNav from "../components/userpage/UserPageNav";
 const MyPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  
-  const logginId = useSelector(state => state.login.userId)
-  const curr_user = useSelector(state => state.swipe.user)
-  
-  useEffect(()=>{
-    dispatch(__userMyInfo(logginId))
-  }, [])
+
+  const logginId = useSelector((state) => state.login.user.userId);
+  const curr_user = useSelector((state) => state.login.user);
+
+  useEffect(() => {
+    console.log("test");
+    dispatch(__userMyInfo(logginId));
+  }, []);
 
   return (
     <StMyPage>
-      
       <UserPageNav title={"나의 프로필"} />
 
       <UserPageHeader curr_user={curr_user} />
 
-      <div className="button_box"
-        onClick={()=>{
-          navigate('/profile')
+      <div
+        className="button_box"
+        onClick={() => {
+          navigate("/profile");
         }}
       >
         <div className="button_go_profile">
-          <MdSettings />
-          내 정보 수정
+          <MdSettings />내 정보 수정
         </div>
       </div>
-      
-      <UserPageBody curr_user={curr_user} />
 
+      <UserPageBody curr_user={curr_user} />
     </StMyPage>
-  )
+  );
 };
 
 export default MyPage;
@@ -50,7 +50,7 @@ const StMyPage = styled.div`
   width: 100%;
   height: 100%;
   background-color: #eee;
-  
+
   display: flex;
   flex-flow: column;
   align-items: center;
@@ -60,15 +60,15 @@ const StMyPage = styled.div`
   position: absolute;
   top: 0;
   left: 0;
-  
+
   .button_box {
     width: 80%;
     margin: 0 auto;
     position: relative;
-    
+
     cursor: pointer;
     transition: all 0.2s;
-    
+
     &:hover .button_go_profile {
       color: blue;
     }
@@ -81,7 +81,7 @@ const StMyPage = styled.div`
       display: flex;
       align-items: center;
       flex-flow: column;
-    
+
       position: absolute;
       top: -20px;
       right: 0px;
