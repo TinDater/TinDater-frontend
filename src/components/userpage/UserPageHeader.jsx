@@ -9,7 +9,7 @@ const UserPageHeader = (props) => {
 
   return (
     <StUserPageHeader
-      imageUrl={imageUrl!=='' || imageUrl!=='no-img-2.png'?imageUrl:"img/no-img-2.png"}
+      imageUrl={currImagUrl==='' || currImagUrl==='no-img-2.png'?"img/no-img-2.png":imageUrl}
     >
       <div className="profile_picture"></div>
       <p className="title">
@@ -34,7 +34,7 @@ const StUserPageHeader = styled.div`
     border-radius: 50%;
 
     margin: 0 auto;
-    margin-top: 30px;
+    margin-top: 20px;
 
     background: #fce3f1 url('${props => props.imageUrl}') no-repeat center / cover;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
@@ -47,7 +47,7 @@ const StUserPageHeader = styled.div`
   }
   
   .address {
-    margin: 8px 0;
+    margin: 8px 0 22px;
     font-size: 1.1em;
     font-weight: 500;
   }

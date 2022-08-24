@@ -1,13 +1,12 @@
-import { useEffect } from "react";
+import {useEffect} from "react";
+import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-
 import { __userMyInfo } from "../store/modules/loginSlice";
 
 import styled from "styled-components";
 import UserPageHeader from "../components/userpage/UserPageHeader";
 import UserPageBody from "../components/userpage/UserPageBody";
 import UserPageNav from "../components/userpage/UserPageNav";
-import { useParams } from "react-router-dom";
 
 const UserPage = () => {
   const dispatch = useDispatch();
@@ -25,6 +24,7 @@ const UserPage = () => {
 
       <UserPageHeader curr_user={curr_user} />
       <UserPageBody curr_user={curr_user} />
+
     </StUserPage>
   );
 };
