@@ -3,6 +3,7 @@ import { api } from "../../shared/api";
 
 export const __getUser = createAsyncThunk("user/GET_USER", async (payload) => {
   const res = await api.get(`/people/${payload}`);
+  console.log(res);
   const resData = res.data.data;
 
   return resData;
@@ -15,7 +16,20 @@ export const __likeUser = createAsyncThunk(
     const res = await api.post(`/people/${logginId}/like`, {
       likeUserId: otherUserId,
     });
-    console.log(res.data);
+    if (JSON.stringify(res.data.data)) {
+      return {
+        userId: 999,
+        email: "기본 이메일",
+        nickname: "기본 이름",
+        address: "기본 주소",
+        age: 99,
+        gender: 0,
+        imageUrl: "no-img-2.png",
+        likeMe: true,
+        interest: [],
+        interest_name: ["일어 나기", "밥 먹기", "잠 자기", "달리기", "마라톤"],
+      };
+    }
     const resData = res.data.data;
 
     return resData;
@@ -29,6 +43,20 @@ export const __dislikeUser = createAsyncThunk(
     const res = await api.post(`/people/${logginId}/dislike`, {
       dislikeUserId: otherUserId,
     });
+    if (JSON.stringify(res.data.data)) {
+      return {
+        userId: 999,
+        email: "기본 이메일",
+        nickname: "기본 이름",
+        address: "기본 주소",
+        age: 99,
+        gender: 0,
+        imageUrl: "no-img-2.png",
+        likeMe: true,
+        interest: [],
+        interest_name: ["일어 나기", "밥 먹기", "잠 자기", "달리기", "마라톤"],
+      };
+    }
     const resData = res.data.data;
 
     return resData;

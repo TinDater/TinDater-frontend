@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { Fragment, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { __getUser } from "../store/modules/swipeSlice";
 import { useNavigate } from "react-router-dom";
@@ -22,15 +22,23 @@ const Swipe = (props) => {
     dispatch(__getUser(logginId));
     if (getCookie("token") === undefined) navigate("/");
   }, []);
-  
+
   return (
     <StSwipeSection
-      imageUrl={curr_user.imageUrl !== "" ? imageUrl : "img/no-img-2.png"}
+      imageUrl={
+        curr_user.imageUrl !== "img/no-img-2.png"
+          ? imageUrl
+          : "img/no-img-2.png"
+      }
     >
       <aside>
-        <SwipeProfile curr_user={curr_user} logginId={logginId} />
-        <SwipeInterest curr_user={curr_user} logginId={logginId} />
-        <SwipeControlBar curr_user={curr_user} logginId={logginId} />
+        {curr_user.userId !== 999 && (
+          <Fragment>
+            <SwipeProfile curr_user={curr_user} logginId={logginId} />
+            <SwipeInterest curr_user={curr_user} logginId={logginId} />
+            <SwipeControlBar curr_user={curr_user} logginId={logginId} />
+          </Fragment>
+        )}
       </aside>
     </StSwipeSection>
   );
