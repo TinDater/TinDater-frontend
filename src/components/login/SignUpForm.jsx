@@ -14,6 +14,7 @@ import {
   __checkUsername,
   __signup,
 } from "../../store/modules/signupSlice";
+import ProgressBar from "./ProgressBar";
 
 // 회원가입 form 컴포넌트
 function SignUpForm() {
@@ -47,10 +48,11 @@ function SignUpForm() {
   const [address, setAddress] = useState(false);
   const [gender, setGender] = useState(false);
   const [file, setFile] = useState(false);
-
+  
   // 조건부 렌더링을 위한 상태관리
   const [signNumber, setSignNumber] = useState(0);
 
+  
   // 이메일과 패스워드 유효성검사
   // 이메일, 닉네임 중복검사 함수
   const regEmail =
@@ -168,6 +170,7 @@ function SignUpForm() {
 
   return (
     <form onSubmit={submitLogin}>
+      <ProgressBar signNumber = {signNumber}/>
       {signNumber === 0 && (
         <Fragment>
           <div>
@@ -187,7 +190,7 @@ function SignUpForm() {
             required
             onChange={changeInput}
           />
-          <button onClick={next}>다음</button>
+          <button onClick={(next)}>다음</button>
         </Fragment>
       )}
       {signNumber === 1 && (
