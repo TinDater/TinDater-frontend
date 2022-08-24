@@ -32,7 +32,7 @@ function EditProfile() {
   const [signData, setSignData] = useState({
     // // // 수정이기 때문에 userId 추가
     userId: "",
-    interest: [0, 0, 0, 0, 0],
+    // interest: [0, 0, 0, 0, 0],
   });
 
   // // // signData에 userId추가
@@ -71,13 +71,8 @@ function EditProfile() {
   }, [signData]);
 
   React.useEffect(() => {
-    // age 빈칸인지 체크
-    if (signData.age !== "") {
-      setAge(true);
-    } else {
-      setAge(false);
-    }
-  }, [signData]);
+    dispatch(changeCheckNick());
+  }, []);
 
   // input 데이터 저장하기
   const changeInput = (e) => {
@@ -201,7 +196,7 @@ function EditProfile() {
         </select>
       </Fragment>
       <Fragment>
-        <span>관심사를 선택해주세요</span>
+        {/* <span>관심사를 선택해주세요</span>
         <div
           // 관심사를 배열로 보내줘야 하기에 각 인덱스 번호를
           // 클릭시 ++하고 나중에 한번에 보내줌
@@ -243,7 +238,7 @@ function EditProfile() {
           style={{ cursor: "pointer" }}
         >
           music
-        </div>
+        </div> */}
         <button onClick={view}>signData 확인</button>
         <button
           onClick={submitLogin}
