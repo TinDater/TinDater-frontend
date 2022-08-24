@@ -28,23 +28,19 @@ const MyPage = () => {
       <UserPageHeader curr_user={curr_user} />
 
       <div className="mypage_body">
-        
-        <div className="button_box"
-          onClick={()=>{
-            navigate('/profile')
+        <div
+          className="button_box"
+          onClick={() => {
+            navigate("/profile");
           }}
         >
           <div className="button_go_profile">
-            <MdSettings />
-            내 정보 수정
+            <MdSettings />내 정보 수정
           </div>
         </div>
-        
+
         <UserPageBody curr_user={curr_user} />
-
       </div>
-
-      <UserPageBody curr_user={curr_user} />
     </StMyPage>
   );
 };
@@ -74,51 +70,51 @@ const StMyPage = styled.div`
   .mypage_body {
     width: 100%;
     height: 100%;
-    
+
     position: relative;
 
     .button_box {
       width: 80%;
       margin: 0 auto;
       position: relative;
-  
+
       transform: translateY(60px);
       z-index: 9999;
-      
+
       cursor: pointer;
       transition: all 0.2s;
-      
+
       &:hover .button_go_profile {
         opacity: 0.9;
       }
-  
+
       .button_go_profile {
         color: #222;
-  
+
         font-size: 10px;
-  
+
         display: flex;
         align-items: center;
         flex-flow: column;
-      
+
         position: absolute;
         top: -20px;
         right: 0px;
         transform: translateY(-100%);
-  
+
         svg {
           width: 50px;
           height: 50px;
           border-radius: 50%;
-  
+
           padding: 10px;
           box-sizing: border-box;
           margin-bottom: 4px;
-  
+
           background: #ccc;
           color: #555;
           box-shadow: 0 2px 5px #c7c7c7;
-  
+
           font-size: 30px;
         }
       }

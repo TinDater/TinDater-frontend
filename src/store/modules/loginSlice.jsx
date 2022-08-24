@@ -36,14 +36,16 @@ export const __userMyInfo = createAsyncThunk(
     const resData = response.data.data;
 
     return resData;
+  }
+);
 
 /** 유저 주소 값 업데이트 */
 export const __updateCoord = createAsyncThunk(
   "log/UPDATE_COORD",
   async (payload, thunkAPI) => {
-    const {userId} = payload;
+    const { userId } = payload;
     await api.patch(`user/${userId}/coord`, payload);
-    
+
     return payload;
   }
 );
@@ -64,8 +66,8 @@ const loginSlice = createSlice({
       interest: [],
       interest_name: ["일어 나기", "밥 먹기", "잠 자기", "달리기", "마라톤"],
       result: false,
-      x: 0, 
-      y: 0 
+      x: 0,
+      y: 0,
     },
   },
   reducers: {
@@ -113,7 +115,11 @@ const loginSlice = createSlice({
         state.user = { ...state.user, ...action.payload };
       })
       .addCase(__updateCoord.fulfilled, (state, action) => {
-        state.user = { ...state.user, x: action.payload.x, y: action.payload.y};
+        state.user = {
+          ...state.user,
+          x: action.payload.x,
+          y: action.payload.y,
+        };
       });
   },
 });
