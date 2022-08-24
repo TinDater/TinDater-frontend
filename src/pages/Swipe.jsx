@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { __getUser } from "../store/modules/swipeSlice";
+import { __clearUserInfo, __getUser } from "../store/modules/swipeSlice";
 import { useNavigate } from "react-router-dom";
 import { getCookie } from "../cookie";
 
@@ -18,7 +18,7 @@ const Swipe = (props) => {
   const imageUrl = bucketUrl + curr_user.imageUrl;
 
   useEffect(() => {
-    console.log(curr_user);
+    dispatch(__clearUserInfo());
     dispatch(__getUser(logginId));
   }, []);
 

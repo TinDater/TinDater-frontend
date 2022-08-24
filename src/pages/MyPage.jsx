@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { __userMyInfo } from "../store/modules/loginSlice";
+import { __myInfo } from "../store/modules/loginSlice";
 import { MdSettings } from "react-icons/md";
 
 import styled from "styled-components";
@@ -16,7 +16,7 @@ const MyPage = () => {
   
   useEffect(()=>{
     const userId = curr_user.userId;
-    dispatch(__userMyInfo(curr_user.userId))
+    dispatch(__myInfo(curr_user.userId))
   }, [])
 
   return (

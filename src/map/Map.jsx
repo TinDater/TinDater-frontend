@@ -27,27 +27,25 @@ const Map = (props) => {
       logginUser.y, 
       coord.x, 
       coord.y
-      )
+    )
       
     // 지우기
-    console.log(
-      logginUser.x, 
-      logginUser.y, 
-      coord.x, 
-      coord.y
-    );
+    // console.log(
+    //   logginUser.x, 
+    //   logginUser.y, 
+    //   coord.x, 
+    //   coord.y
+    // );
 
     setDistance(Math.round(distance))
-  },[])
-
-  
-  useEffect(() => {
+    
     if(coord.x !== null){
       KakaoMapScript(coord.x, coord.y);
     }
+    
+    // console.log(coord.x);
+  },[])
 
-  }, []);
-  
   return (
     <StMap>  
 
@@ -91,6 +89,8 @@ const StMap = styled.div`
     left: 9px;
 
     z-index: 99999;
+
+    display: none;
   }
 
   &::after {

@@ -12,7 +12,6 @@ export const __getLikesThunk = createAsyncThunk(
     try {
       const response = await api.get(`/people/${payload}/like`);
       const data = response.data.data;
-      console.log(response);
       return thunkApi.fulfillWithValue(data);
     } catch (e) {
       return thunkApi.rejectWithValue(e);

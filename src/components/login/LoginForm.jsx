@@ -23,13 +23,13 @@ function LoginForm() {
     e.preventDefault();
     // 리듀서로부터 상태 받아오기
     const loginState = await dispatch(__login(loginData));
-    console.log(loginState);
+    // console.log(loginState);
     if (loginState.type === "log/LOGIN_LOG/rejected") {
       alert("아이디 혹은 비밀번호가 틀렸습니다.");
     }
     // 로그인시 환영 인사 후 페이지 이동
     if (loginState.type === "log/LOGIN_LOG/fulfilled") {
-      console.log("성공점");
+      // console.log("성공점");
       alert(`${loginState.payload.nickname} 님 환영합니다 :) `);
       navigate("/swipe");
     }

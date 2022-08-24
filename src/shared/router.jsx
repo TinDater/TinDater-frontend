@@ -18,7 +18,7 @@ import LikePage from "../pages/LikePage";
 import Map from "../map/Map";
 
 import { getCookie } from "../cookie";
-import { __userMyInfo, __checkToken } from "../store/modules/loginSlice";
+import { __myInfo, __checkToken } from "../store/modules/loginSlice";
 
 const Router = () => {
   const dispatch = useDispatch();
@@ -30,9 +30,8 @@ const Router = () => {
   useEffect(()=>{
     if (is_token) {
       dispatch(__checkToken())
-      dispatch(__userMyInfo(logginUser.userId))
+      dispatch(__myInfo(logginUser.userId))
     }
-    console.log();
   }, [])
 
   return (

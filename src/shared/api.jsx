@@ -1,5 +1,5 @@
 import axios from "axios";
-import { setCookie, getCookie, deleteCookie } from "../cookie";
+import { getCookie } from "../cookie";
 
 export const api = axios.create({
   baseURL: "http://3.39.177.14/api/",

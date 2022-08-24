@@ -24,17 +24,6 @@ const LikePage = () => {
   const bucketUrl = process.env.REACT_APP_S3_IMAGE_URL;
 
   useEffect(() => {
-    // const fetchLikes = async () => {
-    //   try {
-    //     const data = await axios.get("http://localhost:3001/likes");
-    //     setLikesPost(data.data)
-    //   } catch (err) {
-    //     alert('비어 있습니다.')
-    //   }
-    // };
-    // fetchLikes()
-    console.log(logginId);
-
     dispatch(__getLikesThunk(logginId));
   }, []);
 
