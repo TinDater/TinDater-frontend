@@ -13,7 +13,7 @@ const Map = (props) => {
   const [distance, setDistance] = useState('');
   
   // 로그인한 유저로 수정하기
-  const logginUser = useSelector(state => state.swipe.user);
+  const logginUser = useSelector(state => state.login.user);
 
   useEffect(()=>{
     // 유저 주소 값 업데이트

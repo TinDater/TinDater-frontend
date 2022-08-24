@@ -1,9 +1,13 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import styled from "styled-components";
 import { MdLocalFireDepartment, MdFavorite,MdOutlineChatBubble, MdAccountCircle } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const Footer = () => {
+  let [pathname, setPathname] = useState(window.location.pathname)
+  useEffect(()=>{
+    setPathname(window.location.pathname);
+  },[])
   const navigate = useNavigate();
   return (
     <StFooter>
@@ -11,7 +15,9 @@ const Footer = () => {
         <li onClick={()=>{
           navigate('/swipe')
         }}>
-          <div className="icon_box">
+          <div 
+            className={pathname === "swipe" ? "icon_box active":"icon_box"}
+          >
             <MdLocalFireDepartment />
           </div>
         </li>
@@ -25,7 +31,9 @@ const Footer = () => {
         <li onClick={()=>{
           navigate('/mypage')
         }}>
-          <div className="icon_box">
+          <div 
+            className={pathname === "mypage" ? "icon_box active":"icon_box"}
+          >
             <MdAccountCircle />
           </div>
         </li>
@@ -83,7 +91,7 @@ const StFooter = styled.div`
       justify-content: center;
       align-items: center;
 
-      &:hover {
+      &:hover, &.active {
         color: #ff4e6a
       }
     }

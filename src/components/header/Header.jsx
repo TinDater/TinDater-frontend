@@ -39,7 +39,12 @@ const Header = (props) => {
           : "img/no-img-2.png"
       }
     >
-      <div className="profile_picture"></div>
+      <div 
+        className="profile_picture"
+        onClick={() => {
+          navigate("/mypage");
+        }}
+      ></div>
       <div
         className="logo"
         onClick={() => {
@@ -59,12 +64,16 @@ const LogoutBtn = styled.button`
   width: 100px;
   height: 40px;
   border: none;
+
   font-size: 1rem;
+  font-weight: 800;
+  
   background-color: rgba(0, 0, 0, 0);
   border-radius: 10px;
-  border: 1px solid blue;
+  cursor: pointer;
+
   :hover {
-    border: 3px solid red;
+    color: #ff4e6a
   }
 `;
 
@@ -89,8 +98,8 @@ const StHeader = styled.div`
     height: 60px;
     border-radius: 50%;
 
-    background: skyblue url("${(props) => props.imageUrl}") no-repeat center /
-      cover;
+    background: skyblue url("${(props) => props.imageUrl}") no-repeat center / cover;
+    cursor: pointer;
   }
 
   .logo {
@@ -103,7 +112,6 @@ const StHeader = styled.div`
     transform: translateX(-50%);
 
     text-indent: -9999px;
-    cursor: pointer;
   }
 
   @media (max-width: 400px) {
