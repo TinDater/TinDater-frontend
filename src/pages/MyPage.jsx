@@ -8,19 +8,16 @@ import styled from "styled-components";
 import UserPageHeader from "../components/userpage/UserPageHeader";
 import UserPageBody from "../components/userpage/UserPageBody";
 import UserPageNav from "../components/userpage/UserPageNav";
-import Map from "../map/Map";
 
 const MyPage = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  const logginId = useSelector((state) => state.login.user.userId);
+  const navigate = useNavigate();
   const curr_user = useSelector((state) => state.login.user);
-
-  useEffect(() => {
-    console.log("test");
-    dispatch(__userMyInfo(logginId));
-  }, []);
+  
+  useEffect(()=>{
+    const userId = curr_user.userId;
+    dispatch(__userMyInfo(curr_user.userId))
+  }, [])
 
   return (
     <StMyPage>

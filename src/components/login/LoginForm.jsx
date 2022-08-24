@@ -48,7 +48,7 @@ function LoginForm() {
   // 로그인 버튼이 빈칸일 경우 disabled하게 스타일 설정
   const buttonStyle = {
     backgroundColor: formstate
-      ? "linear-gradient(-60deg, #fe7853, #ff207d);"
+      ? "linear-gradient(-60deg, #fe7853, #ff207d)"
       : "grey",
     color: formstate ? "#222" : "#fff",
     disabled: !formstate,

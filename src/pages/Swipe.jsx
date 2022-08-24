@@ -10,7 +10,6 @@ import SwipeInterest from "../components/swipe/SwipeInterest";
 import SwipeProfile from "../components/swipe/SwipeProfile";
 
 const Swipe = (props) => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { logginUser, bucketUrl } = props.props;
   const curr_user = useSelector((state) => state.swipe.user);
@@ -19,8 +18,8 @@ const Swipe = (props) => {
   const imageUrl = bucketUrl + curr_user.imageUrl;
 
   useEffect(() => {
+    console.log(curr_user);
     dispatch(__getUser(logginId));
-    if (getCookie("token") === undefined) navigate("/");
   }, []);
 
   return (
@@ -31,15 +30,15 @@ const Swipe = (props) => {
           : "img/no-img-2.png"
       }
     >
+    {curr_user.userId && (
       <aside>
-        {curr_user.userId !== 999 && (
           <Fragment>
             <SwipeProfile curr_user={curr_user} logginId={logginId} />
             <SwipeInterest curr_user={curr_user} logginId={logginId} />
             <SwipeControlBar curr_user={curr_user} logginId={logginId} />
           </Fragment>
-        )}
       </aside>
+    )}
     </StSwipeSection>
   );
 };
@@ -52,16 +51,16 @@ const StSwipeSection = styled.div`
     cover;
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.2);
 
   display: flex;
   flex-flow: column;
   justify-content: flex-end;
 
   aside {
-    padding: 12px 2em;
+    padding: 20px 2em;
     box-sizing: border-box;
-    background-image: linear-gradient(transparent 5%, rgba(0, 0, 0, 0.9) 80%);
+    background-image: linear-gradient(transparent 5%, rgba(0, 0, 0, 0.8) 80%);
 
     @media (max-width: 400px) {
       padding: 12px 1.5em;

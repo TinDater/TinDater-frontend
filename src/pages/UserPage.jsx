@@ -10,12 +10,7 @@ import UserPageNav from "../components/userpage/UserPageNav";
 
 const UserPage = () => {
   const dispatch = useDispatch();
-  const { userId } = useParams();
-
-  useEffect(() => {
-    dispatch(__userMyInfo(userId));
-  }, []);
-
+  
   const curr_user = useSelector((state) => state.swipe.user);
 
   return (

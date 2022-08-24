@@ -20,9 +20,8 @@ export const __checkToken = createAsyncThunk(
   "__checkToken/CHECK_LOG",
   async (payload, thunkAPI) => {
     // 토큰으로 유효값 확인하기
-    const response = await api.get("/auth");
-    console.log(response.data);
-    // 상태값 true / false
+    const response = await api.get("/auth")
+    // dispatch(__userMyInfo(logginUser.userId))
     return response.data;
   }
 );
@@ -30,9 +29,9 @@ export const __checkToken = createAsyncThunk(
 export const __userMyInfo = createAsyncThunk(
   "user/MY_INFO",
   async (payload) => {
-    console.log("login.__userMyInfo = ");
+    // console.log("login.__userMyInfo = ");
     const response = await api.get(`/user/${payload}`);
-    console.log("login.__userMyInfo = ", response.data.data);
+    // console.log("login.__userMyInfo = ", response.data.data);
     const resData = response.data.data;
 
     return resData;
@@ -55,7 +54,7 @@ const loginSlice = createSlice({
   initialState: {
     // 초기값, 유저 닉네임은 공백입니다.
     user: {
-      userId: 999,
+      userId: false,
       email: "",
       nickname: "",
       address: "",
@@ -74,7 +73,7 @@ const loginSlice = createSlice({
     // 로그아웃시 쿠키의 토큰을 삭제하고 정보들을 초기화 합니다.
     logOutUser: (state, payload) => {
       state.user = {
-        userId: 999,
+        userId: false,
         email: "",
         nickname: "",
         address: "",
@@ -106,6 +105,7 @@ const loginSlice = createSlice({
         state.user = { ...state.user, ...action.payload };
       })
       .addCase(__checkToken.fulfilled, (state, action) => {
+      
         state.user = { ...state.user, ...action.payload };
       })
       .addCase(__checkToken.rejected, (state, action) => {

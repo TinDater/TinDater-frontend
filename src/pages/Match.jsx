@@ -8,12 +8,7 @@ import styled from "styled-components";
 
 const Match = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  
   const curr_user = useSelector(state => state.swipe.user)
-  useEffect(()=>{
-    dispatch(__getUser(curr_user.userId))
-  }, [])  
 
   const matchClickHandler = () => {
     navigate(`/userpage/${curr_user.userId}`)

@@ -16,21 +16,22 @@ export const __likeUser = createAsyncThunk(
     const res = await api.post(`/people/${logginId}/like`, {
       likeUserId: otherUserId,
     });
-    if (JSON.stringify(res.data.data)) {
-      return {
-        userId: 999,
-        email: "기본 이메일",
-        nickname: "기본 이름",
-        address: "기본 주소",
-        age: 99,
-        gender: 0,
-        imageUrl: "no-img-2.png",
-        likeMe: true,
-        interest: [],
-        interest_name: ["일어 나기", "밥 먹기", "잠 자기", "달리기", "마라톤"],
-      };
-    }
+    // if (JSON.stringify(res.data.data)) {
+    //   return {
+    //     userId: 999,
+    //     email: "기본 이메일",
+    //     nickname: "기본 이름",
+    //     address: "기본 주소",
+    //     age: 99,
+    //     gender: 0,
+    //     imageUrl: "no-img-2.png",
+    //     likeMe: true,
+    //     interest: [],
+    //     interest_name: ["일어 나기", "밥 먹기", "잠 자기", "달리기", "마라톤"],
+    //   };
+    // }
     const resData = res.data.data;
+    console.log(resData);
 
     return resData;
   }
@@ -75,17 +76,6 @@ export const __matchUser = createAsyncThunk(
   }
 )
 
-/** 특정 user의 정보를 불러옵니다. */
-export const __userMyInfo = createAsyncThunk(
-  'user/MY_INFO',
-  async (payload) => {
-    const res = await api.get(`/user/${payload}`);
-    const resData = res.data.data;
-
-    return resData;
-  }
-)
-
 /** user에 사용자의 주소를 수정하도록 요청합니다. */
 export const __patchUserLocation = createAsyncThunk(
   'user/PATCH_LOCATION',
@@ -101,7 +91,7 @@ const swipeSlice = createSlice({
   name: "swipe", // state.swipe
   initialState: {
     user: {
-      userId: 999,
+      userId: false,
       email: "기본 이메일",
       nickname: "기본 이름",
       address: "기본 주소",

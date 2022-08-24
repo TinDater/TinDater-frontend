@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 
 import styled from "styled-components";
 
@@ -16,11 +17,23 @@ import Profile from "../pages/Profile";
 import LikePage from "../pages/LikePage";
 import Map from "../map/Map";
 
+import { getCookie } from "../cookie";
+import { __userMyInfo, __checkToken } from "../store/modules/loginSlice";
+
 const Router = () => {
+  const dispatch = useDispatch();
   const bucketUrl = process.env.REACT_APP_S3_IMAGE_URL;
   const logginUser = useSelector((state) => state.login);
-
   const props = { logginUser, bucketUrl };
+  
+  const is_token = getCookie("token");
+  useEffect(()=>{
+    if (is_token) {
+      dispatch(__checkToken())
+      dispatch(__userMyInfo(logginUser.userId))
+    }
+    console.log();
+  }, [])
 
   return (
     <StLayout>
