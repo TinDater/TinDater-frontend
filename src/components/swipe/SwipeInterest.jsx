@@ -27,13 +27,14 @@ const StInterest = styled.div`
 
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 9px;
+
+  font-weight: 700;
 
   .tag {
     padding: 5px 12px;
     border-radius: 20px;
-    background-color: #393836;
+    background-color: #d5678f;
     color: #fff;
   }
-
 `

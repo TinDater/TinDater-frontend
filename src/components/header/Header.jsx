@@ -61,7 +61,6 @@ const LogoutBtn = styled.button`
   height: 40px;
   border-radius: 10px;
 
-  margin-top: 8px;
   border: none;
 
   font-size: 1rem;

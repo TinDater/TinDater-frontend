@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 // aws s3와 연동하여 파일을 업로드하는 모듈
 import OnFileUpload from "../../s3/FileUpload";
 // 이미지 업로드할때 보여지는 기본이미지
-import logo from "../../src_assets/logo.PNG";
+import noImg from "../../src_assets/no-img.png";
 
 // 리듀서 모듈
 import {
@@ -249,7 +249,7 @@ function SignUpForm() {
           <button className="on" onClick={next} disabled={!nicknameState}>
             다음
           </button>
-          <button onClick={prev}>이전</button>
+          <button className="goback" onClick={prev}>이전</button>
         </div>
       )}
       {signNumber === 2 && (
@@ -277,7 +277,7 @@ function SignUpForm() {
           <button className="on" onClick={next} disabled={!pwState}>
             다음
           </button>
-          <button onClick={prev}>이전</button>
+          <button className="goback" onClick={prev}>이전</button>
         </Fragment>
       )}
       {signNumber === 3 && (
@@ -296,7 +296,7 @@ function SignUpForm() {
           <button className="on" onClick={next} disabled={!ageState}>
             다음
           </button>
-          <button onClick={prev}>이전</button>
+          <button className="goback" onClick={prev}>이전</button>
         </div>
       )}
       {signNumber === 4 && (
@@ -322,7 +322,7 @@ function SignUpForm() {
           <button className="on" onClick={next} disabled={!addressState}>
             다음
           </button>
-          <button onClick={prev}>이전</button>
+          <button className="goback" onClick={prev}>이전</button>
         </Fragment>
       )}
       {signNumber === 5 && (
@@ -346,7 +346,7 @@ function SignUpForm() {
           <button className="on" onClick={next} disabled={!genderState}>
             다음
           </button>
-          <button onClick={prev}>이전</button>
+          <button className="goback" onClick={prev}>이전</button>
         </Fragment>
       )}
       {signNumber === 6 && (
@@ -400,7 +400,7 @@ function SignUpForm() {
           <button className="on" onClick={next}>
             다음
           </button>
-          <button onClick={prev}>이전</button>
+          <button className="goback" onClick={prev}>이전</button>
         </Fragment>
       )}
       {signNumber === 7 && (
@@ -410,8 +410,8 @@ function SignUpForm() {
               // 이미지 선택시에는 선택한 이미지
               <img src={imageSrc} alt="이미지를 불러올 수 없습니다" />
             ) : (
-              // 이미지 비선택시에는 기본이미지(logo.PNG)
-              <img src={logo} alt="이미지를 불러올 수 없습니다" />
+              // 이미지 비선택시에는 기본이미지(noImg.PNG)
+              <img src={noImg} alt="이미지를 불러올 수 없습니다" />
             )}
           </div>
           <label className="button_type on" htmlFor="image_file">
@@ -438,7 +438,6 @@ function SignUpForm() {
             <button className="on" onClick={onSubmitHandler}>
               프로필 사진 확정
             </button>
-            <button onClick={view}>signData 확인</button>
           </div>
         </Fragment>
       )}
@@ -546,10 +545,19 @@ const StForm = styled.form`
       background: linear-gradient(50deg, #ff398c, #ef734a);
       color: #fff;
     }
+
+    &.goback {
+      background: linear-gradient(50deg, #858585, #d0cdcd);
+      color: #fff;
+      opacity: 1;
+    }
   }
 
   select {
     all: unset;
+    text-align: center;
+    width: 50%;
+
     margin: 0 auto;
     padding: 10px 30px;
 
