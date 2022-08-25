@@ -1,7 +1,10 @@
 const { kakao } = window;
 
-/** #myMap에 지도 그리는 함수 */
+/** #myMap에 지도 그리는 함수, 인수는 (x, y)형태 */
 export default function KakaoMapScript(x, y) {
+    x = parseFloat(x.toFixed(2))
+    y = parseFloat(y.toFixed(2))
+    console.log(x, y);
 
     const container = document.getElementById('myMap');
 

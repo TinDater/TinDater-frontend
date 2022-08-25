@@ -10,20 +10,24 @@ import UserPageNav from "../components/userpage/UserPageNav";
 
 const UserPage = () => {
   const dispatch = useDispatch();
-  const userId = useParams('userId');
+  const {userId} = useParams('userId');
   const curr_user = useSelector((state) => state.swipe.user);
-  
+  const user_true = curr_user.userId == userId; 
+
   useEffect(() => {
-    dispatch(__userInfo(userId.userId));
+    dispatch(__userInfo(userId));
   }, []);
 
   return (
-    <StUserPage>
-      <UserPageNav title={"프로필"} />
-
-      <UserPageHeader curr_user={curr_user} />
-      <UserPageBody curr_user={curr_user} />
-    </StUserPage>
+    <>
+      {user_true && 
+        <StUserPage>
+          <UserPageNav title={"프로필"} />
+          <UserPageHeader curr_user={curr_user} />
+          <UserPageBody curr_user={curr_user} />
+        </StUserPage>
+      }
+    </>
   );
 };
 

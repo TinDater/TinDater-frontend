@@ -4,47 +4,70 @@ import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import { __updateCoord } from "../store/modules/loginSlice";
 import KakaoMapScript from "./kakaoMapScript";
-import {getCoord, getDistanceFromLatLonInKm} from "./getCoord";
 
 const Map = (props) => {
   const dispatch = useDispatch();
-
-  const { coord, userId } = props;
   const [distance, setDistance] = useState('');
   
-  // 로그인한 유저로 수정하기
+  // 현재 상세페이지의 유저
+  const user = props.curr_user; 
+  const userCoord = {x: user.x, y: user.y}
+  // 로그인한 유저
   const logginUser = useSelector(state => state.login.user);
-
-  useEffect(()=>{
-    // 유저 주소 값 업데이트
-    dispatch(__updateCoord({
-      userId: logginUser.userId,
-      ...getCoord()
-    }))
+  const logginUserCood = {x: logginUser.x, y: logginUser.y};
+  // 현재 위치
+  const [currentPlaceCoord, setCurrentPlaceCoord] = useState();
+  // 출력할 위치
+  let mapCoord = userCoord;  
   
-    let distance = getDistanceFromLatLonInKm(
-      logginUser.x, 
-      logginUser.y, 
-      coord.x, 
-      coord.y
-    )
-      
-    // 지우기
-    // console.log(
-    //   logginUser.x, 
-    //   logginUser.y, 
-    //   coord.x, 
-    //   coord.y
-    // );
-
-    setDistance(Math.round(distance))
+  console.log(user);
+  mapCoord = userCoord;  
+  
+  /** 사용자의 위치를 구하고, 서버에 업데이트 */
+  useEffect(()=>{
+    getUserCoord();
     
-    if(coord.x !== null){
-      KakaoMapScript(coord.x, coord.y);
+    
+    if(currentPlaceCoord !== undefined && logginUserCood.x != currentPlaceCoord.x){
+      console.log('사용자의 위치 수정됨');
+      dispatch(__updateCoord({
+        userId: logginUser.userId,
+        ...currentPlaceCoord
+      }))
+      mapCoord = currentPlaceCoord;
     }
     
-    // console.log(coord.x);
-  },[])
+    KakaoMapScript(
+      Number(mapCoord.x), 
+      Number(mapCoord.y) 
+    );
+  }, [])
+
+  /** 현재 주소를 구하는 함수 */
+  const getUserCoord = () => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      const x = position.coords.latitude;
+      const y = position.coords.longitude;
+      
+      let result = {
+        x: parseFloat(x.toFixed(3)), 
+        y: parseFloat(y.toFixed(3))
+      }
+      setCurrentPlaceCoord(result);
+    });
+  }
+  
+  // 사용자간의 좌표 구하기(보류)
+  // useEffect(()=>{
+  //   // 유저 주소 값 업데이트
+  //   let distance = getDistanceFromLatLonInKm(
+  //     logginUser.x, 
+  //     logginUser.y, 
+  //     userCoord.x, 
+  //     userCoord.y
+  //   )
+  //   setDistance(Math.round(distance))
+  // },[])
 
   return (
     <StMap>  

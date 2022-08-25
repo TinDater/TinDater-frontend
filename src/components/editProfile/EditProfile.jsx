@@ -85,7 +85,7 @@ function EditProfile() {
 
   const view = (e) => {
     e.preventDefault();
-    console.log(signData);
+    // console.log(signData);
   };
 
   // 그동안 수집한 회원가입 데이터(signData)를 백에게 보냄

@@ -170,7 +170,7 @@ function SignUpForm() {
   };
 
   return (
-    <form onSubmit={submitLogin}>
+    <StForm onSubmit={submitLogin}>
       <ProgressBar signNumber = {signNumber}/>
       {signNumber === 0 && (
         <Fragment>
