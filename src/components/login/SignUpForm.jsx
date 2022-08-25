@@ -49,17 +49,17 @@ function SignUpForm() {
   const [address, setAddress] = useState(false);
   const [gender, setGender] = useState(false);
   const [file, setFile] = useState(false);
-  
+
   // 조건부 렌더링을 위한 상태관리
   const [signNumber, setSignNumber] = useState(0);
 
-  
   // 이메일과 패스워드 유효성검사
   // 이메일, 닉네임 중복검사 함수
   const regEmail =
     /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
 
-  const CheckId = () => {
+  const CheckId = (e) => {
+    e.preventDefault();
     // 이메일 유효성 체크 후 중복체크
     if (!regEmail.test(signData.email)) {
       alert("이메일 형식으로 작성해주세요");
@@ -67,7 +67,8 @@ function SignUpForm() {
       dispatch(__checkUsername({ email: signData.email }));
     }
   };
-  const CheckNick = () => {
+  const CheckNick = (e) => {
+    e.preventDefault();
     // 닉네임 중복체크
     dispatch(__checkNickname({ nickname: signData.nickname }));
   };
@@ -164,19 +165,19 @@ function SignUpForm() {
   }, [email, nick, pw, age, address, gender, file]);
 
   const buttonStyle = {
-    background: formstate ? "linear-gradient(50deg, #ff398c, #ef734a)" : "white",
+    background: formstate
+      ? "linear-gradient(50deg, #ff398c, #ef734a)"
+      : "white",
     color: formstate ? "white" : "black",
     disabled: !formstate,
   };
 
   return (
-    <form onSubmit={submitLogin}>
-      <ProgressBar signNumber = {signNumber}/>
+    <StForm onSubmit={submitLogin}>
+      <ProgressBar signNumber={signNumber} />
       {signNumber === 0 && (
         <Fragment>
-          <h2>
-            아이디(e-mail)
-          </h2>
+          <h2>아이디(e-mail)</h2>
           <input
             id="email"
             type="email"
@@ -200,9 +201,7 @@ function SignUpForm() {
       {signNumber === 1 && (
         <div>
           <div>
-            <h2>
-              닉네임
-            </h2>
+            <h2>닉네임</h2>
             <input
               id="nickname"
               placeholder="닉네임을 입력해주세요"
@@ -226,9 +225,7 @@ function SignUpForm() {
       {signNumber === 2 && (
         <Fragment>
           <div>
-            <h2>
-              비밀번호
-            </h2>
+            <h2>비밀번호</h2>
             <input
               id="password"
               type="password"
@@ -244,19 +241,17 @@ function SignUpForm() {
               onChange={changeInput}
             />
             <span style={{ color: pw ? "blue" : "red" }}>
-              {pw
-                ? "비밀 번호가 일치합니다"
-                : "비밀 번호가 일치하지 않습니다"}
+              {pw ? "비밀 번호가 일치합니다" : "비밀 번호가 일치하지 않습니다"}
             </span>
           </div>
-          <button className="on" onClick={next}>다음</button>
+          <button className="on" onClick={next}>
+            다음
+          </button>
         </Fragment>
       )}
       {signNumber === 3 && (
         <div>
-          <h2>
-            나이
-          </h2>
+          <h2>나이</h2>
           <input
             id="age"
             placeholder="나이를 숫자로 입력해주세요"
@@ -267,14 +262,14 @@ function SignUpForm() {
               setAddress(true);
             }}
           />
-          <button className="on" onClick={next}>다음</button>
+          <button className="on" onClick={next}>
+            다음
+          </button>
         </div>
       )}
       {signNumber === 4 && (
         <Fragment>
-          <h2>
-            지역
-          </h2>
+          <h2>지역</h2>
           <select
             // signData에 인라인으로 바로 넣어줌(지역)
             onChange={(e) => {
@@ -292,14 +287,14 @@ function SignUpForm() {
             <option value="전라">전라</option>
             <option value="제주">제주</option>
           </select>
-          <button className="on" onClick={next}>다음</button>
+          <button className="on" onClick={next}>
+            다음
+          </button>
         </Fragment>
       )}
       {signNumber === 5 && (
         <Fragment>
-          <h2>
-            성별
-          </h2>
+          <h2>성별</h2>
           <select
             // signData에 인라인으로 바로 넣어줌(성별)
             onChange={(e) => {
@@ -315,14 +310,14 @@ function SignUpForm() {
             <option value="여자">여자</option>
             <option value="남자">남자</option>
           </select>
-          <button className="on" onClick={next}>다음</button>
+          <button className="on" onClick={next}>
+            다음
+          </button>
         </Fragment>
       )}
       {signNumber === 6 && (
         <Fragment>
-          <h2>
-            관심사
-          </h2>
+          <h2>관심사</h2>
           <span>관심사를 선택해주세요</span>
           <div className="tag_box">
             <span
@@ -368,7 +363,9 @@ function SignUpForm() {
               웹 개발
             </span>
           </div>
-          <button className="on" onClick={next}>다음</button>
+          <button className="on" onClick={next}>
+            다음
+          </button>
         </Fragment>
       )}
       {signNumber === 7 && (
@@ -403,7 +400,9 @@ function SignUpForm() {
             }}
           />
           <div>
-            <button className="on" onClick={onSubmitHandler}>프로필 사진 확정</button>
+            <button className="on" onClick={onSubmitHandler}>
+              프로필 사진 확정
+            </button>
             <button onClick={view}>signData 확인</button>
           </div>
         </Fragment>
@@ -418,8 +417,7 @@ function SignUpForm() {
 export default SignUpForm;
 
 const StForm = styled.form`
-
-width: 100%;
+  width: 100%;
   height: 100%;
   background-color: #fff;
 
@@ -432,12 +430,13 @@ width: 100%;
   align-items: center;
 
   gap: 16px;
-  
+
   position: absolute;
   top: 0;
   left: 0;
 
-  div, form {
+  div,
+  form {
     width: 100%;
 
     display: flex;
@@ -447,7 +446,7 @@ width: 100%;
 
     gap: 16px;
   }
-  
+
   span {
     font-size: 12px;
   }
@@ -465,26 +464,29 @@ width: 100%;
     padding: 0;
   }
 
-  button, input, select, .button_type {
+  button,
+  input,
+  select,
+  .button_type {
     all: unset;
     width: 100%;
     max-width: 400px;
     height: 50px;
     line-height: 50px;
-    
+
     padding: 0 20px;
     box-sizing: border-box;
-    
+
     font-size: 1.2em;
     font-weight: 700;
     text-align: center;
     word-break: keep-all;
-    
+
     background-color: #fff;
     color: #222;
-    
+
     cursor: pointer;
-    transition: all .2s;
+    transition: all 0.2s;
   }
 
   input {
@@ -493,7 +495,8 @@ width: 100%;
     margin-bottom: 10px;
   }
 
-  button, .button_type {
+  button,
+  .button_type {
     border-radius: 65px;
     text-align: center;
     box-shadow: 0 3px 6px #c7c7c7;
@@ -509,12 +512,12 @@ width: 100%;
       color: #fff;
     }
   }
-    
+
   select {
     all: unset;
     margin: 0 auto;
     padding: 10px 30px;
-    
+
     font-size: 1.3em;
 
     color: #222 !important;
@@ -526,7 +529,7 @@ width: 100%;
     text-align: center;
     padding: 0 10%;
     box-sizing: border-box;
-    
+
     & span {
       display: inline-block;
       padding: 10px 20px;
@@ -534,8 +537,8 @@ width: 100%;
       border-radius: 30px;
 
       font-size: 16px;
-      
+
       border: 1px solid #aaa;
     }
   }
-`
+`;

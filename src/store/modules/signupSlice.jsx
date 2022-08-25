@@ -26,7 +26,8 @@ export const __checkUsername = createAsyncThunk(
   "signup/CHECKID_LOG",
   async (payload, thunkAPI) => {
     const response = await api.post(`auth/email`, payload);
-    if (!response.data.success) alert(response.data.msg);
+    console.log(response);
+    alert(response.data.msg);
     return response.data.success;
   }
 );
@@ -36,7 +37,7 @@ export const __checkNickname = createAsyncThunk(
   async (payload, thunkAPI) => {
     console.log(payload);
     const response = await api.post(`auth/nickname`, payload);
-    if (!response.data.result) alert(response.data.msg);
+    alert(response.data.msg);
     return response.data.success;
   }
 );
