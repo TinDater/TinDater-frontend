@@ -24,21 +24,23 @@ const Router = () => {
   const dispatch = useDispatch();
   const bucketUrl = process.env.REACT_APP_S3_IMAGE_URL;
   const logginUser = useSelector((state) => state.login);
+  const check = useSelector((state) => state.login.check);
   const props = { logginUser, bucketUrl };
-  
+
   const is_token = getCookie("token");
-  useEffect(()=>{
-
+  useEffect(() => {
     if (is_token) {
-      dispatch(__checkToken())
-      
-      setTimeout(()=>{
-        dispatch(__myInfo(logginUser.user.userId))
-      }, 10)
+      dispatch(__checkToken());
     }
+    console.log(logginUser);
+  }, []);
 
-  }, [])
+  useEffect(() => {
+    console.log(logginUser.user);
 
+    dispatch(__myInfo(logginUser.user.userId));
+  }, [check]);
+  console.log(logginUser);
   return (
     <StLayout>
       <Header props={props} />

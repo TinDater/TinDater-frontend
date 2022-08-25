@@ -17,11 +17,12 @@ const Swipe = (props) => {
 
   const logginId = logginUser.user.userId;
   const imageUrl = bucketUrl + curr_user.imageUrl;
-
+  const check = useSelector((state) => state.login.check);
   useEffect(() => {
+    console.log(logginId);
     dispatch(__clearUserInfo());
     dispatch(__getUser(logginId));
-  }, []);
+  }, [check]);
 
   return (
     <StSwipeSection
@@ -31,15 +32,15 @@ const Swipe = (props) => {
           : "img/no-img-2.png"
       }
     >
-    {curr_user.userId && (
-      <aside>
+      {curr_user.userId && (
+        <aside>
           <Fragment>
             <SwipeProfile curr_user={curr_user} logginId={logginId} />
             <SwipeInterest curr_user={curr_user} logginId={logginId} />
             <SwipeControlBar curr_user={curr_user} logginId={logginId} />
           </Fragment>
-      </aside>
-    )}
+        </aside>
+      )}
     </StSwipeSection>
   );
 };
