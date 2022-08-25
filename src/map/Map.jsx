@@ -140,6 +140,7 @@ const StMap = styled.div`
     all: unset;
     padding: 10px 20px;
     border-radius: 30px;
+    margin-top: 10px;
     
     background-color: #fff;
     box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.1);

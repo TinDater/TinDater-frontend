@@ -61,17 +61,25 @@ const StUserPageBody = styled.div`
   position: relative;
   
   .interest_box {
-    margin-bottom: 25px;
+    margin-bottom: 10px;
+    margin-top: 20px;
+    padding: 0 10%;
+
+    font-size: 14px;
+    font-weight: 700;
 
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 9px;
+    
+    position: relative;
+    z-index: 9999;
 
     .tag {
       padding: 5px 12px;
       border-radius: 20px;
-      background-color: #393836;
+      background-color: #d5678f;
       color: #fff;
     }
   }
