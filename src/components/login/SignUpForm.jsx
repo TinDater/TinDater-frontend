@@ -203,7 +203,7 @@ function SignUpForm() {
 
   return (
     <StForm onSubmit={submitLogin}>
-      <ProgressBar signNumber={signNumber} />
+      <ProgressBar signNumber = {signNumber}/>
       {signNumber === 0 && (
         <Fragment>
           <h2>아이디(e-mail)</h2>
