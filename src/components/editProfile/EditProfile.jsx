@@ -241,7 +241,7 @@ function EditProfile() {
           >
             music
           </div> */}
-          <button onClick={view}>signData 확인</button>
+          {/* <button onClick={view}>signData 확인</button> */}
           <button
             className="on"
             onClick={submitLogin}

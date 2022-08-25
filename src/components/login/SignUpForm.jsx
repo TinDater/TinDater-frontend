@@ -208,6 +208,7 @@ function SignUpForm() {
         <Fragment>
           <h2>아이디(e-mail)</h2>
           <input
+            autoComplete="off"
             id="email"
             type="email"
             placeholder="이메일 주소를 입력해주세요"
@@ -232,6 +233,8 @@ function SignUpForm() {
           <div>
             <h2>닉네임</h2>
             <input
+            
+            autoComplete="off"
               id="nickname"
               placeholder="닉네임을 입력해주세요"
               required
@@ -257,6 +260,8 @@ function SignUpForm() {
           <div>
             <h2>비밀번호</h2>
             <input
+            
+            autoComplete="off"
               id="password"
               type="password"
               placeholder="비밀번호를 입력해주세요"
@@ -264,6 +269,8 @@ function SignUpForm() {
               onChange={changeInput}
             />
             <input
+            
+            autoComplete="off"
               id="confirm"
               type="password"
               placeholder="비밀번호를 한번 더 입력해주세요"
@@ -284,6 +291,8 @@ function SignUpForm() {
         <div>
           <h2>나이</h2>
           <input
+          
+            autoComplete="off"
             id="age"
             placeholder="나이를 숫자로 입력해주세요"
             required
