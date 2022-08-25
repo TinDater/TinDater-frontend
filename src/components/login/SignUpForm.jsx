@@ -29,6 +29,13 @@ function SignUpForm() {
   const navigate = useNavigate();
   // 버튼 활성화를 위한 상태관리
   const [formstate, setFormState] = useState(false);
+  const [emailState, setEmailState] = useState(false);
+  const [nicknameState, setNicknameState] = useState(false);
+  const [pwState, setPwState] = useState(false);
+  const [ageState, setAgeState] = useState(false);
+  const [addressState, setAddressState] = useState(false);
+  const [genderState, setGenderState] = useState(false);
+
   // 보낼 데이터 상태관리
   const [signData, setSignData] = useState({
     email: "",
@@ -132,6 +139,10 @@ function SignUpForm() {
     e.preventDefault();
     setSignNumber((prevNumber) => prevNumber + 1);
   };
+  const prev = (e) => {
+    e.preventDefault();
+    setSignNumber((prevNumber) => prevNumber - 1);
+  };
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
@@ -157,6 +168,24 @@ function SignUpForm() {
 
   React.useEffect(() => {
     // 조건들이 성립되었는지 체크하고 버튼 활성화
+    if (email) {
+      setEmailState(true);
+    }
+    if (nick) {
+      setNicknameState(true);
+    }
+    if (pw) {
+      setPwState(true);
+    }
+    if (age) {
+      setAgeState(true);
+    }
+    if (address) {
+      setAddressState(true);
+    }
+    if (gender) {
+      setGenderState(true);
+    }
     if (email && nick && pw && age && address && gender && file) {
       setFormState(true);
     } else {
@@ -193,7 +222,7 @@ function SignUpForm() {
               {email ? "중복 확인" : "중복 확인을 해주세요"}
             </span>
           </div>
-          <button className="on" onClick={next}>
+          <button className="on" onClick={next} disabled={!emailState}>
             다음
           </button>
         </Fragment>
@@ -217,9 +246,10 @@ function SignUpForm() {
               </span>
             </div>
           </div>
-          <button className="on" onClick={next}>
+          <button className="on" onClick={next} disabled={!nicknameState}>
             다음
           </button>
+          <button onClick={prev}>이전</button>
         </div>
       )}
       {signNumber === 2 && (
@@ -244,9 +274,10 @@ function SignUpForm() {
               {pw ? "비밀 번호가 일치합니다" : "비밀 번호가 일치하지 않습니다"}
             </span>
           </div>
-          <button className="on" onClick={next}>
+          <button className="on" onClick={next} disabled={!pwState}>
             다음
           </button>
+          <button onClick={prev}>이전</button>
         </Fragment>
       )}
       {signNumber === 3 && (
@@ -262,9 +293,10 @@ function SignUpForm() {
               setAddress(true);
             }}
           />
-          <button className="on" onClick={next}>
+          <button className="on" onClick={next} disabled={!ageState}>
             다음
           </button>
+          <button onClick={prev}>이전</button>
         </div>
       )}
       {signNumber === 4 && (
@@ -287,9 +319,10 @@ function SignUpForm() {
             <option value="전라">전라</option>
             <option value="제주">제주</option>
           </select>
-          <button className="on" onClick={next}>
+          <button className="on" onClick={next} disabled={!addressState}>
             다음
           </button>
+          <button onClick={prev}>이전</button>
         </Fragment>
       )}
       {signNumber === 5 && (
@@ -310,9 +343,10 @@ function SignUpForm() {
             <option value="여자">여자</option>
             <option value="남자">남자</option>
           </select>
-          <button className="on" onClick={next}>
+          <button className="on" onClick={next} disabled={!genderState}>
             다음
           </button>
+          <button onClick={prev}>이전</button>
         </Fragment>
       )}
       {signNumber === 6 && (
@@ -366,6 +400,7 @@ function SignUpForm() {
           <button className="on" onClick={next}>
             다음
           </button>
+          <button onClick={prev}>이전</button>
         </Fragment>
       )}
       {signNumber === 7 && (
