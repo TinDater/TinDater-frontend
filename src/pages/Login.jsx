@@ -72,8 +72,13 @@ const StLoginForm = styled.div`
 
     background-color: #fff;
     color: #222;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
 
     cursor: pointer;
     transition: all .2s;
+
+    &:hover {
+      background: #f1d6d6;
+    }
   }
 `

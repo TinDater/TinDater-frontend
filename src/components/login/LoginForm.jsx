@@ -75,7 +75,8 @@ function LoginForm() {
           required
           onChange={changeInput}
         />
-        <StButton type="submit" style={buttonStyle}>
+        {/* <StButton type="submit" style={buttonStyle}> */}
+        <StButton type="submit">
           로그인
         </StButton>
       </form>

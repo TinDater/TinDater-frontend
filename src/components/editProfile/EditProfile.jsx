@@ -25,22 +25,14 @@ function EditProfile() {
   // 기본값은 false 입니다.
   const checkNick = useSelector((state) => state.signup.checkNick);
   // // // 수정을 위해 loginSlice의 userId 가져오기
-  const userId = useSelector((state) => state.login.userId);
+  const userId = useSelector((state) => state.login.user.userId);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // 버튼 활성화를 위한 상태관리
-  const [formstate, setFormState] = useState(false);
   // 보낼 데이터 상태관리
   const [signData, setSignData] = useState({
     // // // 수정이기 때문에 userId 추가
     userId: "",
-    password: "",
-    confirm: "",
-    nickname: "",
-    age: "",
-    address: "",
-    gender: "",
-    interest: [0, 0, 0, 0, 0],
+    // interest: [0, 0, 0, 0, 0],
   });
 
   // // // signData에 userId추가
@@ -55,10 +47,6 @@ function EditProfile() {
   const [age, setAge] = useState(false);
   const [address, setAddress] = useState(false);
   const [gender, setGender] = useState(false);
-  const [file, setFile] = useState(false);
-
-  // 조건부 렌더링을 위한 상태관리
-  const [signNumber, setSignNumber] = useState(0);
 
   // 이메일과 패스워드 유효성검사
   // 이메일, 닉네임 중복검사 함수
@@ -83,13 +71,8 @@ function EditProfile() {
   }, [signData]);
 
   React.useEffect(() => {
-    // age 빈칸인지 체크
-    if (signData.age !== "") {
-      setAge(true);
-    } else {
-      setAge(false);
-    }
-  }, [signData]);
+    dispatch(changeCheckNick());
+  }, []);
 
   // input 데이터 저장하기
   const changeInput = (e) => {
@@ -100,18 +83,9 @@ function EditProfile() {
     if (id === "nickname") dispatch(changeCheckNick());
   };
 
-  // 파일 업로드를 위한 상태관리
-  const [post, setPost] = useState("");
-  const [change, setChange] = useState(false);
-
   const view = (e) => {
     e.preventDefault();
     console.log(signData);
-  };
-
-  const next = (e) => {
-    e.preventDefault();
-    setSignNumber((prevNumber) => prevNumber + 1);
   };
 
   // 그동안 수집한 회원가입 데이터(signData)를 백에게 보냄
@@ -125,209 +99,156 @@ function EditProfile() {
     }
   };
 
-  React.useEffect(() => {
-    // 조건들이 성립되었는지 체크하고 버튼 활성화
-    if (nick && pw && age && address && gender) {
-      setFormState(true);
-    } else {
-      setFormState(false);
-    }
-  }, [email, nick, pw, age, address, gender]);
-
-  const buttonStyle = {
-    backgroundColor: formstate ? "blue" : "grey",
-    color: formstate ? "white" : "black",
-    disabled: !formstate,
-  };
-
   return (
-    <form onSubmit={submitLogin}>
-      {/* {signNumber === 0 && (
-        <Fragment>
-          <div>
-            <span>
-              아이디(e-mail)
-              <span style={{ color: email ? "blue" : "red" }}>
-                {email ? "중복 확인" : "중복 확인을 해주세요"}
-              </span>
+    <div onSubmit={submitLogin}>
+      <Fragment>
+        <div>
+          <span>
+            닉네임
+            <span style={{ color: nick ? "blue" : "red" }}>
+              {nick ? "중복 확인" : "중복 확인을 해주세요"}
             </span>
+          </span>
 
-            <div onClick={CheckId}>중복 확인</div>
-          </div>
+          <div onClick={CheckNick}>중복 확인</div>
+        </div>
+        <input
+          id="nickname"
+          placeholder="닉네임을 입력해주세요"
+          required
+          onChange={changeInput}
+        />
+      </Fragment>
+      <Fragment>
+        <div>
+          <span>비밀번호</span>
           <input
-            id="email"
-            type="email"
-            placeholder="이메일 주소를 입력해주세요"
+            id="password"
+            type="password"
+            placeholder="비밀번호를 입력해주세요"
             required
             onChange={changeInput}
           />
-          <button onClick={next}>다음</button>
-        </Fragment>
-      )} */}
-      {signNumber === 0 && (
+        </div>
         <div>
-          <div>
-            <span>
-              닉네임
-              <span style={{ color: nick ? "blue" : "red" }}>
-                {nick ? "중복 확인" : "중복 확인을 해주세요"}
-              </span>
+          <span>
+            비밀번호 확인
+            <span style={{ color: pw ? "blue" : "red" }}>
+              {pw ? "비밀 번호가 일치합니다" : "비밀 번호가 일치하지 않습니다"}
             </span>
+          </span>
 
-            <div onClick={CheckNick}>중복 확인</div>
-          </div>
           <input
-            id="nickname"
-            placeholder="닉네임을 입력해주세요"
+            id="confirm"
+            type="password"
+            placeholder="비밀번호를 한번 더 입력해주세요"
             required
             onChange={changeInput}
           />
-          <button onClick={next}>다음</button>
         </div>
-      )}
-      {signNumber === 1 && (
-        <Fragment>
-          <div>
-            <span>비밀번호</span>
-            <input
-              id="password"
-              type="password"
-              placeholder="비밀번호를 입력해주세요"
-              required
-              onChange={changeInput}
-            />
-          </div>
-          <div>
-            <span>
-              비밀번호 확인
-              <span style={{ color: pw ? "blue" : "red" }}>
-                {pw
-                  ? "비밀 번호가 일치합니다"
-                  : "비밀 번호가 일치하지 않습니다"}
-              </span>
-            </span>
-
-            <input
-              id="confirm"
-              type="password"
-              placeholder="비밀번호를 한번 더 입력해주세요"
-              required
-              onChange={changeInput}
-            />
-          </div>
-          <button onClick={next}>다음</button>
-        </Fragment>
-      )}
-      {signNumber === 2 && (
-        <div>
-          <input
-            id="age"
-            placeholder="나이를 입력해주세요 => 30"
-            required
-            onChange={(e) => {
-              // 숫자로 들어갈 수 있게 변경
-              setSignData({ ...signData, age: parseInt(e.target.value) });
-              setAddress(true);
-            }}
-          />
-          <button onClick={next}>다음</button>
+      </Fragment>
+      <div>
+        <input
+          id="age"
+          placeholder="나이를 입력해주세요 => 30"
+          required
+          onChange={(e) => {
+            // 숫자로 들어갈 수 있게 변경
+            setSignData({ ...signData, age: parseInt(e.target.value) });
+            setAddress(true);
+          }}
+        />
+      </div>
+      <Fragment>
+        <select
+          // signData에 인라인으로 바로 넣어줌(지역)
+          onChange={(e) => {
+            setSignData({ ...signData, address: e.target.value });
+            setAddress(true);
+          }}
+        >
+          <option value="none">===선택===</option>
+          <option value="서울">서울</option>
+          <option value="인천">인천</option>
+          <option value="경기">경기</option>
+          <option value="충청">충청</option>
+          <option value="강원">강원</option>
+          <option value="경상">경상</option>
+          <option value="전라">전라</option>
+          <option value="제주">제주</option>
+        </select>
+      </Fragment>
+      <Fragment>
+        <select
+          // signData에 인라인으로 바로 넣어줌(성별)
+          onChange={(e) => {
+            // 여자인 경우는 true, 남자는 false를 보내준다.
+            if (e.target.value === "여자")
+              setSignData({ ...signData, gender: true });
+            else if (e.target.value === "남자")
+              setSignData({ ...signData, gender: false });
+            setGender(true);
+          }}
+        >
+          <option value="none">===선택===</option>
+          <option value="여자">여자</option>
+          <option value="남자">남자</option>
+        </select>
+      </Fragment>
+      <Fragment>
+        {/* <span>관심사를 선택해주세요</span>
+        <div
+          // 관심사를 배열로 보내줘야 하기에 각 인덱스 번호를
+          // 클릭시 ++하고 나중에 한번에 보내줌
+          onClick={() => {
+            signData.interest[0]++;
+          }}
+          style={{ cursor: "pointer" }}
+        >
+          sports
         </div>
-      )}
-      {signNumber === 3 && (
-        <Fragment>
-          <select
-            // signData에 인라인으로 바로 넣어줌(지역)
-            onChange={(e) => {
-              setSignData({ ...signData, address: e.target.value });
-              setAddress(true);
-            }}
-          >
-            <option value="none">===선택===</option>
-            <option value="서울">서울</option>
-            <option value="인천">인천</option>
-            <option value="경기">경기</option>
-            <option value="충청">충청</option>
-            <option value="강원">강원</option>
-            <option value="경상">경상</option>
-            <option value="전라">전라</option>
-            <option value="제주">제주</option>
-          </select>
-          <button onClick={next}>다음</button>
-        </Fragment>
-      )}
-      {signNumber === 4 && (
-        <Fragment>
-          <select
-            // signData에 인라인으로 바로 넣어줌(성별)
-            onChange={(e) => {
-              // 여자인 경우는 true, 남자는 false를 보내준다.
-              if (e.target.value === "여자")
-                setSignData({ ...signData, gender: true });
-              else if (e.target.value === "남자")
-                setSignData({ ...signData, gender: false });
-              setGender(true);
-            }}
-          >
-            <option value="none">===선택===</option>
-            <option value="여자">여자</option>
-            <option value="남자">남자</option>
-          </select>
-          <button onClick={next}>다음</button>
-        </Fragment>
-      )}
-      {signNumber === 5 && (
-        <Fragment>
-          <span>관심사를 선택해주세요</span>
-          <div
-            // 관심사를 배열로 보내줘야 하기에 각 인덱스 번호를
-            // 클릭시 ++하고 나중에 한번에 보내줌
-            onClick={() => {
-              signData.interest[0]++;
-            }}
-            style={{ cursor: "pointer" }}
-          >
-            sports
-          </div>
-          <div
-            onClick={() => {
-              signData.interest[1]++;
-            }}
-            style={{ cursor: "pointer" }}
-          >
-            movie
-          </div>
-          <div
-            onClick={() => {
-              signData.interest[2]++;
-            }}
-            style={{ cursor: "pointer" }}
-          >
-            food
-          </div>
-          <div
-            onClick={() => {
-              signData.interest[3]++;
-            }}
-            style={{ cursor: "pointer" }}
-          >
-            pet
-          </div>
-          <div
-            onClick={() => {
-              signData.interest[4]++;
-            }}
-            style={{ cursor: "pointer" }}
-          >
-            music
-          </div>
-          <button onClick={view}>signData 확인</button>
-          <button type="submit" style={buttonStyle}>
-            {/* 회원정보 수정완료로 텍스트 변경 */}
-            {`회원정보 수정 완료 (${signNumber}/5)`}
-          </button>
-        </Fragment>
-      )}
-    </form>
+        <div
+          onClick={() => {
+            signData.interest[1]++;
+          }}
+          style={{ cursor: "pointer" }}
+        >
+          movie
+        </div>
+        <div
+          onClick={() => {
+            signData.interest[2]++;
+          }}
+          style={{ cursor: "pointer" }}
+        >
+          food
+        </div>
+        <div
+          onClick={() => {
+            signData.interest[3]++;
+          }}
+          style={{ cursor: "pointer" }}
+        >
+          pet
+        </div>
+        <div
+          onClick={() => {
+            signData.interest[4]++;
+          }}
+          style={{ cursor: "pointer" }}
+        >
+          music
+        </div> */}
+        <button onClick={view}>signData 확인</button>
+        <button
+          onClick={submitLogin}
+          style={{ backgroundColor: "blue", color: "white" }}
+        >
+          {/* 회원정보 수정완료로 텍스트 변경 */}
+          {`회원정보 수정 완료`}
+        </button>
+      </Fragment>
+    </div>
   );
 }
 

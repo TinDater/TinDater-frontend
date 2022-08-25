@@ -6,10 +6,10 @@ import styled from "styled-components";
 
 function SignUp() {
   return (
-    <StSignForm>
+    <div>
       <SignPageNav />
       <SignUpForm />
-    </StSignForm>
+    </div>
   )
 }
 
