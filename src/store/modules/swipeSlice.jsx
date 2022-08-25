@@ -89,7 +89,7 @@ const initialState = {
     imageUrl: 'no-img-2.png',
     likeMe: true,
     interest: [],
-    interest_name: ['일어 나기', '밥 먹기', '잠 자기', '달리기', '마라톤'],
+    interest_name: ["소셜 미디어", "영화", "커피", "헬스", "웹 개발"],
     x: 0,
     y: 0
   }

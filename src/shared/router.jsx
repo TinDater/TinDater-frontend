@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import styled from "styled-components";
 
@@ -28,10 +28,15 @@ const Router = () => {
   
   const is_token = getCookie("token");
   useEffect(()=>{
+
     if (is_token) {
       dispatch(__checkToken())
-      dispatch(__myInfo(logginUser.userId))
+      
+      setTimeout(()=>{
+        dispatch(__myInfo(logginUser.user.userId))
+      }, 10)
     }
+
   }, [])
 
   return (
