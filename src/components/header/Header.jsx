@@ -2,34 +2,25 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { setCookie, getCookie, deleteCookie } from "../../cookie";
+import { deleteCookie } from "../../cookie";
+import { MdOutlineLogout } from 'react-icons/md'
 
 // 모듈
-import { logOutUser, __checkToken } from "../../store/modules/loginSlice";
+import { logOutUser } from "../../store/modules/loginSlice";
 
 const Header = (props) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const is_token = getCookie("token") ? true : false;
+
   const { bucketUrl, logginUser } = props.props;
   const imageUrl = bucketUrl + logginUser.user.imageUrl;
 
-  console.log(imageUrl);
-  console.log(is_token);
-
   const logOut = () => {
-    alert("정상 로그아웃 되었습니다.");
+    alert("로그아웃 되었습니다.");
     deleteCookie("token");
     dispatch(logOutUser());
     navigate("/");
   };
-
-  React.useEffect(() => {
-    console.log(is_token);
-    if (is_token) {
-      dispatch(__checkToken());
-    }
-  }, [is_token]);
 
   return (
     <StHeader
@@ -39,16 +30,26 @@ const Header = (props) => {
           : "img/no-img-2.png"
       }
     >
-      <div className="profile_picture"></div>
+      <div 
+        className="profile_picture"
+        onClick={() => {
+          navigate("/mypage");
+        }}
+      ></div>
       <div
         className="logo"
         onClick={() => {
           navigate("/swipe");
         }}
       >
-        틴데이팅
+        틴데이터
       </div>
-      <LogoutBtn onClick={logOut}>로그아웃</LogoutBtn>
+      <LogoutBtn onClick={logOut}>
+        <MdOutlineLogout />
+        <span>
+          로그아웃
+        </span>
+      </LogoutBtn>
     </StHeader>
   );
 };
@@ -56,15 +57,38 @@ const Header = (props) => {
 export default Header;
 
 const LogoutBtn = styled.button`
-  width: 100px;
+  width: auto;
   height: 40px;
-  border: none;
-  font-size: 1rem;
-  background-color: rgba(0, 0, 0, 0);
   border-radius: 10px;
-  border: 1px solid blue;
-  :hover {
-    border: 3px solid red;
+
+  margin-top: 8px;
+  border: none;
+
+  font-size: 1rem;
+  font-weight: 800;
+  
+  background-color: rgba(0, 0, 0, 0);
+  color: #f55c73;
+  
+  cursor: pointer;
+
+  &:hover {
+    color: #ff4e6a
+  }
+  
+  svg {
+    display: none;
+  }
+
+  @media screen and (max-width: 400px) {
+    svg {
+      display: block;
+      font-size: 1.5em;
+    }
+
+    span {
+      display: none;
+    }
   }
 `;
 
@@ -73,7 +97,7 @@ const StHeader = styled.div`
   height: 70px;
   line-height: 70px;
 
-  padding: 5px 1em 0;
+  padding: 6px 1em 0;
   box-sizing: border-box;
 
   background-color: #fff;
@@ -85,12 +109,12 @@ const StHeader = styled.div`
   align-items: center;
 
   .profile_picture {
-    width: 60px;
-    height: 60px;
+    width: 55px;
+    height: 55px;
     border-radius: 50%;
 
-    background: skyblue url("${(props) => props.imageUrl}") no-repeat center /
-      cover;
+    background: skyblue url("${(props) => props.imageUrl}") no-repeat center / cover;
+    cursor: pointer;
   }
 
   .logo {
@@ -103,7 +127,6 @@ const StHeader = styled.div`
     transform: translateX(-50%);
 
     text-indent: -9999px;
-    cursor: pointer;
   }
 
   @media (max-width: 400px) {

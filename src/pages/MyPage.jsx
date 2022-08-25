@@ -1,26 +1,23 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { __userMyInfo } from "../store/modules/loginSlice";
+import { __myInfo } from "../store/modules/loginSlice";
 import { MdSettings } from "react-icons/md";
 
 import styled from "styled-components";
 import UserPageHeader from "../components/userpage/UserPageHeader";
 import UserPageBody from "../components/userpage/UserPageBody";
 import UserPageNav from "../components/userpage/UserPageNav";
-import Map from "../map/Map";
 
 const MyPage = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  const logginId = useSelector((state) => state.login.user.userId);
+  const navigate = useNavigate();
   const curr_user = useSelector((state) => state.login.user);
-
-  useEffect(() => {
-    console.log("test");
-    dispatch(__userMyInfo(logginId));
-  }, []);
+  
+  useEffect(()=>{
+    const userId = curr_user.userId;
+    dispatch(__myInfo(curr_user.userId))
+  }, [])
 
   return (
     <StMyPage>

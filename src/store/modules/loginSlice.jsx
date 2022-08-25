@@ -20,18 +20,16 @@ export const __checkToken = createAsyncThunk(
   "__checkToken/CHECK_LOG",
   async (payload, thunkAPI) => {
     // 토큰으로 유효값 확인하기
-    const response = await api.get("/auth");
-    console.log(response.data);
-    // 상태값 true / false
+    const response = await api.get("/auth")
     return response.data;
   }
 );
 
-export const __userMyInfo = createAsyncThunk(
+/** 나의 정보 가져오기 */
+export const __myInfo = createAsyncThunk(
   "user/MY_INFO",
   async (payload) => {
     const response = await api.get(`/user/${payload}`);
-    console.log("login.__userMyInfo = ", response.data.data);
     const resData = response.data.data;
 
     return resData;
@@ -49,53 +47,33 @@ export const __updateCoord = createAsyncThunk(
   }
 );
 
+const initialState={
+  // 초기값, 유저 닉네임은 공백입니다.
+  user: {
+    userId: false,
+    email: "",
+    nickname: "",
+    address: "",
+    age: 99,
+    gender: 0,
+    imageUrl: "no-img-2.png",
+    likeMe: true,
+    interest: [],
+    interest_name: ["일어 나기", "밥 먹기", "잠 자기", "달리기", "마라톤"],
+    result: false,
+    x: 0,
+    y: 0,
+  },
+}
+
 const loginSlice = createSlice({
   name: "login",
-  initialState: {
-    // 초기값, 유저 닉네임은 공백입니다.
-    user: {
-      userId: 999,
-      email: "",
-      nickname: "",
-      address: "",
-      age: 99,
-      gender: 0,
-      imageUrl: "no-img-2.png",
-      likeMe: true,
-      interest: [],
-      interest_name: ["일어 나기", "밥 먹기", "잠 자기", "달리기", "마라톤"],
-      result: false,
-      x: 0,
-      y: 0,
-    },
-  },
+  initialState,
   reducers: {
     // 로그아웃시 쿠키의 토큰을 삭제하고 정보들을 초기화 합니다.
     logOutUser: (state, payload) => {
-      state.user = {
-        userId: 999,
-        email: "",
-        nickname: "",
-        address: "",
-        age: 99,
-        gender: 0,
-        imageUrl: "no-img-2.png",
-        likeMe: true,
-        interest: [],
-        interest_name: ["일어 나기", "밥 먹기", "잠 자기", "달리기", "마라톤"],
-        result: false,
-      };
+      state.user = initialState.user
     },
-    // 토큰이 있는지 확인하고 없으면 로그아웃처리 합니다.
-    // checkUser: (state, action) => {
-    //   if (getCookie("token") === undefined) {
-    //     state.user = {
-    //       nickName: "",
-    //       imageUrl: "img/no-img-2.png",
-    //       result: true,
-    //     };
-    //   }
-    // },
   },
 
   extraReducers: (builder) => {
@@ -105,12 +83,13 @@ const loginSlice = createSlice({
         state.user = { ...state.user, ...action.payload };
       })
       .addCase(__checkToken.fulfilled, (state, action) => {
+      
         state.user = { ...state.user, ...action.payload };
       })
       .addCase(__checkToken.rejected, (state, action) => {
         state.user = { ...state.user, ...action.payload };
       })
-      .addCase(__userMyInfo.fulfilled, (state, action) => {
+      .addCase(__myInfo.fulfilled, (state, action) => {
         state.user = { ...state.user, ...action.payload };
       })
       .addCase(__updateCoord.fulfilled, (state, action) => {
