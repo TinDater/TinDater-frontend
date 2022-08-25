@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import styled from "styled-components";
@@ -8,6 +8,8 @@ import KakaoMapScript from "./kakaoMapScript";
 const Map = (props) => {
   const dispatch = useDispatch();
   const [distance, setDistance] = useState('');
+  //리랜더
+  const [update, setUpdate] = useState(false);
   
   // 현재 상세페이지의 유저
   const user = props.curr_user; 
@@ -20,15 +22,13 @@ const Map = (props) => {
   // 출력할 위치
   let mapCoord = userCoord;  
   
-  console.log(user);
-  mapCoord = userCoord;  
-  
   /** 사용자의 위치를 구하고, 서버에 업데이트 */
   useEffect(()=>{
     getUserCoord();
     
-    
-    if(currentPlaceCoord !== undefined && logginUserCood.x != currentPlaceCoord.x){
+    mapCoord = userCoord;  
+
+    if(currentPlaceCoord !== undefined){
       console.log('사용자의 위치 수정됨');
       dispatch(__updateCoord({
         userId: logginUser.userId,
@@ -36,12 +36,13 @@ const Map = (props) => {
       }))
       mapCoord = currentPlaceCoord;
     }
-    
+
     KakaoMapScript(
       Number(mapCoord.x), 
       Number(mapCoord.y) 
     );
-  }, [])
+
+  }, [update])
 
   /** 현재 주소를 구하는 함수 */
   const getUserCoord = () => {
@@ -78,6 +79,11 @@ const Map = (props) => {
       <div className="box_cover"></div>
       <div id="myMap"></div>
 
+      <button className="render_button" onClick={()=>{
+        setUpdate(!update)
+      }}>
+        내 위치 불러오기
+      </button>
     </StMap>
   )
 };
@@ -128,5 +134,31 @@ const StMap = styled.div`
     
     z-index: 999;
     background: linear-gradient(#eee, transparent 70%);
+  }
+
+  .render_button {
+    all: unset;
+    padding: 10px 20px;
+    border-radius: 30px;
+    
+    background-color: #fff;
+    box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.1);
+
+    font-size: 12px;
+    font-weight: 700;
+
+    position: absolute;
+    z-index: 9999;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    
+    opacity: 0.6;
+    transition: all 0.2;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 1;
+    }
   }
 `;

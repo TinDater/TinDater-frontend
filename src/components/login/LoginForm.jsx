@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 // 리듀서 모듈
-import { __login } from "../../store/modules/loginSlice";
+import { __login, __myInfo } from "../../store/modules/loginSlice";
 // 로그인 form 컴포넌트
 function LoginForm() {
   const dispatch = useDispatch();
@@ -30,6 +30,7 @@ function LoginForm() {
     // 로그인시 환영 인사 후 페이지 이동
     if (loginState.type === "log/LOGIN_LOG/fulfilled") {
       // console.log("성공점");
+      dispatch(__myInfo(loginState.payload.userId))
       alert(`${loginState.payload.nickname} 님 환영합니다 :) `);
       navigate("/swipe");
     }
