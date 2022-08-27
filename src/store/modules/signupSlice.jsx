@@ -5,6 +5,7 @@ import { api } from "../../shared/api";
 export const __signup = createAsyncThunk(
   "signup/SIGNUP_LOG",
   async (payload, thunkAPI) => {
+    console.log('요청');
     const response = await api.post("auth/signup", payload);
     alert(response.data.msg);
     return response.data;

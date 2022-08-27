@@ -3,7 +3,6 @@ import styled from "styled-components";
 
 function ProgressBar(props) {
     const {signNumber} = props
-   console.log((signNumber / 8) * 100 + "%")
     return (
     <Bar>
         <HighLight width={(signNumber / 8) * 100 + "%"}/>

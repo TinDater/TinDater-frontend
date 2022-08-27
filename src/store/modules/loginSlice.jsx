@@ -29,7 +29,6 @@ export const __checkToken = createAsyncThunk(
 
 /** 나의 정보 가져오기 */
 export const __myInfo = createAsyncThunk("user/MY_INFO", async (payload) => {
-  console.log("test");
   const response = await api.get(`/user/${payload}`);
   console.log(response.data.data);
   const resData = response.data.data;
@@ -60,7 +59,7 @@ const initialState = {
     imageUrl: "no-img-2.png",
     likeMe: true,
     interest: [],
-    interest_name: ["소셜 미디어", "영화", "커피", "헬스", "웹 개발"],
+    interest_name: ["소셜 미디어", "영화", "커피", "헬스", "웹 개발", "스포츠", "해외축구", "미술관 관람", "산책", "음악감상"],
     result: false,
     x: 0,
     y: 0,

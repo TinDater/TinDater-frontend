@@ -19,7 +19,6 @@ const Swipe = (props) => {
   const imageUrl = bucketUrl + curr_user.imageUrl;
   const check = useSelector((state) => state.login.check);
   useEffect(() => {
-    console.log(logginId);
     dispatch(__clearUserInfo());
     dispatch(__getUser(logginId));
   }, [check]);

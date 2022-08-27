@@ -32,15 +32,11 @@ const Router = () => {
     if (is_token) {
       dispatch(__checkToken());
     }
-    console.log(logginUser);
   }, []);
 
   useEffect(() => {
-    console.log(logginUser.user);
-
     dispatch(__myInfo(logginUser.user.userId));
   }, [check]);
-  console.log(logginUser);
   return (
     <StLayout>
       <Header props={props} />
