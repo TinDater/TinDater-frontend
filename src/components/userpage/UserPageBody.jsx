@@ -6,7 +6,8 @@ import Map from "../../map/Map";
 const UserPageBody = (props) => {
   const navigate = useNavigate();
 
-  const {interest, interest_name} = props.curr_user;
+  const {interest} = props.curr_user;
+  const interest_name2 = ["소셜 미디어", "영화", "커피", "헬스", "웹 개발", "스포츠", "해외축구", "미술관 관람", "산책", "음악감상"]
 
   return (
     <StUserPageBody>
@@ -15,7 +16,7 @@ const UserPageBody = (props) => {
           { interest.map( (inte, i) => {
             return ( Number(inte) ?
               <div className="tag" key={i}>
-                {interest_name[i]}
+                {interest_name2[i]}
               </div> : ""
             )
           }) }

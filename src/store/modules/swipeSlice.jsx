@@ -88,8 +88,7 @@ const initialState = {
     gender: 0, 
     imageUrl: 'no-img-2.png',
     likeMe: true,
-    interest: [],
-    interest_name: ["소셜 미디어", "영화", "커피", "헬스", "웹 개발"],
+    interest: ["소셜 미디어", "영화", "커피", "헬스", "웹 개발", "스포츠", "해외축구", "미술관 관람", "산책", "음악감상"],
     x: 0,
     y: 0
   }

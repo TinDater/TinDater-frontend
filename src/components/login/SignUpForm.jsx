@@ -45,7 +45,7 @@ function SignUpForm() {
     age: "",
     address: "",
     gender: "",
-    interest: [0, 0, 0, 0, 0],
+    interest: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     imageUrl: "",
   });
   // 조건 통과 상태를 위한 설정
@@ -404,6 +404,46 @@ function SignUpForm() {
               style={{ cursor: "pointer" }}
             >
               웹 개발
+            </span>
+            <span
+              onClick={() => {
+                signData.interest[5]++;
+              }}
+              style={{ cursor: "pointer" }}
+            >
+              스포츠
+            </span>
+            <span
+              onClick={() => {
+                signData.interest[6]++;
+              }}
+              style={{ cursor: "pointer" }}
+            >
+              해외축구
+            </span>
+            <span
+              onClick={() => {
+                signData.interest[7]++;
+              }}
+              style={{ cursor: "pointer" }}
+            >
+              미술관 관람
+            </span>
+            <span
+              onClick={() => {
+                signData.interest[8]++;
+              }}
+              style={{ cursor: "pointer" }}
+            >
+              산책
+            </span>
+            <span
+              onClick={() => {
+                signData.interest[9]++;
+              }}
+              style={{ cursor: "pointer" }}
+            >
+              음악감상
             </span>
           </div>
           <button className="on" onClick={next}>

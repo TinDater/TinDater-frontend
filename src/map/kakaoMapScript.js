@@ -4,7 +4,6 @@ const { kakao } = window;
 export default function KakaoMapScript(x, y) {
     x = parseFloat(x.toFixed(2))
     y = parseFloat(y.toFixed(2))
-    console.log(x, y);
 
     const container = document.getElementById('myMap');
 
